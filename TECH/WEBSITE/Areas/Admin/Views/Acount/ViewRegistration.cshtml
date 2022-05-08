@@ -1,0 +1,236 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WEBSITE.Data.DatabaseEntity
+@inject SignInManager<Staff> SignInManager
+@inject UserManager<Staff> UserManager
+@{
+    ViewData["Title"] = "Home Page";
+ Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng ký</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    @*<link rel="stylesheet" href="/admin/dist/css/icheck-bootstrap/icheck-bootstrap.min.css">*@
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/admin/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition register-page">
+    <style type="text/css">
+        input.error {
+            border-color: #f00 !important;
+        }
+
+        label.error {
+            clear: both;
+            color: #f00;
+            display: block;
+            /* padding: 10px; */
+            text-align: left;
+            margin: unset;
+            padding: unset;
+            font-size: 13px;
+            font-weight: unset !important;
+            background: unset;
+        }
+    </style>
+    <div class="register-box">
+        @*<div class="register-logo">
+            <a href="../../index2.html"><b>Admin</b>LTE</a>
+        </div>*@
+        @if (!SignInManager.IsSignedIn(User))
+            {
+                <p>Bạn chưa đăng nhập</p>
+            }
+
+            <div class="card">
+                <div class="card-body register-card-body">
+                    <p class="login-box-msg">Register a new membership @UserManager.GetUserName(User)</p>
+
+                    <form action="#" id="registration">
+                        <div class="mb-3" style="position:relative">
+                            <input type="text" class="form-control" name="txtFullName" placeholder="Full Name">
+                            <span class="fas fa-user" style="position:absolute;right:10px;top:10px;"></span>
+                        </div>
+                        <div class="mb-3" style="position:relative">
+                            <input type="text" class="form-control" name="txtUserName" placeholder="User Name">
+                            <span class="fas fa-user" style="position:absolute;right:10px;top:10px;"></span>
+                        </div>
+                        <div class="mb-3" style="position:relative">
+                            <input type="text" class="form-control" name="txtPhone" placeholder="Phone">
+                            <span class="fas fa-envelope" style="position:absolute;right:10px;top:10px;"></span>
+                            @*<div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope" style="position:absolute;right:10px;top:10px;"></span>
+                                </div>
+                            </div>*@
+                        </div>
+                        <div class="mb-3" style="position:relative">
+                            @*<div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope" style="position:absolute;right:10px;top:10px;"></span>
+                                </div>
+                            </div>*@
+                            <input type="email" class="form-control" name="txtEmail" placeholder="Email">
+                            <span class="fas fa-envelope" style="position:absolute;right:10px;top:10px;"></span>
+                        </div>
+                        <div class="mb-3" style="position:relative">
+                            <input type="password" class="form-control" name="txtPassword" placeholder="Password" id="txtPassword">
+                            <span class="fas fa-lock" style="position:absolute;right:10px;top:10px;"></span>
+                            @*<div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock" style="position:absolute;right:10px;top:10px;"></span>
+                                </div>
+                            </div>*@
+                        </div>
+                        <div class="mb-3" style="position:relative">
+                            <input type="password" class="form-control" name="txtRetypePassword" placeholder="Retype password">
+                            <span class="fas fa-lock" style="position:absolute;right:10px;top:10px;"></span>
+                            @*<div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock" style="position:absolute;right:10px;top:10px;"></span>
+                                </div>
+                            </div>*@
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                    <label for="agreeTerms">
+                                        I agree to the <a href="#">terms</a>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
+
+                    <div class="social-auth-links text-center">
+                        <p>- OR -</p>
+                        <a href="#" class="btn btn-block btn-primary">
+                            <i class="fab fa-facebook mr-2"></i>
+                            Sign up using Facebook
+                        </a>
+                        <a href="#" class="btn btn-block btn-danger">
+                            <i class="fab fa-google-plus mr-2"></i>
+                            Sign up using Google+
+                        </a>
+                    </div>
+
+                    <a href="login.html" class="text-center">I already have a membership</a>
+                </div>
+                <!-- /.form-box -->
+            </div><!-- /.card -->
+        </div>
+    <!-- /.register-box -->
+    <!-- jQuery -->
+    <script src="/admin/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/admin/dist/js/adminlte.min.js"></script>
+    <script src="/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#registration').validate({
+                rules: {
+                    txtFullName: {
+                        required: true,
+                    },
+                    txtUserName: {
+                        required: true,
+                    },
+                    txtPhone: {
+                        required: true,
+                    },
+                    txtPassword: {
+                        required: true,
+                    },
+                    txtRetypePassword: {
+                        required: true,
+                        equalTo: "#txtPassword"
+                    },
+                    txtEmail: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    txtUserName: {
+                        required: "Bạn phải User Name",
+                    },
+                    txtFullName: {
+                        required: "Bạn phải nhập tên",
+                    },
+                    txtPhone: {
+                        required: "Bạn chưa nhập số điện thoại",
+                    },
+                    txtEmail: {
+                        required: "Bạn chưa nhập email",
+                    },
+                    txtPassword: {
+                        required: "Bạn chưa nhập password",
+                    },
+                    txtRetypePassword: {
+                        required: "Vui lòng nhập lại password",
+                        equalTo: "Password nhập lại không đúng."
+                    }
+                },
+                submitHandler: function () {
+                    $.ajax({
+                        url: '/Admin/Acount/CreateRegistration',
+                        type: 'POST',
+                        data: {
+                            user: {
+                                UserName: $("input[name=txtUserName]").val(),
+                                FullName: $("input[name=txtFullName]").val(),
+                                Email: $("input[name=txtEmail]").val(),
+                                PhoneNumber: $("input[name=txtPhone]").val()
+                            },
+                            password: $("input[name=txtPassword]").val()
+
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            console.log(response);
+                            //if (response.status) {
+                            //    var data = response.data;
+                            //    var html = '';
+                            //    var template = $('#data-template').html();
+                            //    $.each(data, function (i, item) {
+                            //        html += Mustache.render(template, {
+                            //            ID: item.ID,
+                            //            Name: item.Name,
+                            //            Salary: item.Salary,
+                            //            Status: item.Status == true ? "<span class=\"label label-success\">Actived</span>" : "<span class=\"label label-danger\">Locked</span>"
+                            //        });
+
+                            //    });
+                            //    $('#tblData').html(html);
+                            //    homeController.paging(response.total, function () {
+                            //        homeController.loadData();
+                            //    }, changePageSize);
+                            //    homeController.registerEvent();
+                            //}
+                        }
+                    })
+                }
+            });
+
+
+        });
+
+    </script>
+</body>
+</html>
