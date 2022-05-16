@@ -1,0 +1,190 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/admin/dist/css/adminlte.min.css">
+    <style type="text/css">
+        input.error {
+            border-color: #f00 !important;
+        }
+
+        label.error {
+            clear: both;
+            color: #f00;
+            display: block;
+            /* padding: 10px; */
+            text-align: left;
+            margin: unset;
+            padding: unset;
+            font-size: 13px;
+            font-weight: unset !important;
+            background: unset;
+        }
+
+        .custom-group-box {
+            position: relative;
+        }
+
+            .custom-group-box .box-icon {
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+
+                .custom-group-box .box-icon .input-group-text {
+                    height: calc(2.25rem + 2px);
+                    width: 41px;
+                }
+
+        .box-icon .input-group-text {
+            border: none;
+            background-color: unset;
+        }
+    </style>
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        @*<div class="login-logo">
+                <a href="../../index2.html"><b>Admin</b>LTE</a>
+            </div>*@
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+
+                <form action="#" method="post" id="FormLogin">
+                    <div class="form-group custom-group-box mb-3">
+                        <input type="text" class="form-control" name="txtEmailOrUserName" placeholder="Email Or User Name">
+                        <div class="box-icon">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group custom-group-box mb-3">
+                        <input type="password" class="form-control" name="txtPassword" placeholder="Password">
+                        <div class="box-icon">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block" id="btnSubmitLogin">Sign In</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                @*<div class="social-auth-links text-center mb-3">
+                        <p>- OR -</p>
+                        <a href="#" class="btn btn-block btn-primary">
+                            <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                        </a>
+                        <a href="#" class="btn btn-block btn-danger">
+                            <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                        </a>
+                    </div>*@
+                <!-- /.social-auth-links -->
+
+                <p class="mb-1">
+                    <a href="forgot-password.html">I forgot my password</a>
+                </p>
+                <p class="mb-0">
+                    <a href="register.html" class="text-center">Register a new membership</a>
+                </p>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="/admin/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/admin/dist/js/adminlte.min.js"></script>
+    <script src="/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/js/shared/shared.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#FormLogin').validate({
+                rules: {
+                    txtPassword: {
+                        required: true,
+                    },
+                    txtEmailOrUserName: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    txtEmailOrUserName: {
+                        required: "Bạn chưa nhập Email hoặc User Name",
+                    },
+                    txtPassword: {
+                        required: "Bạn chưa nhập Password",
+                    }
+
+                },
+                submitHandler: function () {
+                    $.ajax({
+                        url: '/Admin/Acount/UserLogin',
+                        type: 'POST',
+                        data: {
+                            userView: {
+                                Email: $("input[name=txtEmailOrUserName]").val(),
+                                PassWord: $("input[name=txtPassword]").val(),
+                            }
+                        },
+                        dataType: 'json',
+                        beforeSend: function () {
+                            Loading('show');
+                        },
+                        complete: function () {
+                            Loading('hiden');
+                        },
+                        success: function (response) {
+                            console.log(response);
+                            if (response.Status) {
+                                window.location.href = "/Admin/Home/Index";
+                            }
+                            else {
+                                alert("đăng nhập không thành công");
+                            }
+                           
+                        }
+                    })
+                }
+            });
+
+
+        });
+
+    </script>
+
+</body>
+</html>

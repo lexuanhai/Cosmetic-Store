@@ -140,4 +140,8 @@ E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.genrun
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Home\Index.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Acount\Index.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Acount\ViewRegistration.cshtml.g.cs
+E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Acount\ViewLogin.cshtml.g.cs
+E:\c#\Website\Cosmetic Store\TECH\WEBSITE\bin\Debug\netcoreapp3.1\MailKit.dll
+E:\c#\Website\Cosmetic Store\TECH\WEBSITE\bin\Debug\netcoreapp3.1\MimeKit.dll
+E:\c#\Website\Cosmetic Store\TECH\WEBSITE\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj.AssemblyReference.cache

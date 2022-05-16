@@ -2,15 +2,18 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WEBSITE.Data.DatabaseEntity;
+using WEBSITE.Service;
 
 namespace WEBSITE
 {
@@ -40,6 +43,20 @@ namespace WEBSITE
             .AddEntityFrameworkStores<DataBaseEntityContext>()
             .AddDefaultTokenProviders();
 
+
+            services.AddOptions();                                        // Kích hoạt Options
+            var mailsettings = Configuration.GetSection("MailSettings");  // đọc config
+            services.Configure<MailSettings>(mailsettings);               // đăng ký để Inject
+
+            services.AddTransient<IEmailSender, SendMailService>();
+
+            services.AddMvc().AddJsonOptions(o =>
+            {
+                o.JsonSerializerOptions.PropertyNamingPolicy = null;
+                o.JsonSerializerOptions.DictionaryKeyPolicy = null;
+            });
+            //services.AddRazorPages();
+
             services.Configure<IdentityOptions>(options => {
                 // Thiết lập về Password
                 options.Password.RequireDigit = false; // Không bắt phải có số
@@ -51,8 +68,8 @@ namespace WEBSITE
 
                 // Cấu hình Lockout - khóa user
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // Khóa 5 phút
-                options.Lockout.MaxFailedAccessAttempts = 5; // Thất bại 5 lầ thì khóa
-                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.MaxFailedAccessAttempts = 105; // Thất bại 5 lầ thì khóa
+                options.Lockout.AllowedForNewUsers = false;
 
                 // Cấu hình về User.
                 options.User.AllowedUserNameCharacters = // các ký tự đặt tên user
@@ -60,10 +77,11 @@ namespace WEBSITE
                 options.User.RequireUniqueEmail = true;  // Email là duy nhất
 
                 // Cấu hình đăng nhập.
-                // options.SignIn.RequireConfirmedEmail = true;            // Cấu hình xác thực địa chỉ email (email phải tồn tại)
-                // options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
+                 options.SignIn.RequireConfirmedEmail = false;            // Cấu hình xác thực địa chỉ email (email phải tồn tại)
+                 options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
 
             });
+
 
         }
 
@@ -84,7 +102,7 @@ namespace WEBSITE
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -44,7 +44,7 @@
     <div class="register-box">
         @*<div class="register-logo">
             <a href="../../index2.html"><b>Admin</b>LTE</a>
-        </div>*@
+        </div>*@        
         @if (!SignInManager.IsSignedIn(User))
             {
                 <p>Bạn chưa đăng nhập</p>
@@ -194,14 +194,17 @@
                         data: {
                             user: {
                                 UserName: $("input[name=txtUserName]").val(),
-                                FullName: $("input[name=txtFullName]").val(),
+                                Name: $("input[name=txtFullName]").val(),
                                 Email: $("input[name=txtEmail]").val(),
                                 PhoneNumber: $("input[name=txtPhone]").val()
                             },
                             password: $("input[name=txtPassword]").val()
 
-                        },
+                        },                        
                         dataType: 'json',
+                        beforeSend: function () {
+
+                        },
                         success: function (response) {
                             console.log(response);
                             //if (response.status) {
