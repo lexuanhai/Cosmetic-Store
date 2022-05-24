@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WEBSITE.Data.DatabaseEntity;
+using WEBSITE.Reponsitory;
 using WEBSITE.Service;
 
 namespace WEBSITE
@@ -39,7 +40,7 @@ namespace WEBSITE
                 options.UseSqlServer(connectstring);
             });
 
-            services.AddIdentity<Staff, IdentityRole>()
+            services.AddIdentity<Staff, Roles>()
             .AddEntityFrameworkStores<DataBaseEntityContext>()
             .AddDefaultTokenProviders();
 
@@ -82,6 +83,11 @@ namespace WEBSITE
 
             });
 
+            services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
+            services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
+
+            // service
+            services.AddTransient<IUserService, UserService>();
 
         }
 

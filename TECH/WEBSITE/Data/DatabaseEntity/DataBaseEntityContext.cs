@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WEBSITE.Data.DatabaseEntity
 {
-    public class DataBaseEntityContext : IdentityDbContext<Staff>
+    public class DataBaseEntityContext : IdentityDbContext<Staff, Roles,string>
     {
         public DataBaseEntityContext(DbContextOptions<DataBaseEntityContext> options) : base(options) { }
         
@@ -20,6 +20,8 @@ namespace WEBSITE.Data.DatabaseEntity
         public DbSet<OrdersDetail> OrdersDetail { set; get; }
         public DbSet<Product> Product { set; get; }
         public DbSet<Staff> Staff { set; get; }
+        public DbSet<Roles> AppRoles { set; get; }
+        //public DbSet<Roles> Roles { set; get; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);            

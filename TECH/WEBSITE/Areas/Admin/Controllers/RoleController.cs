@@ -17,14 +17,18 @@ namespace WEBSITE.Areas.Admin.Controllers
         {
             _roleManager = roleManager;
         }
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult Add()
+
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<JsonResult> Add(Roles roles)
         {
