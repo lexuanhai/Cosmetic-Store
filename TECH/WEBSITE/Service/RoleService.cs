@@ -8,40 +8,35 @@ using WEBSITE.Data.DatabaseEntity;
 
 namespace WEBSITE.Service
 {
-    public interface IUserService
+    public interface IRoleService
     {
-       List<UserModelView> GetAllUser();
-       Task<UserModelView> GetUserById(string userId);
+       List<RoleModelView> GetAllUser();
+       Task<RoleModelView> GetUserById(string userId);
 
-       Task<bool> AddUser(UserModelView userView);
-       Task<bool> UpdateUser(UserModelView userView);
-       Task<bool> DeletedUser(string userId);
+       Task<bool> Add(RoleModelView roleView);
+       Task<bool> Update(RoleModelView roleView);
+       Task<bool> Deleted(string userId);
     }
-    public class UserService : IUserService
+    public class RoleService : IRoleService
     {
-        private readonly UserManager<Staff> _userManager;
-        public UserService(UserManager<Staff> userManager)
+        private readonly RoleManager<Roles> _roleManager;
+        public RoleService(RoleManager<Roles> roleManager)
         {
-            _userManager = userManager;
+            _roleManager = roleManager;
         }
-        public  List<UserModelView> GetAllUser()
+        public  List<RoleModelView> GetAllUser()
         {
-            return _userManager.Users.Select(u =>new UserModelView() { 
-                Id = u.Id,
-                UserName = u.UserName,
-                Phone = u.PhoneNumber != null ? u.PhoneNumber : "",
-                Name = u.Name,
-                Email = u.Email != null ? u.Email : "",
-                Address = u.Address != null? u.Address:"",
-                Birthday = u.Birthday
+            return _roleManager.Roles.Select(r =>new RoleModelView() { 
+                Id = r.Id,
+                Description = r.Description
             }).ToList();
         }
         
-        public async Task<UserModelView> GetUserById(string userId) {
-            var data = await _userManager.FindByIdAsync(userId);           
+        public async Task<RoleModelView> GetUserById(string userId) {
+            var data = await _roleManager.FindByIdAsync(userId);           
             if (data != null)
             {
-                var model = new UserModelView()
+                var model = new RoleModelView()
                 {
                     Id = data.Id,
                     UserName = data.UserName,
@@ -56,7 +51,7 @@ namespace WEBSITE.Service
             return null;
         }
 
-        public async Task<bool> AddUser(UserModelView userView)
+        public async Task<bool> AddUser(RoleModelView userView)
         {
             if (userView != null)
             {
@@ -77,7 +72,7 @@ namespace WEBSITE.Service
                     _password = "123456a@";
                 }
 
-                var result = await _userManager.CreateAsync(_user, _password);
+                var result = await _roleManager.CreateAsync(_user, _password);
                 if (result != null && result.Succeeded)
                 {
                     return  true;
@@ -86,9 +81,9 @@ namespace WEBSITE.Service
             return false;
             
         }
-        public async Task<bool> UpdateUser(UserModelView userView)
+        public async Task<bool> UpdateUser(RoleModelView userView)
         {
-            var userServer = await _userManager.FindByIdAsync(userView.Id);
+            var userServer = await _roleManager.FindByIdAsync(userView.Id);
             if (userServer != null)
             {
                 userServer.UserName = userView.UserName;
@@ -97,7 +92,7 @@ namespace WEBSITE.Service
                 userServer.PhoneNumber = userView.Phone;
                 userServer.Address = userView.Address;
                 userServer.Birthday = userView.Birthday;
-                var _userUpdate = await _userManager.UpdateAsync(userServer);
+                var _userUpdate = await _roleManager.UpdateAsync(userServer);
                 if (_userUpdate.Succeeded)
                 {
                     return true;
@@ -107,10 +102,10 @@ namespace WEBSITE.Service
         }
         public async Task<bool> DeletedUser(string id)
         {
-            var userServer = await _userManager.FindByIdAsync(id);
+            var userServer = await _roleManager.FindByIdAsync(id);
             if (userServer != null)
             {               
-                var _userUpdate = await _userManager.DeleteAsync(userServer);
+                var _userUpdate = await _roleManager.DeleteAsync(userServer);
                 if (_userUpdate.Succeeded)
                 {
                     return true;

@@ -63,5 +63,14 @@ namespace WEBSITE.Areas.Admin.Controllers
                 success = result
             });
         }
+        [HttpPost]
+        public async Task<JsonResult> DeleteUser(string userId)
+        {
+            var result = await _userService.DeletedUser(userId);
+            return Json(new
+            {
+                success = result
+            });
+        }
     }
 }

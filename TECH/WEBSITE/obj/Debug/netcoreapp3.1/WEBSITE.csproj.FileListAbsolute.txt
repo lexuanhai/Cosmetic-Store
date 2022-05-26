@@ -127,8 +127,6 @@ E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Ad
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AppUsers\Index.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AppUsers\_Add.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Home\Index.cshtml.g.cs
-E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Role\Create.cshtml.g.cs
-E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Role\Index.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\Error.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\_Layout.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -148,3 +146,6 @@ E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.dll
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.pdb
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.genruntimeconfig.cache
+E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj.AssemblyReference.cache
+E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Role\Index.cshtml.g.cs
+E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Role\_Add.cshtml.g.cs

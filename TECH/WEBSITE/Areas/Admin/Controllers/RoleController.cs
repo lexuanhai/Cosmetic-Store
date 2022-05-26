@@ -9,7 +9,7 @@ using WEBSITE.Data.DatabaseEntity;
 
 namespace WEBSITE.Areas.Admin.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class RoleController : BaseController
     {
         private readonly RoleManager<Roles> _roleManager;
@@ -17,14 +17,14 @@ namespace WEBSITE.Areas.Admin.Controllers
         {
             _roleManager = roleManager;
         }
-        [HttpGet]
+        //[HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Add()
         {
             return View();
         }
