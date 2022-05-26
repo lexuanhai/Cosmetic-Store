@@ -149,3 +149,11 @@ E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.genrun
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj.AssemblyReference.cache
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Role\Index.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Role\_Add.cshtml.g.cs
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csprojAssemblyReference.cache
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.AssemblyInfoInputs.cache
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.AssemblyInfo.cs
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj.CoreCompileInputs.cache
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.MvcApplicationPartsAssemblyInfo.cs
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.MvcApplicationPartsAssemblyInfo.cache
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.RazorAssemblyInfo.cache
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.RazorAssemblyInfo.cs
