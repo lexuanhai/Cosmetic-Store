@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WEBSITE.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize]
+    [Authorize]
     public class BaseController : Controller
     {
     }

@@ -2,19 +2,15 @@
     var self = this;
     self.Data = [];
     self.IsUpdate = false;
-    self.UserId = "";
+    self.RoleId = "";
     self.RenderTableHtml = function () {
         var html = "";
         if (self.Data != "" && self.Data.length > 0) {
             for (var i = 0; i < self.Data.length; i++) {
                 html += "<tr>";
                 var item = self.Data[i];
-                html += "<td>" + item.UserName + "</td>";
                 html += "<td>" + item.Name + "</td>";
-                html += "<td>" + item.Phone + "</td>";
-                html += "<td>" + item.Email + "</td>";
-                html += "<td>" + (item.Birthday != null ? self.FormatDate(item.Birthday) : "") + "</td>";
-                html += "<td>" + item.Address + "</td>";
+                html += "<td>" + item.Description + "</td>";                
                 html += "<td><div class\"btn-group\">" +
                     "<a class=\"btn btn-outline-danger btn-xs mr-1\" href=\"javascript:Update('"+item.Id+"')\"><i class=\"fas fa-pencil-alt\"></i> </a>" +
                     "<a class=\"btn btn-outline-danger btn-xs\" href=\"javascript:Deleted('" + item.Id +"')\"><i class=\"fas fa-trash-alt\"></i> </a>"
@@ -23,7 +19,7 @@
             }
         }
         else {
-            html += "<tr><td>Không có dữ liệu</td></tr>";
+            html += "<tr>Không có dữ liệu</tr>";
         }
         $("#tblData").html(html);
     };
@@ -38,11 +34,11 @@
     }
     self.Deleted = function (id) {
         if (id != null && id != "") {
-            tedu.confirm('Bạn có chắc muốn xóa user?', function () {
+            tedu.confirm('Bạn có chắc muốn xóa role?', function () {
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/AppUsers/DeleteUser",
-                    data: { userId: id },
+                    url: "/Admin/Role/Delete",
+                    data: { roleId: id },
                     beforeSend: function () {
                        // tedu.startLoading();
                     },
@@ -60,21 +56,16 @@
             });
         }
     }
-    self.RenderHtmlByUser = function (user) {
-        $(".username").val(user.UserName);
-        $(".fullname").val(user.Name);
-        $(".phone").val(user.Phone);
-        $(".email").val(user.Email);
-        /*$("#dpicker").datepicker("SetDate","06/01/21");*/
-        $(".txtbirth").val(user.Birthday != null ? self.FormatDate(user.Birthday) : "");
-        $(".address").val(user.Address);
+    self.RenderHtmlByUser = function (role) {
+        $(".name").val(role.Name);
+        $(".description").val(role.Description);
     }
 
     self.GetById = function (id,renderCallBack) {
         //self.userData = {};
         if (id != null && id != "") {
             $.ajax({
-                url: '/Admin/AppUsers/GetById',
+                url: '/Admin/Role/GetById',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -89,7 +80,7 @@
                 success: function (response) {
                     if (response.Data != null) {
                         renderCallBack(response.Data);
-                        self.UserId = id;
+                        self.RoleId = id;
                     }
                 }
             })
@@ -110,7 +101,7 @@
 
     self.GetData = function () {
         $.ajax({
-            url: '/Admin/AppUsers/GetAll',
+            url: '/Admin/Role/GetAll',
             type: 'GET',
             dataType: 'json',
             beforeSend: function () {
@@ -133,63 +124,34 @@
     self.FormSubmitAdd = function () {
         $('#formSubmitAdd').validate({
             rules: {
-                fullname: {
+                name: {
                     required: true,
                 },
-                username: {
-                    required: true,
-                },
-                phone: {
-                    required: true,
-                },
-                email: {
-                    required: true,
-                },
-                birth: {
-                    required: true,
-                },
-                address: {
+                description: {
                     required: true,
                 }
             },
             messages: {
-                fullname: {
-                    required: "Bạn chưa nhập họ tên",
+                name: {
+                    required: "Bạn chưa quyền",
                 },
-                username: {
-                    required: "Bạn chưa nhập User Name",
-                },
-                phone: {
-                    required: "Bạn chưa nhập số điện thoại",
-                },
-                email: {
-                    required: "Bạn chưa nhập email",
-                },
-                txtbirth: {
-                    required: "Bạn chưa nhập ngày sinh",
-                },
-                address: {
-                    required: "Bạn chưa nhập địa chỉ",
+                description: {
+                    required: "Bạn chưa nhập mô tả",
                 }
-
             },
             submitHandler: function () {
-                var userView = {
-                    Id: self.UserId,
-                    UserName: $(".username").val(),
-                    Name: $(".fullname").val(),
-                    Phone: $(".phone").val(),
-                    Email: $(".email").val(),
-                    Birthday: $(".txtbirth").val(),
-                    address: $(".address").val(),
+                var roleView = {
+                    Id: self.RoleId,
+                    Name: $(".name").val(),
+                    Description: $(".description").val(),
                 }
                 if (self.IsUpdate) {
 
                     $.ajax({
-                        url: '/Admin/AppUsers/UpdateUser',
+                        url: '/Admin/Role/Update',
                         type: 'POST',
                         data: {
-                            userModelView: userView
+                            roleModelView: roleView
                         },
                         dataType: 'json',
                         beforeSend: function () {
@@ -210,10 +172,10 @@
                 }
                 else {
                     $.ajax({
-                        url: '/Admin/AppUsers/AddUser',
+                        url: '/Admin/Role/Add',
                         type: 'POST',
                         data: {
-                            userModelView: userView
+                            roleModelView: roleView
                         },
                         dataType: 'json',
                         beforeSend: function () {

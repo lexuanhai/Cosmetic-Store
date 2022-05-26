@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WEBSITE.Extensions;
 
 namespace WEBSITE.Areas.Admin.Controllers
 {
@@ -12,6 +13,7 @@ namespace WEBSITE.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
+            var email = User.GetSpecificClaim("Email");
             return View();
         }
     }
