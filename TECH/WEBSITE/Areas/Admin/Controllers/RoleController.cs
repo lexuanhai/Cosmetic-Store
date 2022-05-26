@@ -5,50 +5,75 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WEBSITE.Areas.Admin.Models;
 using WEBSITE.Data.DatabaseEntity;
+using WEBSITE.Service;
 
 namespace WEBSITE.Areas.Admin.Controllers
 {
     //[Authorize]
     public class RoleController : BaseController
     {
-        private readonly RoleManager<Roles> _roleManager;
-        public RoleController(RoleManager<Roles> roleManager)
+        private readonly IRoleService _roleService;
+        public RoleController(IRoleService roleService)
         {
-            _roleManager = roleManager;
+            _roleService = roleService;
         }
-        //[HttpGet]
         public IActionResult Index()
         {
             return View();
         }
-
         [HttpGet]
-        public IActionResult Add()
+        public JsonResult GetAll()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<JsonResult> Add(Roles roles)
-        {
-
+            var model = _roleService.GetAll();
+            bool isData = false;
+            if (model != null && model.Count > 0)
+                isData = true;
             return Json(new
             {
-                Status = true
+                IsData = isData,
+                Data = model
             });
         }
         [HttpGet]
-        public  IActionResult Edit(string roleId)
+        public async Task<JsonResult> GetById(string id)
         {
-            return View();
-        }
-        [HttpPost]
-        public async Task<JsonResult> Edit(Roles roles)
-        {
+            var model = new RoleModelView();
+            if (!string.IsNullOrEmpty(id))
+            {
+                model = await _roleService.GetById(id);
+            }
             return Json(new
             {
-                Status = true
+                Data = model
+            });
+        }
+        [HttpPost]
+        public async Task<JsonResult> Add(RoleModelView roleModelView)
+        {
+            var result = await _roleService.Add(roleModelView);
+            return Json(new
+            {
+                success = result
+            });
+        }
+        [HttpPost]
+        public async Task<JsonResult> Update(RoleModelView roleModelView)
+        {
+            var result = await _roleService.Update(roleModelView);
+            return Json(new
+            {
+                success = result
+            });
+        }
+        [HttpPost]
+        public async Task<JsonResult> Delete(string roleId)
+        {
+            var result = await _roleService.Deleted(roleId);
+            return Json(new
+            {
+                success = result
             });
         }
 

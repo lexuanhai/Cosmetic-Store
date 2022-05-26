@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TeduCoreApp.Helpers;
 using WEBSITE.Data.DatabaseEntity;
 using WEBSITE.Reponsitory;
 using WEBSITE.Service;
@@ -85,9 +86,11 @@ namespace WEBSITE
 
             services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
             services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
+            services.AddScoped<IUserClaimsPrincipalFactory<Staff>, CustomClaimsPrincipalFactory>();
 
             // service
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IRoleService, RoleService>();
 
         }
 

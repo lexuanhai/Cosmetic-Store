@@ -6,13 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using WEBSITE.Areas.Admin.Models;
 using WEBSITE.Data.DatabaseEntity;
 
-namespace WEBSITE.Areas.Admin.Controllers { 
-    public class AcountController : BaseController
+namespace WEBSITE.Areas.Admin.Controllers {
+    [Area("Admin")]
+    public class AcountController : Controller
     {
         private readonly UserManager<Staff> _userManager;
         private readonly SignInManager<Staff> _signInManager;
@@ -38,8 +40,7 @@ namespace WEBSITE.Areas.Admin.Controllers {
         }
         [HttpPost]
         public async Task<JsonResult> UserLogin(UserModelView userView)
-        {
-            //MailMessage test = new MailMessage(_from, _to, tieude,);           
+        {     
             var result = await _signInManager.PasswordSignInAsync(
                     userView.Email,
                     userView.PassWord,
@@ -50,7 +51,7 @@ namespace WEBSITE.Areas.Admin.Controllers {
             if (result != null && result.Succeeded)
             {
                 if (_signInManager.IsSignedIn(User))
-                {
+                {                   
                     status = true;
                 }              
             }
