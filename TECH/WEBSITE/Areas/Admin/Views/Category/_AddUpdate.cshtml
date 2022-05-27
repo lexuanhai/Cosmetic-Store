@@ -1,0 +1,51 @@
+﻿<!-- Modal -->
+<style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        /* padding: 10px; */
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 13px;
+        font-weight: unset !important;
+        background: unset;
+    }
+</style>
+<div class="modal fade" id="_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xs" role="document">
+        <div class="modal-content">
+            <form action="#" method="#" id="formSubmitAdd">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm mới Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Danh mục cha</label>
+                        <div class="form-group">
+                            <select class="form-control parentname" name="parentname">
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label>Tên category</label>
+                        <input type="text" class="form-control name" placeholder="tên category" name="name" autocomplete="off">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+﻿@using WEBSITE.Areas.Admin.Models
+@model List<CategoryModelView>
+
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+        <li class="nav-item">
+
+            @foreach (var item in Model.Where(x => !x.ParentId.HasValue))
+            {
+<a href="#" class="nav-link">
+    <p>
+        @item.Name
+        @if (Model.Any(x => x.ParentId == item.Id))
+        {
+<i class="fas fa-angle-left right"></i>}
+
+
+    </p>
+</a>
+                @if (Model.Any(x => x.ParentId == item.Id))
+                {
+<ul class="nav nav-treeview">
+    @foreach (var itemchild in Model.Where(x => x.ParentId == item.Id))
+    {
+<li class="nav-item">
+    <a href="pages/forms/general.html" class="nav-link">
+        <p>@itemchild.Name</p>
+    </a>
+</li>}
+</ul>}      }
+
+        </li>
+    </ul>
+</nav>

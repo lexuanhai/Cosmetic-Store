@@ -87,10 +87,12 @@ namespace WEBSITE
             services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
             services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
             services.AddScoped<IUserClaimsPrincipalFactory<Staff>, CustomClaimsPrincipalFactory>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
 
             // service
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<ICategoryService, CategoryService>();
 
         }
 
