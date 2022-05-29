@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WEBSITE.Areas.Admin.Models;
+using WEBSITE.Areas.Admin.Models.Search;
 using WEBSITE.Data.DatabaseEntity;
 using WEBSITE.Service;
 
@@ -89,6 +90,19 @@ namespace WEBSITE.Areas.Admin.Controllers
             {
                 success = result
             });
+        }
+        [HttpGet]
+        public JsonResult GetAllPaging(CategoryViewModelSearch categoryViewModelSearch)
+        {
+            var data = _categoryService.GetAllPaging(categoryViewModelSearch);
+            return Json(new { data = data });
+        }
+
+        [HttpGet]
+        public JsonResult GetCategoryByParentId(int parentId)
+        {
+            var data = _categoryService.GetCategoryByParentId(parentId);
+            return Json(new { Data = data });
         }
 
     }

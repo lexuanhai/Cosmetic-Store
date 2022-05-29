@@ -4,20 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WEBSITE.Areas.Admin.Models;
+using WEBSITE.Areas.Admin.Models.Search;
 using WEBSITE.Data.DatabaseEntity;
 using WEBSITE.Reponsitory;
+using WEBSITE.Utilities;
 
 namespace WEBSITE.Service
 {
     public interface ICategoryService
     {
-       List<CategoryModelView> GetAll();
-       List<CategoryModelView> GetAllParent();
-       CategoryModelView GetById(int id);
-       bool Add(CategoryModelView view);
-       bool Update(CategoryModelView view);
-       bool Deleted(int id);
-       void Save();
+        List<CategoryModelView> GetAll();
+        PagedResult<CategoryModelView> GetAllPaging(CategoryViewModelSearch categoryViewModelSearch);
+        List<CategoryModelView> GetAllParent();
+        List<CategoryModelView> GetCategoryByParentId(int parentId);
+        CategoryModelView GetById(int id);
+        bool Add(CategoryModelView view);
+        bool Update(CategoryModelView view);
+        bool Deleted(int id);
+        void Save();
     }
     public class CategoryService : ICategoryService
     {
@@ -28,7 +32,7 @@ namespace WEBSITE.Service
             _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
         }
-        public  List<CategoryModelView> GetAll()
+        public List<CategoryModelView> GetAll()
         {
             var dataModel = _categoryRepository.FindAll().Select(c => new CategoryModelView()
             {
@@ -51,15 +55,16 @@ namespace WEBSITE.Service
         }
         public List<CategoryModelView> GetAllParent()
         {
-            return _categoryRepository.FindAll().Where(c=>!c.ParentId.HasValue).Select(c => new CategoryModelView()
+            return _categoryRepository.FindAll().Where(c => !c.ParentId.HasValue).Select(c => new CategoryModelView()
             {
                 Id = c.Id,
-                Name = c.Name,                
+                Name = c.Name,
             }).ToList();
         }
 
-        public CategoryModelView GetById(int id) {
-            var data = _categoryRepository.FindById(id);           
+        public CategoryModelView GetById(int id)
+        {
+            var data = _categoryRepository.FindById(id);
             if (data != null)
             {
                 var model = new CategoryModelView()
@@ -84,7 +89,7 @@ namespace WEBSITE.Service
                         Name = view.Name,
                         ParentId = view.ParentId
                     };
-                    _categoryRepository.Add(_category);                    
+                    _categoryRepository.Add(_category);
                     return true;
                 }
             }
@@ -118,7 +123,7 @@ namespace WEBSITE.Service
 
                 throw;
             }
-           
+
             return false;
         }
         public bool Deleted(int id)
@@ -143,8 +148,69 @@ namespace WEBSITE.Service
 
                 throw;
             }
-            
+
             return false;
+        }
+        public PagedResult<CategoryModelView> GetAllPaging(CategoryViewModelSearch categoryViewModelSearch)
+        {
+            try
+            {
+                var query = _categoryRepository.FindAll();
+                if (categoryViewModelSearch.CategoryParentId.HasValue && categoryViewModelSearch.CategoryParentId.Value > 0)
+                {
+                    if (!categoryViewModelSearch.CategoryId.HasValue)
+                    {
+                        query = query.Where(c => c.Id == categoryViewModelSearch.CategoryParentId.Value);
+                    }
+                    else
+                    {
+                        if (categoryViewModelSearch.CategoryId.HasValue && categoryViewModelSearch.CategoryId.Value > 0)
+                        {
+                            query = query.Where(c => c.Id == categoryViewModelSearch.CategoryId.Value);
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    if (categoryViewModelSearch.CategoryId.HasValue && categoryViewModelSearch.CategoryId.Value > 0)
+                    {
+                        query = query.Where(c => c.Id == categoryViewModelSearch.CategoryId.Value);
+                    }
+                }
+                
+                int totalRow = query.Count();
+                query = query.Skip((categoryViewModelSearch.PageIndex - 1) * categoryViewModelSearch.PageSize).Take(categoryViewModelSearch.PageSize);
+                var data = query.Select(c => new CategoryModelView()
+                {
+                    Name = c.Name,
+                    Id = c.Id,
+                    ParentId = c.ParentId
+                }).ToList();
+                var pagingData = new PagedResult<CategoryModelView>
+                {
+                    Results = data,
+                    CurrentPage = categoryViewModelSearch.PageIndex,
+                    PageSize = categoryViewModelSearch.PageSize,
+                    RowCount = totalRow,
+                };
+                return pagingData;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+       
+        }
+        public List<CategoryModelView> GetCategoryByParentId(int parentId)
+        {
+            var query = _categoryRepository.FindAll(c => c.ParentId.Value == parentId)
+            .Select(c=> new CategoryModelView() { 
+                Name = c.Name,
+                Id = c.Id
+            }).ToList();
+            return query;
         }
     }
 }

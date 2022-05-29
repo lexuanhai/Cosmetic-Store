@@ -1,0 +1,39 @@
+﻿<style>
+    .customcollapse{
+        overflow-y:hidden;
+    }
+    .customcollapse, .customcollapse .body-search {
+        width: 100%;
+    }
+    .box-footer-search .box-content{
+        float:right;
+    }
+</style>
+<div class="collapse customcollapse" id="boxSearch">
+    <div class="card card-body body-search">
+        <div class="row">
+            <div class="col-6">
+                <label>Tên danh mục</label>
+                <div class="form-group">
+                    <select class="form-control nameparentcategory-search" name="nameparentcategory">
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <label>Danh mục con</label>
+                <div class="form-group">
+                    <select class="form-control namecategory-search" name="namecategory">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group box-footer-search">
+            <div class="box-content">
+                <button type="button" class="btn btn-danger btn-cancel-search" data-toggle="collapse" data-target="#boxSearch" aria-expanded="false" aria-controls="collapseExample">Hủy</button>
+                <button type="button" class="btn btn-primary btn-submit-search">Tìm kiếm</button>
+            </div>
+            
+        </div>  
+    </div>
+    
+</div>

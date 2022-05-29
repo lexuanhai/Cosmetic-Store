@@ -6,6 +6,11 @@
 @section Styles{
 
     <link href="~/admin/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .btnSearch{
+            margin-right: 10px;
+        }
+    </style>
 }
 
 
@@ -32,7 +37,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Danh sách category</h3>
-                        <button class="btn btn-primary float-right btn-add" data-toggle="modal" data-target="#_add">Thêm mới</button>
+                        <button class="btn btn-success float-right btn-add" data-toggle="modal" data-target="#_add">Thêm mới</button>
+                        <button class="btn btn-primary float-right btnSearch" type="button" data-toggle="collapse" data-target="#boxSearch" aria-expanded="false" aria-controls="collapseExample">
+                            Tìm kiếm
+                        </button>                        
+                        <partial name="_Search" />
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -50,6 +59,26 @@
                                         <tbody id="tblData">
                                         </tbody>
                                     </table>
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="dataTables_info" id="datatable-checkbox_info" role="status" aria-live="polite">
+                                                <select id="ddlShowPage">
+                                                    <option value="10" selected="selected">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="30">30</option>
+                                                    <option value="50">50</option>
+                                                </select>
+                                                <span class="item-per-page">
+                                                    bản ghi/trang.
+                                                </span>
+                                                Tổng số bản ghi: <strong id="lblTotalRecords"></strong>
+                                            </div>
+                                        </div><div class="col-sm-7">
+                                            <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                                                <ul id="paginationUL" class="float-right"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +97,7 @@
 </section>
 @section Scripts{
     <script src="/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
-    <script src="~/admin/plugins/select2/js/select2.min.js"></script>
+    @*<script src="~/admin/plugins/select2/js/select2.min.js"></script>*@
     <script src="~/admin/category/category.js?v=@DateTime.Now.Ticks"></script>
 }
 
