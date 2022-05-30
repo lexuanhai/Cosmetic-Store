@@ -312,3 +312,4 @@ D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.cspro
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Colors\Index.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Colors\_AddUpdate.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Colors\_Search.cshtml.g.cs
+E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj.AssemblyReference.cache

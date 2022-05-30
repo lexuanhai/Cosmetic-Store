@@ -14,9 +14,6 @@ namespace WEBSITE.Data.DatabaseEntity
         //public int Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public int? ProductId { get; set; }
-        [ForeignKey("ProductId")]
-        public Product Product { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace WEBSITE.Data.DatabaseEntity
         public DbSet<Product> Product { set; get; }
         public DbSet<Staff> Staff { set; get; }
         public DbSet<Roles> AppRoles { set; get; }
+        public DbSet<ColorsProduct> ColorsProduct { get; set; }
         //public DbSet<Roles> Roles { set; get; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
