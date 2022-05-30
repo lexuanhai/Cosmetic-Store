@@ -13,10 +13,10 @@ namespace WEBSITE.Service
 {
     public interface IColorsService
     {
-        PagedResult<ProductModelView> GetAllPaging(ProductViewModelSearch productViewModelSearch);
-        ProductModelView GetById(int id);
-        int Add(ProductModelView view);
-        bool Update(ProductModelView view);
+        PagedResult<ColorModelView> GetAllPaging(ColorViewModelSearch colorViewModelSearch);
+        ColorModelView GetById(int id);
+        bool Add(ColorModelView view);
+        bool Update(ColorModelView view);
         bool Deleted(int id);
         void Save();
     }
@@ -28,73 +28,59 @@ namespace WEBSITE.Service
         {
             _colorRepository = colorRepository;
             _unitOfWork = unitOfWork;
-        }              
-        public ProductModelView GetById(int id)
+        }
+        public ColorModelView GetById(int id)
         {
-            var data = _productRepository.FindAll(p=>p.Id == id).FirstOrDefault();
+            var data = _colorRepository.FindAll(p => p.Id == id).FirstOrDefault();
             if (data != null)
             {
-                var model = new ProductModelView()
+                var model = new ColorModelView()
                 {
                     Id = data.Id,
                     Name = data.Name,
+                    Code = data.Code
                 };
                 return model;
             }
             return null;
         }
 
-        public int Add(ProductModelView view)
-        {            
+        public bool Add(ColorModelView view)
+        {
             try
             {
                 if (view != null)
                 {
-                    var _product = new Product
+                    var _colors = new Colors
                     {
                         Name = view.Name,
-                        Decription = view.Decription,
-                        SubDecription = view.SubDecription,
-                        CategoryId = view.CategoryId,
-                        Total = view.Total,
-                        Price = view.Price,
-                        ReducedPrice = view.ReducedPrice,
-                        BrandsId = view.BrandsId,                        
+                        Code = view.Code,
                     };
-                    _productRepository.Add(_product);
-                    Save();
-
-                    return _product.Id;
+                    _colorRepository.Add(_colors);
+                    return true;
                 }
             }
             catch (Exception ex)
             {
                 //return false;
             }
-            return 0;
+            return false;
 
         }
         public void Save()
         {
             _unitOfWork.Commit();
         }
-        public bool Update(ProductModelView view)
+        public bool Update(ColorModelView view)
         {
             try
             {
-                var dataServer = _productRepository.FindById(view.Id);
+                var dataServer = _colorRepository.FindById(view.Id);
                 if (dataServer != null)
                 {
                     dataServer.Name = view.Name;
-                    dataServer.Decription = view.Decription;
-                    dataServer.SubDecription = view.SubDecription;
-                    dataServer.CategoryId = view.CategoryId;
-                    dataServer.Total = view.Total;
-                    dataServer.Price = view.Price;
-                    dataServer.ReducedPrice = view.ReducedPrice;
-                    dataServer.BrandsId = view.BrandsId;  
-                    _productRepository.Update(dataServer);
-                    Save();
+                    dataServer.Code = view.Code;
+                    _colorRepository.Update(dataServer);
                     return true;
                 }
             }
@@ -110,17 +96,12 @@ namespace WEBSITE.Service
         {
             try
             {
-                var dataServer = _productRepository.FindById(id);
+                var dataServer = _colorRepository.FindById(id);
                 if (dataServer != null)
                 {
-                    var listCategoryChild = _productRepository.FindAll().Where(c => c.Id == dataServer.Id).ToList();
-                    foreach (var itemChild in listCategoryChild)
-                    {
-                        _productRepository.Remove(itemChild);
-                    }
-
-                    _productRepository.Remove(dataServer);
+                    _colorRepository.Remove(dataServer);
                     return true;
+
                 }
             }
             catch (Exception ex)
@@ -131,47 +112,36 @@ namespace WEBSITE.Service
 
             return false;
         }
-        public PagedResult<ProductModelView> GetAllPaging(ProductViewModelSearch ProductViewModelSearch)
+        public PagedResult<ColorModelView> GetAllPaging(ColorViewModelSearch colorViewModelSearch)
         {
             try
             {
-                var query = _productRepository.FindAll();
-                if (ProductViewModelSearch.CategoryParentId.HasValue && ProductViewModelSearch.CategoryParentId.Value > 0)
+                var query = _colorRepository.FindAll();
+
+                if (!string.IsNullOrEmpty(colorViewModelSearch.Code))
                 {
-                    if (!ProductViewModelSearch.CategoryId.HasValue)
-                    {
-                        query = query.Where(c => c.Id == ProductViewModelSearch.CategoryParentId.Value);
-                    }
-                    else
-                    {
-                        if (ProductViewModelSearch.CategoryId.HasValue && ProductViewModelSearch.CategoryId.Value > 0)
-                        {
-                            query = query.Where(c => c.Id == ProductViewModelSearch.CategoryId.Value);
-                        }
-                    }
-                    
+                    query = query.Where(c => c.Code.ToLower().Contains(colorViewModelSearch.Code.ToLower()));
                 }
-                else
+                if (!string.IsNullOrEmpty(colorViewModelSearch.Name))
                 {
-                    if (ProductViewModelSearch.CategoryId.HasValue && ProductViewModelSearch.CategoryId.Value > 0)
-                    {
-                        query = query.Where(c => c.Id == ProductViewModelSearch.CategoryId.Value);
-                    }
+                    query = query.Where(c => c.Name.ToLower() == colorViewModelSearch.Name.ToLower());
                 }
-                
+
+
                 int totalRow = query.Count();
-                query = query.Skip((ProductViewModelSearch.PageIndex - 1) * ProductViewModelSearch.PageSize).Take(ProductViewModelSearch.PageSize);
-                var data = query.Select(c => new ProductModelView()
+                query = query.Skip((colorViewModelSearch.PageIndex - 1) * colorViewModelSearch.PageSize).Take(colorViewModelSearch.PageSize);
+                var data = query.Select(c => new ColorModelView()
                 {
                     Name = c.Name,
+                    Code = c.Code,
                     Id = c.Id,
                     //ParentId = c.ParentId
                 }).ToList();
-                var pagingData = new PagedResult<ProductModelView>
+                var pagingData = new PagedResult<ColorModelView>
                 {
                     Results = data,
-                    CurrentPage = ProductViewModelSearch.PageIndex,
-                    PageSize = ProductViewModelSearch.PageSize,
+                    CurrentPage = colorViewModelSearch.PageIndex,
+                    PageSize = colorViewModelSearch.PageSize,
                     RowCount = totalRow,
                 };
                 return pagingData;
@@ -181,7 +151,7 @@ namespace WEBSITE.Service
 
                 throw;
             }
-       
+
         }
     }
 }

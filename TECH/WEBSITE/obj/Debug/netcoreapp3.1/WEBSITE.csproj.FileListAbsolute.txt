@@ -300,9 +300,13 @@ D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.pdb
 D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.genruntimeconfig.cache
 D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Category\Index.cshtml.g.cs
 D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Category\_AddUpdate.cshtml.g.cs
-D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csprojAssemblyReference.cache
 D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\Components\SideBar\Default.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Category\Index.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Category\_AddUpdate.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\Components\SideBar\Default.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Category\_Search.cshtml.g.cs
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Category\_Search.cshtml.g.cs
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Colors\Index.cshtml.g.cs
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Colors\_AddUpdate.cshtml.g.cs
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Colors\_Search.cshtml.g.cs
+D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csprojAssemblyReference.cache
