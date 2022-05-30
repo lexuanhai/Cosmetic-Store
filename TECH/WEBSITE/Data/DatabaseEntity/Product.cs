@@ -9,8 +9,7 @@ namespace WEBSITE.Data.DatabaseEntity
 {
     [Table("Product")]
     public class Product: DomainEntity<int>
-    {
-        [Key]
+    {        
         //public int Id { get; set; }
         public string Name { get; set; }
         public string Decription { get; set; }

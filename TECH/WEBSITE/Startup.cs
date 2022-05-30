@@ -88,11 +88,17 @@ namespace WEBSITE
             services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
             services.AddScoped<IUserClaimsPrincipalFactory<Staff>, CustomClaimsPrincipalFactory>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IColorRepository, ColorRepository>();
+            services.AddTransient<IImagesProductRepository, ImagesProductRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
 
             // service
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IColorsService, ColorsService>();
+            services.AddTransient<IImagesProductService, ImagesProductService>();
+            services.AddTransient<IProductService, ProductService>();
 
         }
 
