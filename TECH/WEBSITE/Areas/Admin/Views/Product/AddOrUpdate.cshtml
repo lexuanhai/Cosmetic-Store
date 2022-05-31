@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewData["Title"] = "AddOrUpdate";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .image-upload > input {
+        display: none;
+    }
+
+    /*.image-upload img {
+        width: 120px;
+        cursor: pointer;
+        height: 100px;
+        border-radius: 4px;
+    }*/
+    .box-images .item-image {
+        width: 120px;
+        height: 100px;
+        border-radius: 4px;
+        background: url('/image/default-image-620x600.jpg');
+        float: left;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+<div class="box-group-content">
+    <div class="box-content container">
+        <h3 class="txt-title text-center">Thêm mới sản phẩm</h3>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Tên sản phẩm:</label>
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>Danh mục:</label>
+                        <select class="form-control">
+                            <option value="value">text</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Thương hiệu:</label>
+                        <select class="form-control">
+                            <option value="value">text</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>Giá:</label>
+                        <input type="text" class="form-control" name="name" value="" />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Giá giảm:</label>
+                        <input type="text" class="form-control" name="name" value="" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label>Tổng số sản phẩm:</label>
+                        <input type="text" class="form-control" name="name" value="" />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Màu:</label>
+                        <select class="form-control">
+                            <option value="value">text</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Ảnh sản phẩm:</label>
+                    <div class="box-images">
+                        <div class="image-upload">
+                            <label for="file-input" class="item-image">
+                                @*<img src="~/image/default-image-620x600.jpg" />*@
+                            </label>
+                            <input id="file-input" type="file" multiple/>
+                        </div>
+                        <div class="image-upload item-image">                            
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Mô tả ngắn:</label>
+                    <textarea id="txtContent" rows="6" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+

@@ -8,8 +8,8 @@ using WEBSITE.SharedKernel;
 namespace WEBSITE.Data.DatabaseEntity
 {
     [Table("Product")]
-    public class Product: DomainEntity<int>
-    {        
+    public class Product : DomainEntity<int>
+    {
         //public int Id { get; set; }
         public string Name { get; set; }
         public string Decription { get; set; }
@@ -27,5 +27,8 @@ namespace WEBSITE.Data.DatabaseEntity
         public Brands Brands { get; set; }
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
+        // tùy từng dự án sẽ có thông tin 2 trường này
+        public DateTime? ManufacturingDate { get; set; } // ngày sản xuất
+        public DateTime? ExpiryDate{ get; set; } // hạn sử dụng
     }
 }

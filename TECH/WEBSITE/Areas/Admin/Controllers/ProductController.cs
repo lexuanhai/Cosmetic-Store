@@ -24,6 +24,10 @@ namespace WEBSITE.Areas.Admin.Controllers
         {
             return View();
         }
+        public IActionResult AddOrUpdate()
+        {
+            return View();
+        }
         [HttpGet]
         public  JsonResult GetById(int id)
         {
