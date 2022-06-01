@@ -92,28 +92,50 @@
     }       
 
     self.FormSubmitAdd = function () {
+
+        
+        //var View = {
+        //    Id: self.Id                    
+        //}
+        //console.log(fileUpload);
+        //console.log(dataImage);
+        //$.ajax({
+        //    url: '/Admin/Product/Add',
+        //    type: 'POST',
+        //    data: {
+        //        productModelView: View
+        //    },
+        //    dataType: 'json',
+        //    beforeSend: function () {
+        //        Loading('show');
+        //    },
+        //    complete: function () {
+        //        Loading('hiden');
+        //    },
+        //    success: function (response) {
+        //        if (response.success) {
+        //            self.GetDataPaging(true);
+        //            $('#_addUpdate').modal('hide');
+        //        }
+        //    }
+        //})
+       
+
         $('#formSubmitAdd').validate({
             rules: {
                 name: {
-                    required: true,
-                },
-                code: {
                     required: true,
                 }
             },
             messages: {
                 name: {
                     required: "Bạn chưa nhập tên Colors",
-                },
-                code: {
-                    required: "Bạn chưa nhập tên mã màu",
                 }
             },
-            submitHandler: function () {                
+            submitHandler: function () {
+                alert(1);
                 var View = {
-                    Id: self.Id,
-                    Name: $(".name").val(),
-                    Code: $(".code").val()
+                    Id: self.Id                    
                 }
                 if (self.IsUpdate) {
                     $.ajax({
@@ -138,11 +160,20 @@
                     })
                 }
                 else {
+                    debugger
+                    var fileUpload = $(".filesImages").get(0);
+                    var files = fileUpload.files;
+                    var dataImage = new FormData();
+                    for (var i = 0; i < files.length; i++) {
+                        dataImage.append(files[i].name, files[i]);
+                    }
+
                     $.ajax({
-                        url: '/Admin/Colors/Add',
+                        url: '/Admin/Product/Add',
                         type: 'POST',
                         data: {
-                            colorModelView: View
+                            //productModelView: View,
+                            files: files
                         },
                         dataType: 'json',
                         beforeSend: function () {
