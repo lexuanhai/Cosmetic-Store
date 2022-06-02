@@ -52,50 +52,29 @@ namespace WEBSITE.Areas.Admin.Controllers
                 Data = model
             });
         }
-
         [HttpPost]
-        public JsonResult Add(IFormFileCollection files)
+        public IActionResult UploadImageProduct()
         {
-            //IFormFileCollection files
-            var result = 0;//_productService.Add(productModelView);
-            if (result > 0)
+            var files = Request.Form.Files;
+            if (files != null && files.Count > 0)
             {
-                // check ảnh
-                //DateTime now = DateTime.Now;
-                //var files = Request.Form.Files;
-                //if (files.Count == 0)
-                //{
-                //}
-                //else
-                //{
-                //    var file = files[0];
-                //    var filename = ContentDispositionHeaderValue
-                //                        .Parse(file.ContentDisposition)
-                //                        .FileName
-                //                        .Trim('"');
-
-                //    var imageFolder = $@"\uploaded\images\{now.ToString("yyyyMMdd")}";
-
-                //    string folder = _hostingEnvironment.WebRootPath + imageFolder;
-
-                //    if (!Directory.Exists(folder))
-                //    {
-                //        Directory.CreateDirectory(folder);
-                //    }
-                //    string filePath = Path.Combine(folder, filename);
-                //    using (FileStream fs = System.IO.File.Create(filePath))
-                //    {
-                //        file.CopyTo(fs);
-                //        fs.Flush();
-                //    }
-                //    //return new OkObjectResult(Path.Combine(imageFolder, filename).Replace(@"\", @"/"));
-                //}
-
+                var imageFolder = $@"\uploaded\images\";
             }
-            
             return Json(new
             {
-                success = result
+                success = true
+            }) ;
+        }
+
+        [HttpPost]
+        public IActionResult Add(ProductModelView productModelView)
+        {
+            var result = _productService.Add(productModelView);
+
+            return Json(new
+            {
+                success = result > 0? true: false,
+                id = result
             });
         }
         [HttpPost]

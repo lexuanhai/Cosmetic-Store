@@ -315,7 +315,6 @@ E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj
 D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\Index.cshtml.g.cs
 D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\_AddUpdate.cshtml.g.cs
 D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\_Search.cshtml.g.cs
-D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csprojAssemblyReference.cache
 D:\ProjectWord\Cosmetic-Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\AddOrUpdate.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\AddOrUpdate.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\Index.cshtml.g.cs

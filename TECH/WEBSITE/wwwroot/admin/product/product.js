@@ -91,51 +91,73 @@
 
     }       
 
-    self.FormSubmitAdd = function () {
-
-        
-        //var View = {
-        //    Id: self.Id                    
-        //}
-        //console.log(fileUpload);
-        //console.log(dataImage);
-        //$.ajax({
-        //    url: '/Admin/Product/Add',
-        //    type: 'POST',
-        //    data: {
-        //        productModelView: View
-        //    },
-        //    dataType: 'json',
-        //    beforeSend: function () {
-        //        Loading('show');
-        //    },
-        //    complete: function () {
-        //        Loading('hiden');
-        //    },
-        //    success: function (response) {
-        //        if (response.success) {
-        //            self.GetDataPaging(true);
-        //            $('#_addUpdate').modal('hide');
-        //        }
-        //    }
-        //})
-       
-
+    self.FormSubmitAdd = function () {        
         $('#formSubmitAdd').validate({
+            ignore: [],
+            //debug: false,
             rules: {
                 name: {
                     required: true,
+                },
+                subdecription: {
+                    required: true,
+                },
+                decription: {
+                    required: true
+                },
+                categoryid: {
+                    required: true
+                },
+                selectstatus: {
+                    required: true
+                },
+                price: {
+                    required: true,
+                },
+                total: {
+                    required: true,
+                },
+                manufacturingdate: {
+                    required: true
+                },
+                expirydate: {
+                    required: true
                 }
+                
             },
             messages: {
                 name: {
-                    required: "Bạn chưa nhập tên Colors",
+                    required: "Bạn chưa nhập tên sản phẩm",
+                },
+                subdecription: {
+                    required: "Bạn chưa nhập mô tả ngắn",
+                },
+                decription: {
+                    required: "Bạn chưa nhập mô tả chi tiết",
+                },   
+                categoryid: {
+                    required: "Bạn chọn danh mục",
+                },
+                selectstatus: {
+                    required: "Bạn chọn trạng thái",
+                },
+                price: {
+                    required: "Bạn chưa nhập giá sản phẩm",
+                },
+                total: {
+                    required: "Bạn chưa nhập giá tổng sản phẩm",
+                },
+                manufacturingdate: {
+                    required: "Bạn chưa chọn ngày sản xuất",
+                },
+                expirydate: {
+                    required: "Bạn chưa chọn hạn sử dụng",
                 }
             },
             submitHandler: function () {
-                alert(1);
+                //alert(1);
                 var View = {
-                    Id: self.Id                    
+                    Id: 10                   
                 }
                 if (self.IsUpdate) {
                     $.ajax({
@@ -160,40 +182,69 @@
                     })
                 }
                 else {
-                    debugger
-                    var fileUpload = $(".filesImages").get(0);
-                    var files = fileUpload.files;
-                    var dataImage = new FormData();
-                    for (var i = 0; i < files.length; i++) {
-                        dataImage.append(files[i].name, files[i]);
-                    }
-
-                    $.ajax({
-                        url: '/Admin/Product/Add',
-                        type: 'POST',
-                        data: {
-                            //productModelView: View,
-                            files: files
-                        },
-                        dataType: 'json',
-                        beforeSend: function () {
-                            Loading('show');
-                        },
-                        complete: function () {
-                            Loading('hiden');
-                        },
-                        success: function (response) {
-                            if (response.success) {
-                                self.GetDataPaging(true);
-                                $('#_addUpdate').modal('hide');
-                            }
-                        }
-                    })
+                    var product = {
+                        Name: $(".product-name").val(),
+                        Decription: CKEDITOR.instances.txtContentdetail.getData(),
+                        SubDecription: CKEDITOR.instances.txtsubContent.getData(),
+                        Price: $(".price").val(),
+                        ReducedPrice: $(".reduced-price").val(),
+                        Total: $(".total").val(),
+                        CategoryId: $(".categoryid").val(),
+                        BrandsId: $(".brandsid").val()
+                    };
+                    self.AddProduct(product);
                 }
 
             }
         });
     };
+
+    self.AddProduct = function (product) {
+        $.ajax({
+            url: '/Admin/Product/Add',
+            type: 'POST',
+            dataType: 'json',
+            data: product,
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                Loading('hiden');
+            },
+            success: function (response) {
+                if (response.success) {
+                    self.UploadFileImageProduct(response.id);
+                }
+            }
+        })
+    }
+
+    self.UploadFileImageProduct = function (productId) {
+        var fileUpload = $(".filesImages").get(0);
+        var files = fileUpload.files;
+        var dataImage = new FormData();
+        dataImage.append(productId, files);
+
+        $.ajax({
+            url: '/Admin/Product/UploadImageProduct',
+            type: 'POST',
+            data: dataImage,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                Loading('hiden');
+            },
+            success: function (response) {
+                if (response.success) {
+                    self.GetDataPaging(true);
+                    $('#_addUpdate').modal('hide');
+                }
+            }
+        })
+    }
 
     self.GetDataPaging = function (isPageChanged) {
         var _data = {
@@ -254,6 +305,16 @@
         self.GetDataPaging();
         self.FormSubmitAdd();
 
+        //CKEDITOR.on('instanceReady', function () {
+        //    $.each(CKEDITOR.instances, function (instance) {
+        //        CKEDITOR.instances[instance].document.on("keyup", self.FormSubmitAdd);
+        //        CKEDITOR.instances[instance].document.on("paste", self.FormSubmitAdd);
+        //        CKEDITOR.instances[instance].document.on("keypress", self.FormSubmitAdd);
+        //        CKEDITOR.instances[instance].document.on("blur", self.FormSubmitAdd);
+        //        CKEDITOR.instances[instance].document.on("change", self.FormSubmitAdd);
+        //    });
+        //});
+
         CKEDITOR.replace('txtContent', {
             toolbar: [																			
                 //{ name: 'basicstyles', items: ['Bold', 'Italic'] },
@@ -291,7 +352,11 @@
             $("#colorshow").css('background-color', $(this).val());
         });
 
+        $(".customdate").datepicker({ dateFormat: 'dd/mm/yy' });        
 
+        $(".add-image").click(function () {
+            $("#file-input").click();
+        })
     });
 
 })(jQuery);
