@@ -99,18 +99,18 @@
                 name: {
                     required: true,
                 },
-                subdecription: {
-                    required: true,
-                },
-                decription: {
-                    required: true
-                },
+                //subdecription: {
+                //    required: true,
+                //},
+                //decription: {
+                //    required: true
+                //},
                 categoryid: {
                     required: true
                 },
-                selectstatus: {
-                    required: true
-                },
+                //selectstatus: {
+                //    required: true
+                //},
                 price: {
                     required: true,
                 },
@@ -129,18 +129,18 @@
                 name: {
                     required: "Bạn chưa nhập tên sản phẩm",
                 },
-                subdecription: {
-                    required: "Bạn chưa nhập mô tả ngắn",
-                },
-                decription: {
-                    required: "Bạn chưa nhập mô tả chi tiết",
-                },   
+                //subdecription: {
+                //    required: "Bạn chưa nhập mô tả ngắn",
+                //},
+                //decription: {
+                //    required: "Bạn chưa nhập mô tả chi tiết",
+                //},   
                 categoryid: {
                     required: "Bạn chọn danh mục",
                 },
-                selectstatus: {
-                    required: "Bạn chọn trạng thái",
-                },
+                //selectstatus: {
+                //    required: "Bạn chọn trạng thái",
+                //},
                 price: {
                     required: "Bạn chưa nhập giá sản phẩm",
                 },
@@ -182,6 +182,7 @@
                     })
                 }
                 else {
+                    debugger;
                     var product = {
                         Name: $(".product-name").val(),
                         Decription: CKEDITOR.instances.txtContentdetail.getData(),
@@ -190,7 +191,7 @@
                         ReducedPrice: $(".reduced-price").val(),
                         Total: $(".total").val(),
                         CategoryId: $(".categoryid").val(),
-                        BrandsId: $(".brandsid").val()
+                        BrandsId: $(".brandsid").val(),
                     };
                     self.AddProduct(product);
                 }
@@ -200,11 +201,14 @@
     };
 
     self.AddProduct = function (product) {
+        debugger;
         $.ajax({
             url: '/Admin/Product/Add',
             type: 'POST',
             dataType: 'json',
-            data: product,
+            data: {
+                productModelView: product
+            },
             beforeSend: function () {
                 Loading('show');
             },
@@ -223,14 +227,19 @@
         var fileUpload = $(".filesImages").get(0);
         var files = fileUpload.files;
         var dataImage = new FormData();
-        dataImage.append(productId, files);
+        //dataImage.append("productId", productId);
+        for (var i = 0; i < files.length; i++) {
+            dataImage.append(productId, files[i]);
+        }
+        
 
         $.ajax({
             url: '/Admin/Product/UploadImageProduct',
             type: 'POST',
-            data: dataImage,
             contentType: false,
             processData: false,
+            data: dataImage,
+           
             beforeSend: function () {
                 Loading('show');
             },
@@ -244,6 +253,11 @@
                 }
             }
         })
+    }
+    self.ValidateFileImage = function (files) {
+        for (var i = 0; i < files.length; i++) {
+
+        }
     }
 
     self.GetDataPaging = function (isPageChanged) {
@@ -300,11 +314,84 @@
             }
         });
     }   
-
+    self.GetAllColor = function () {
+        $.ajax({
+            url: '/Admin/Colors/GetAll',
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                //Loading('hiden');
+            },
+            success: function (response) {
+                var html = "<option value =\"\">Chọn colors</option>";
+                if (response.Data != null && response.Data.length > 0) {
+                    for (var i = 0; i < response.Data.length; i++) {
+                        var item = response.Data[i];
+                        html += "<option value =" + item.Id + ">" + item.Name + "</option>";
+                    }
+                }
+                $(".colorsid").html(html);
+            }
+        })
+    }    
+    self.GetAllBrands = function () {
+        $.ajax({
+            url: '/Admin/Brands/GetAll',
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                //Loading('hiden');
+            },
+            success: function (response) {
+                var html = "<option value =\"\">Chọn nhãn hiệu</option>";
+                if (response.Data != null && response.Data.length > 0) {
+                    for (var i = 0; i < response.Data.length; i++) {
+                        var item = response.Data[i];
+                        html += "<option value =" + item.Id + ">" + item.Name + "</option>";
+                    }
+                }
+                $(".brandsid").html(html);
+            }
+        })
+    }    
+    self.GetAllCategories = function () {
+        $.ajax({
+            url: '/Admin/Category/GetAll',
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                //Loading('hiden');
+            },
+            success: function (response) {
+                var html = "<option value =\"\">Chọn danh mục</option>";
+                if (response.Data != null && response.Data.length > 0) {
+                    for (var i = 0; i < response.Data.length; i++) {
+                        var item = response.Data[i];
+                        html += "<option value =" + item.Id + ">" + item.Name + "</option>";
+                    }
+                }
+                $(".categoryid").html(html);
+            }
+        })
+    }
+    self.ShowSelect = function () {
+        self.GetAllCategories();
+        self.GetAllBrands();
+        self.GetAllColor();
+    }
     $(document).ready(function () {     
         self.GetDataPaging();
         self.FormSubmitAdd();
-
+        self.ShowSelect();
         //CKEDITOR.on('instanceReady', function () {
         //    $.each(CKEDITOR.instances, function (instance) {
         //        CKEDITOR.instances[instance].document.on("keyup", self.FormSubmitAdd);
@@ -315,7 +402,7 @@
         //    });
         //});
 
-        CKEDITOR.replace('txtContent', {
+        CKEDITOR.replace('txtsubContent', {
             toolbar: [																			
                 //{ name: 'basicstyles', items: ['Bold', 'Italic'] },
                 //{ name: "styles", items: ["Styles", "Format", "Font", "FontSize"] },
@@ -357,6 +444,37 @@
         $(".add-image").click(function () {
             $("#file-input").click();
         })
+        $(".btn-add").click(function () {
+            $(".content-infor").hide();
+            $(".box-content-add").show();
+        })
+
+        $('.filesImages').on('change', function () {
+            debugger;
+            var fileUpload = $(this).get(0);
+            var files = fileUpload.files;
+            self.html = "";
+            let src = [];
+            for (var i = 0; i < files.length; i++) {            
+                var img = new Image();
+                         
+                img.onload = function () {
+                    if (this.width < 250) {
+                        //self.html += "<div class=\"image-upload item-image\" style=\"background-image:url(" + img.src + ")\"></div>";
+                        console.log("hailx" +img.src);
+                        src.push(img.src);
+                    }
+                };      
+                img.src = URL.createObjectURL(files[i]);         
+            }
+            console.log(src);
+            if (html != "") {
+                $(".box-images").append(self.html);
+            }
+            
+        });
+
+       
     });
 
 })(jQuery);

@@ -13,12 +13,12 @@ using WEBSITE.Service;
 namespace WEBSITE.Areas.Admin.Controllers
 {
     //[Authorize]
-    public class ColorsController : BaseController
+    public class BrandsController : BaseController
     {
-        private readonly IColorsService _colorsService;
-        public ColorsController(IColorsService colorsService)
+        private readonly IBrandsService _brandsService;
+        public BrandsController(IBrandsService brandsService)
         {
-            _colorsService = colorsService;
+            _brandsService = brandsService;
         }
         public IActionResult Index()
         {
@@ -27,10 +27,10 @@ namespace WEBSITE.Areas.Admin.Controllers
         [HttpGet]
         public  JsonResult GetById(int id)
         {
-            var model = new ColorModelView();
+            var model = new BrandsModelView();
             if (id > 0)
             {
-                model =  _colorsService.GetById(id);
+                model =  _brandsService.GetById(id);
             }
             return Json(new
             {
@@ -39,20 +39,20 @@ namespace WEBSITE.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(ColorModelView colorModelView)
+        public JsonResult Add(BrandsModelView BrandsModelView)
         {
-            var result =  _colorsService.Add(colorModelView);
-            _colorsService.Save();
+            var result =  _brandsService.Add(BrandsModelView);
+            _brandsService.Save();
             return Json(new
             {
                 success = result
             });
         }
         [HttpPost]
-        public JsonResult Update(ColorModelView colorModelView)
+        public JsonResult Update(BrandsModelView BrandsModelView)
         {
-            var result =  _colorsService.Update(colorModelView);
-            _colorsService.Save();
+            var result =  _brandsService.Update(BrandsModelView);
+            _brandsService.Save();
             return Json(new
             {
                 success = result
@@ -61,8 +61,8 @@ namespace WEBSITE.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var result =  _colorsService.Deleted(id);
-            _colorsService.Save();
+            var result =  _brandsService.Deleted(id);
+            _brandsService.Save();
             return Json(new
             {
                 success = result
@@ -71,13 +71,13 @@ namespace WEBSITE.Areas.Admin.Controllers
         [HttpGet]
         public JsonResult GetAllPaging(ColorViewModelSearch colorViewModelSearch)
         {
-            var data = _colorsService.GetAllPaging(colorViewModelSearch);
+            var data = _brandsService.GetAllPaging(colorViewModelSearch);
             return Json(new { data = data });
         }
         [HttpGet]
         public JsonResult GetAll()
         {
-            var data = _colorsService.GetAll();
+            var data = _brandsService.GetAll();
             return Json(new { Data = data });
         }
 

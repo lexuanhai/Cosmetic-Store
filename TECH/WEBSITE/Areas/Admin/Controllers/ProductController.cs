@@ -13,6 +13,8 @@ using WEBSITE.Areas.Admin.Models.Search;
 using WEBSITE.Data.DatabaseEntity;
 using WEBSITE.Service;
 using Microsoft.AspNetCore.Http;
+using System.Text.RegularExpressions;
+
 namespace WEBSITE.Areas.Admin.Controllers
 {
     //[Authorize]
@@ -58,7 +60,28 @@ namespace WEBSITE.Areas.Admin.Controllers
             var files = Request.Form.Files;
             if (files != null && files.Count > 0)
             {
-                var imageFolder = $@"\uploaded\images\";
+                string folerProductId = "product_" + files[0].Name;
+
+                var imageFolder = $@"\product-image\" + folerProductId;
+
+                string folder = _hostingEnvironment.WebRootPath + imageFolder;
+
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+
+                    foreach (var itemFile in files)
+                    {
+                        string fileNameFormat = Regex.Replace(itemFile.FileName.ToLower(), @"\s+", "");
+                        string filePath = Path.Combine(folder, fileNameFormat);
+                        using (FileStream fs = System.IO.File.Create(filePath))
+                        {
+                            itemFile.CopyTo(fs);
+                            fs.Flush();
+                        }
+
+                    }
+                }
             }
             return Json(new
             {
@@ -67,7 +90,7 @@ namespace WEBSITE.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(ProductModelView productModelView)
+        public JsonResult Add(ProductModelView productModelView)
         {
             var result = _productService.Add(productModelView);
 

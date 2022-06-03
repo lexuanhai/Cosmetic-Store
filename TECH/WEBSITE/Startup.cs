@@ -91,6 +91,7 @@ namespace WEBSITE
             services.AddTransient<IColorRepository, ColorRepository>();
             services.AddTransient<IImagesProductRepository, ImagesProductRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IBrandsRepository, BrandsRepository>();
 
             // service
             services.AddTransient<IUserService, UserService>();
@@ -99,6 +100,7 @@ namespace WEBSITE
             services.AddTransient<IColorsService, ColorsService>();
             services.AddTransient<IImagesProductService, ImagesProductService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IBrandsService, BrandsService>();
 
         }
 
