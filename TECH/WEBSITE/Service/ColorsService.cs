@@ -14,6 +14,7 @@ namespace WEBSITE.Service
     public interface IColorsService
     {
         PagedResult<ColorModelView> GetAllPaging(ColorViewModelSearch colorViewModelSearch);
+        List<ColorModelView> GetAll();
         ColorModelView GetById(int id);
         bool Add(ColorModelView view);
         bool Update(ColorModelView view);
@@ -51,7 +52,7 @@ namespace WEBSITE.Service
             {
                 if (view != null)
                 {
-                    var _colors = new Colors
+                    var _colors = new AppSize
                     {
                         Name = view.Name,
                         Code = view.Code,
@@ -152,6 +153,17 @@ namespace WEBSITE.Service
                 throw;
             }
 
+        }
+        public List<ColorModelView> GetAll()
+        {
+            var data = _colorRepository.FindAll(c => c.IsDeleted != true).Select(c => new ColorModelView()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Code = c.Code
+            }).ToList();
+
+            return data;
         }
     }
 }

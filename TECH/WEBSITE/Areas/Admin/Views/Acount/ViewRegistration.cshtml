@@ -1,7 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@*@using Microsoft.AspNetCore.Identity
 @using WEBSITE.Data.DatabaseEntity
-@inject SignInManager<Staff> SignInManager
-@inject UserManager<Staff> UserManager
 @{
     ViewData["Title"] = "Home Page";
  Layout = null;
@@ -12,14 +10,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Đăng ký</title>
-
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="/admin/plugins/fontawesome-free/css/all.min.css">
-    <!-- icheck bootstrap -->
-    @*<link rel="stylesheet" href="/admin/dist/css/icheck-bootstrap/icheck-bootstrap.min.css">*@
-    <!-- Theme style -->
     <link rel="stylesheet" href="/admin/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition register-page">
@@ -41,10 +33,7 @@
             background: unset;
         }
     </style>
-    <div class="register-box">
-        @*<div class="register-logo">
-            <a href="../../index2.html"><b>Admin</b>LTE</a>
-        </div>*@        
+    <div class="register-box">   
         @if (!SignInManager.IsSignedIn(User))
             {
                 <p>Bạn chưa đăng nhập </p>
@@ -66,38 +55,22 @@
                         <div class="mb-3" style="position:relative">
                             <input type="text" class="form-control" name="txtPhone" placeholder="Phone">
                             <span class="fas fa-envelope" style="position:absolute;right:10px;top:10px;"></span>
-                            @*<div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope" style="position:absolute;right:10px;top:10px;"></span>
-                                </div>
-                            </div>*@
+                           
                         </div>
                         <div class="mb-3" style="position:relative">
-                            @*<div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope" style="position:absolute;right:10px;top:10px;"></span>
-                                </div>
-                            </div>*@
+                          
                             <input type="email" class="form-control" name="txtEmail" placeholder="Email">
                             <span class="fas fa-envelope" style="position:absolute;right:10px;top:10px;"></span>
                         </div>
                         <div class="mb-3" style="position:relative">
                             <input type="password" class="form-control" name="txtPassword" placeholder="Password" id="txtPassword">
                             <span class="fas fa-lock" style="position:absolute;right:10px;top:10px;"></span>
-                            @*<div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock" style="position:absolute;right:10px;top:10px;"></span>
-                                </div>
-                            </div>*@
+                           
                         </div>
                         <div class="mb-3" style="position:relative">
                             <input type="password" class="form-control" name="txtRetypePassword" placeholder="Retype password">
                             <span class="fas fa-lock" style="position:absolute;right:10px;top:10px;"></span>
-                            @*<div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock" style="position:absolute;right:10px;top:10px;"></span>
-                                </div>
-                            </div>*@
+                           
                         </div>
                         <div class="row">
                             <div class="col-8">
@@ -108,11 +81,11 @@
                                     </label>
                                 </div>
                             </div>
-                            <!-- /.col -->
+                         
                             <div class="col-4">
                                 <button type="submit" class="btn btn-primary btn-block">Register</button>
                             </div>
-                            <!-- /.col -->
+                           
                         </div>
                     </form>
 
@@ -130,15 +103,14 @@
 
                     <a href="login.html" class="text-center">I already have a membership</a>
                 </div>
-                <!-- /.form-box -->
-            </div><!-- /.card -->
+               
+            </div>
         </div>
-    <!-- /.register-box -->
-    <!-- jQuery -->
+   
     <script src="/admin/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
+   
     <script src="/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
+   
     <script src="/admin/dist/js/adminlte.min.js"></script>
     <script src="/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
     <script>
@@ -236,4 +208,4 @@
 
     </script>
 </body>
-</html>
+</html>*@

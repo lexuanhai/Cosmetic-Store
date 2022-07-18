@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,8 +16,12 @@ namespace WEBSITE.Areas.Admin.Models
         public decimal? ReducedPrice { get; set; }
         public int? Total { get; set; }
         public int? CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public int? BrandsId { get; set; }
+        public string BrandName { get; set; }
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
+        public DateTime? ManufacturingDate { get; set; } // ngày sản xuất
+        public DateTime? ExpiryDate { get; set; } // hạn sử dụng
     }
 }

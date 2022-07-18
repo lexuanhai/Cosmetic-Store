@@ -9,18 +9,18 @@ using WEBSITE.Data.DatabaseEntity;
 
 namespace TeduCoreApp.Helpers
 {
-    public class CustomClaimsPrincipalFactory : UserClaimsPrincipalFactory<Staff, Roles>
+    public class CustomClaimsPrincipalFactory : UserClaimsPrincipalFactory<AppUser, AppRoles>
     {
-        UserManager<Staff> _userManger;
+        UserManager<AppUser> _userManger;
 
-        public CustomClaimsPrincipalFactory(UserManager<Staff> userManager,
-            RoleManager<Roles> roleManager, IOptions<IdentityOptions> options)
+        public CustomClaimsPrincipalFactory(UserManager<AppUser> userManager,
+            RoleManager<AppRoles> roleManager, IOptions<IdentityOptions> options)
             : base(userManager, roleManager, options)
         {
             _userManger = userManager;
         }
 
-        public async override Task<ClaimsPrincipal> CreateAsync(Staff user)
+        public async override Task<ClaimsPrincipal> CreateAsync(AppUser user)
         {
             var principal = await base.CreateAsync(user);
             var roles = await _userManger.GetRolesAsync(user);

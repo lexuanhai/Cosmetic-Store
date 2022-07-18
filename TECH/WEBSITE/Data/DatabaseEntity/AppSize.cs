@@ -8,10 +8,8 @@ using WEBSITE.SharedKernel;
 namespace WEBSITE.Data.DatabaseEntity
 {
     [Table("Colors")]
-    public class Colors: DomainEntity<int>
+    public class AppSize: DomainEntity<int>
     {
-        //[Key]
-        //public int Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public bool IsDeleted { get; set; }

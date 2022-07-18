@@ -16,19 +16,23 @@ namespace WEBSITE.Areas.Admin.Controllers {
     [Area("Admin")]
     public class AcountController : Controller
     {
-        private readonly UserManager<Staff> _userManager;
-        private readonly SignInManager<Staff> _signInManager;
-        public AcountController(UserManager<Staff> userManager, SignInManager<Staff> signInManager)
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly IEmailSender _emailSender;
+        public AcountController(UserManager<AppUser> userManager, 
+            SignInManager<AppUser> signInManager,
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailSender = emailSender;
         }
         
         public IActionResult Index()
         {
             return View();
         }
-      
+        [HttpGet]
         public IActionResult ViewLogin ()
         {
             return View();
@@ -62,10 +66,10 @@ namespace WEBSITE.Areas.Admin.Controllers {
         }
 
         [HttpPost]
-        public async Task<JsonResult> CreateRegistration(Staff user, string password)
+        public async Task<JsonResult> CreateRegistration(AppUser user, string password)
         {
             //MailMessage test = new MailMessage(_from, _to, tieude,);
-            var _user = new Staff
+            var _user = new AppUser
             {
                 UserName = user.UserName,
                 Name = user.Name,
@@ -76,35 +80,37 @@ namespace WEBSITE.Areas.Admin.Controllers {
             };
             var result = await _userManager.CreateAsync(_user, password);
             //Redirect("/home");
-            //if (result.Succeeded)
-            //{
-            //    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            //    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            if (result.Succeeded)
+            {
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-            //    // callbackUrl = /Account/ConfirmEmail?userId=useridxx&code=codexxxx
-            //    // Link trong email người dùng bấm vào, nó sẽ gọi Page: /Acount/ConfirmEmail để xác nhận
-            //    var callbackUrl = Url.Page(
-            //        "/Account/ConfirmEmail",
-            //        pageHandler: null,
-            //        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = "" },
-            //        protocol: Request.Scheme);
+                // callbackUrl = /Account/ConfirmEmail?userId=useridxx&code=codexxxx
+                // Link trong email người dùng bấm vào, nó sẽ gọi Page: /Acount/ConfirmEmail để xác nhận
+                var callbackUrl = Url.Page(
+                    "/Account/ConfirmEmail",
+                    pageHandler: null,
+                    values: new { area = "Identity", userId = user.Id, code = code, returnUrl = "" },
+                    protocol: Request.Scheme);
 
-            //    // Gửi email    
-            //    await _emailSender.SendEmailAsync(_user.Email, "Xác nhận địa chỉ email",
-            //        $"Hãy xác nhận địa chỉ email bằng cách <a href='{callbackUrl}'>Bấm vào đây</a>.");
-            //    if (_userManager.Options.SignIn.RequireConfirmedEmail)
-            //    {
-            //        // Nếu cấu hình phải xác thực email mới được đăng nhập thì chuyển hướng đến trang
-            //        // RegisterConfirmation - chỉ để hiện thông báo cho biết người dùng cần mở email xác nhận
-            //        //return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-            //    }
-            //    else
-            //    {
-            //        // Không cần xác thực - đăng nhập luôn
-            //        await _signInManager.SignInAsync(user, isPersistent: false);
+                // Gửi email    
+                await _emailSender.SendEmailAsync(_user.Email, "Xác nhận địa chỉ email",
+                    $"Hãy xác nhận địa chỉ email bằng cách <a href='{callbackUrl}'>Bấm vào đây</a>.");
+                if (_userManager.Options.SignIn.RequireConfirmedEmail)
+                {
+                    // Nếu cấu hình phải xác thực email mới được đăng nhập thì chuyển hướng đến trang
+                    // RegisterConfirmation - chỉ để hiện thông báo cho biết người dùng cần mở email xác nhận
+                    //return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                }
+                else
+                {
+                    // Không cần xác thực - đăng nhập luôn
+                    await _signInManager.SignInAsync(user, isPersistent: false);
 
-            //    }
-            //}
+                }
+            }
+
+
             await _signInManager.SignInAsync(user, isPersistent: false);
             return Json(new
             {

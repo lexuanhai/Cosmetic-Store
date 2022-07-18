@@ -7,14 +7,14 @@ using WEBSITE.SharedKernel;
 
 namespace WEBSITE.Data.DatabaseEntity
 {
-    [Table("ColorsProduct")]
-    public class ColorsProduct : DomainEntity<int>
+    [Table("AppSizeProduct")]
+    public class AppSizeProduct : DomainEntity<int>
     {
         public int? ProductId { get; set; }
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
-        public int? ColorId { get; set; }
-        [ForeignKey("ColorId")]
-        public Colors Colors { get; set; }
+        public int? AppSizeId { get; set; }
+        [ForeignKey("AppSizeId")]
+        public AppSize AppSizes { get; set; }
     }
 }

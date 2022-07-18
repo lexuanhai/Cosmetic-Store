@@ -73,7 +73,13 @@ namespace WEBSITE.Areas.Admin.Controllers
         {
             var data = _colorsService.GetAllPaging(colorViewModelSearch);
             return Json(new { data = data });
-        }       
+        }
+        [HttpGet]
+        public JsonResult GetAll()
+        {
+            var data = _colorsService.GetAll();
+            return Json(new { Data = data });
+        }
 
     }
 }

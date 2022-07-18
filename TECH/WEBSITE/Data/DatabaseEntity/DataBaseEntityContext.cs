@@ -7,22 +7,21 @@ using System.Threading.Tasks;
 
 namespace WEBSITE.Data.DatabaseEntity
 {
-    public class DataBaseEntityContext : IdentityDbContext<Staff, Roles,string>
+    public class DataBaseEntityContext : DbContext
     {
         public DataBaseEntityContext(DbContextOptions<DataBaseEntityContext> options) : base(options) { }
         
         public DbSet<Category> Categories { set; get; }
         public DbSet<Brands> Brands { set; get; }
-        public DbSet<Colors> Colors { set; get; }
+        public DbSet<AppSize> AppSize { set; get; }
         public DbSet<Customers> Customers { set; get; }
         public DbSet<ImagesProduct> ImagesProduct { set; get; }
         public DbSet<Orders> Orders { set; get; }
         public DbSet<OrdersDetail> OrdersDetail { set; get; }
         public DbSet<Product> Product { set; get; }
-        public DbSet<Staff> Staff { set; get; }
-        public DbSet<Roles> AppRoles { set; get; }
-        public DbSet<ColorsProduct> ColorsProduct { get; set; }
-        //public DbSet<Roles> Roles { set; get; }
+        public DbSet<AppUser> AppUser { set; get; }
+        public DbSet<AppRoles> AppRoles { set; get; }
+        public DbSet<AppSizeProduct> AppSizeProduct { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);            

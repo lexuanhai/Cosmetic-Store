@@ -2,6 +2,7 @@
     var self = this;
     self.Data = [];
     self.IsUpdate = false;
+    self.FileImages = [];
     self.Id = "";
     self.RenderTableHtml = function (data) {
         var html = "";
@@ -10,8 +11,11 @@
                 var item = data[i];                
                 html += "<tr>";
                 html += "<td>" + item.Name + "</td>";
-                html += "<td>" + item.Code + "</td>";
-                html += "<td><a herf=\"javascript:void(0)\" style=\"background-color:" + item.Code+"\" class=\"color-show\"></a></td>";
+                html += "<td>" + item.CategoryName + "</td>";
+                html += "<td>" + item.BrandName + "</td>";
+                html += "<td>" + item.Price + "</td>";
+                html += "<td>" + item.ReducedPrice + "</td>";
+                html += "<td>" + item.Total + "</td>";
                 html += "<td><div class\"btn-group\">" +
                     "<a class=\"btn btn-outline-danger btn-xs mr-1\" href=\"javascript:Update('" + item.Id + "')\"><i class=\"fas fa-pencil-alt\"></i> </a>" +
                     "<a class=\"btn btn-outline-danger btn-xs\" href=\"javascript:Deleted('" + item.Id + "')\"><i class=\"fas fa-trash-alt\"></i> </a>"
@@ -29,7 +33,10 @@
         if (id != null && id != "") {
             self.GetById(id, self.RenderHtmlByObject);
             //self.RenderHtmlByUser(user);
-            $('#_addUpdate').modal('show');
+            //$('#_addUpdate').modal('show');
+            $(".content-infor").hide();
+            $(".box-content-add").show();
+
             self.IsUpdate = true;
         }
     }
@@ -58,16 +65,66 @@
         }
     }
     self.RenderHtmlByObject = function (view) {
-        $(".name").val(view.Name);
-        $(".code").val(view.Code);
-        $("#colorshow").css('background-color', view.Code);
+        console.log(view);
+        $(".product-name").val(view.Name);
+        CKEDITOR.instances.txtContentdetail.setData(view.Decription);
+        CKEDITOR.instances.txtsubContent.setData(view.SubDecription);
+        $(".price").val(view.Price);
+        $(".reduced-price").val(view.ReducedPrice);
+        $(".total").val(view.Total);
+        $(".categoryid").val(view.CategoryId);
+        $(".brandsid").val(view.BrandsId);
+
+      
+        if (view.ManufacturingDate != null) {
+            //$('.manufacturingdate').val(view.ManufacturingDate);
+            $('.manufacturingdate').datepicker("setDate", new Date(view.ManufacturingDate));
+        }
+        //if (view.Expirydate != null) {
+        //    $('.expirydate').datepicker("setDate", new Date(2008, 9, 04));
+        //}
+
+    }
+
+    self.GetImageByProductId = function (id) {
+        if (id != null && id != "") {
+            $.ajax({
+                url: '/Admin/Product/GetImagesByProductId',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    id: id
+                },
+                beforeSend: function () {
+                    Loading('show');
+                },
+                complete: function () {
+                    //Loading('hiden');
+                },
+                success: function (response) {
+                    if (response.Data != null && response.Data.length > 0) {
+                        var html = "";
+                       
+                        for (var i = 0; i < response.Data.length; i++) {
+                            var item = response.Data[i];
+                            var path = "/product-image/product_" + id + "/" + item.Url;
+                            html += "<div class=\"box-item-image\"> <div class=\"image-upload item-image\" style=\"background-image:url(" + path + ")\"></div><a href=\"javascript:void(0)\" class=\"item-delete\" onclick=\"DeleteImage('" + item.Url + "',this)\">Xóa</a></div>";
+                        }
+                        if (html != "") {
+                            $(".image-default").hide();
+                            $(".box-images").append(html);
+                        }
+                    }
+                }
+            })
+        }
     }
 
     self.GetById = function (id, renderCallBack) {
         //self.userData = {};
         if (id != null && id != "") {
             $.ajax({
-                url: '/Admin/Colors/GetById',
+                url: '/Admin/Product/GetById',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -81,46 +138,100 @@
                 },
                 success: function (response) {
                     if (response.Data != null) {
+                        self.GetImageByProductId(id);
                         renderCallBack(response.Data);
                         self.Id = id;
                     }
                 }
             })
         }
-        //return self.userData;
-
     }       
 
-    self.FormSubmitAdd = function () {
+    self.FormSubmitAdd = function () {        
         $('#formSubmitAdd').validate({
+            ignore: [],
+            //debug: false,
             rules: {
                 name: {
                     required: true,
                 },
-                code: {
+                //subdecription: {
+                //    required: true,
+                //},
+                //decription: {
+                //    required: true
+                //},
+                categoryid: {
+                    required: true
+                },
+                //selectstatus: {
+                //    required: true
+                //},
+                price: {
                     required: true,
+                },
+                total: {
+                    required: true,
+                },
+                manufacturingdate: {
+                    required: true
+                },
+                expirydate: {
+                    required: true
                 }
+                
             },
             messages: {
                 name: {
-                    required: "Bạn chưa nhập tên Colors",
+                    required: "Bạn chưa nhập tên sản phẩm",
                 },
-                code: {
-                    required: "Bạn chưa nhập tên mã màu",
+                //subdecription: {
+                //    required: "Bạn chưa nhập mô tả ngắn",
+                //},
+                //decription: {
+                //    required: "Bạn chưa nhập mô tả chi tiết",
+                //},   
+                categoryid: {
+                    required: "Bạn chọn danh mục",
+                },
+                //selectstatus: {
+                //    required: "Bạn chọn trạng thái",
+                //},
+                price: {
+                    required: "Bạn chưa nhập giá sản phẩm",
+                },
+                total: {
+                    required: "Bạn chưa nhập giá tổng sản phẩm",
+                },
+                manufacturingdate: {
+                    required: "Bạn chưa chọn ngày sản xuất",
+                },
+                expirydate: {
+                    required: "Bạn chưa chọn hạn sử dụng",
                 }
             },
-            submitHandler: function () {                
-                var View = {
-                    Id: self.Id,
-                    Name: $(".name").val(),
-                    Code: $(".code").val()
-                }
+            submitHandler: function () {
+                
                 if (self.IsUpdate) {
+                    debugger
+                    var product = {
+                        Id: self.Id,
+                        Name: $(".product-name").val(),
+                        Decription: CKEDITOR.instances.txtContentdetail.getData(),
+                        SubDecription: CKEDITOR.instances.txtsubContent.getData(),
+                        Price: $(".price").val(),
+                        ReducedPrice: $(".reduced-price").val(),
+                        Total: $(".total").val(),
+                        CategoryId: $(".categoryid").val(),
+                        BrandsId: $(".brandsid").val(),
+                        ManufacturingDate: $(".manufacturingdate").val(),
+                        ExpiryDate: $(".expiryDate").val(),
+                    };
                     $.ajax({
-                        url: '/Admin/Colors/Update',
+                        url: '/Admin/Product/Update',
                         type: 'POST',
                         data: {
-                            ColorsModelView: View
+                            productModelView: product
                         },
                         dataType: 'json',
                         beforeSend: function () {
@@ -131,38 +242,86 @@
                         },
                         success: function (response) {
                             if (response.success) {
-                                self.GetDataPaging(false);
-                                $('#_addUpdate').modal('hide');
+                                self.UploadFileImageProduct(self.Id);
                             }
                         }
                     })
                 }
                 else {
-                    $.ajax({
-                        url: '/Admin/Colors/Add',
-                        type: 'POST',
-                        data: {
-                            colorModelView: View
-                        },
-                        dataType: 'json',
-                        beforeSend: function () {
-                            Loading('show');
-                        },
-                        complete: function () {
-                            Loading('hiden');
-                        },
-                        success: function (response) {
-                            if (response.success) {
-                                self.GetDataPaging(true);
-                                $('#_addUpdate').modal('hide');
-                            }
-                        }
-                    })
+                    var product = {
+                        Name: $(".product-name").val(),
+                        Decription: CKEDITOR.instances.txtContentdetail.getData(),
+                        SubDecription: CKEDITOR.instances.txtsubContent.getData(),
+                        Price: $(".price").val(),
+                        ReducedPrice: $(".reduced-price").val(),
+                        Total: $(".total").val(),
+                        CategoryId: $(".categoryid").val(),
+                        BrandsId: $(".brandsid").val(),
+                        ManufacturingDate: $(".manufacturingdate").val(),
+                        ExpiryDate: $(".expiryDate").val(),
+                    };
+                    self.AddProduct(product);
                 }
 
             }
         });
     };
+
+    self.AddProduct = function (product) {
+        $.ajax({
+            url: '/Admin/Product/Add',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                productModelView: product
+            },
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                Loading('hiden');
+            },
+            success: function (response) {
+                if (response.success) {
+                    self.UploadFileImageProduct(response.id);
+                    window.location.href("/admin/product");
+                }
+            }
+        })
+    }
+
+    self.UploadFileImageProduct = function (productId) {  
+        var dataImage = new FormData();
+        for (var i = 0; i < self.FileImages.length; i++) {
+            var fileImage = self.FileImages[i];
+            dataImage.append(productId, fileImage);
+        }        
+
+        $.ajax({
+            url: '/Admin/Product/UploadImageProduct',
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            data: dataImage,           
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                Loading('hiden');
+            },
+            success: function (response) {
+                //if (response.success) {
+                //    self.GetDataPaging(true);
+                //    $('#_addUpdate').modal('hide');
+                //}
+            }
+        })
+    }
+    self.ValidateFileImage = function (files) {
+        for (var i = 0; i < files.length; i++) {
+
+        }
+    }
 
     self.GetDataPaging = function (isPageChanged) {
         var _data = {
@@ -172,7 +331,7 @@
             PageSize: tedu.configs.pageSize
         };
         $.ajax({
-            url: '/Admin/Colors/GetAllPaging',
+            url: '/Admin/Product/GetAllPaging',
             type: 'GET',
             data: _data,
             dataType: 'json',
@@ -218,12 +377,109 @@
             }
         });
     }   
-
+    self.GetAllColor = function () {
+        $.ajax({
+            url: '/Admin/Colors/GetAll',
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                //Loading('hiden');
+            },
+            success: function (response) {
+                var html = "<option value =\"\">Chọn colors</option>";
+                if (response.Data != null && response.Data.length > 0) {
+                    for (var i = 0; i < response.Data.length; i++) {
+                        var item = response.Data[i];
+                        html += "<option value =" + item.Id + ">" + item.Name + "</option>";
+                    }
+                }
+                $(".colorsid").html(html);
+            }
+        })
+    }    
+    self.GetAllBrands = function () {
+        $.ajax({
+            url: '/Admin/Brands/GetAll',
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                //Loading('hiden');
+            },
+            success: function (response) {
+                var html = "<option value =\"\">Chọn nhãn hiệu</option>";
+                if (response.Data != null && response.Data.length > 0) {
+                    for (var i = 0; i < response.Data.length; i++) {
+                        var item = response.Data[i];
+                        html += "<option value =" + item.Id + ">" + item.Name + "</option>";
+                    }
+                }
+                $(".brandsid").html(html);
+            }
+        })
+    }    
+    self.GetAllCategories = function () {
+        $.ajax({
+            url: '/Admin/Category/GetAll',
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                //Loading('hiden');
+            },
+            success: function (response) {
+                var html = "<option value =\"\">Chọn danh mục</option>";
+                if (response.Data != null && response.Data.length > 0) {
+                    for (var i = 0; i < response.Data.length; i++) {
+                        var item = response.Data[i];
+                        html += "<option value =" + item.Id + ">" + item.Name + "</option>";
+                    }
+                }
+                $(".categoryid").html(html);
+            }
+        })
+    }
+    self.ShowSelect = function () {
+        self.GetAllCategories();
+        self.GetAllBrands();
+        self.GetAllColor();
+    }
+    self.DeleteImage = function (fileNameImage,thisHtml) {
+        if (fileNameImage != "") {
+            console.log(self.FileImages);
+            var indexFileImage = self.FileImages.findIndex(i => i.name.toLowerCase() == fileNameImage.toLowerCase());
+            if (indexFileImage >= 0) {
+                self.FileImages.splice(indexFileImage, 1);
+                $(thisHtml).parent().hide();
+                if (self.FileImages.length == 0) {
+                    $(".image-default").show();
+                }
+            }
+            
+        }
+    }
     $(document).ready(function () {     
         self.GetDataPaging();
         self.FormSubmitAdd();
+        self.ShowSelect();
+        //CKEDITOR.on('instanceReady', function () {
+        //    $.each(CKEDITOR.instances, function (instance) {
+        //        CKEDITOR.instances[instance].document.on("keyup", self.FormSubmitAdd);
+        //        CKEDITOR.instances[instance].document.on("paste", self.FormSubmitAdd);
+        //        CKEDITOR.instances[instance].document.on("keypress", self.FormSubmitAdd);
+        //        CKEDITOR.instances[instance].document.on("blur", self.FormSubmitAdd);
+        //        CKEDITOR.instances[instance].document.on("change", self.FormSubmitAdd);
+        //    });
+        //});
 
-        CKEDITOR.replace('txtContent', {
+        CKEDITOR.replace('txtsubContent', {
             toolbar: [																			
                 //{ name: 'basicstyles', items: ['Bold', 'Italic'] },
                 //{ name: "styles", items: ["Styles", "Format", "Font", "FontSize"] },
@@ -260,7 +516,45 @@
             $("#colorshow").css('background-color', $(this).val());
         });
 
+        $(".customdate ").datepicker({ dateFormat: 'dd/mm/yy' });
+       /* $(".manufacturingdate").datepicker({ dateFormat: 'dd/mm/yyyy' });*/
 
+        $(".add-image").click(function () {
+            $("#file-input").click();
+        })
+        $(".btn-add").click(function () {
+            $(".content-infor").hide();
+            $(".box-content-add").show();
+        })
+
+        $('.filesImages').on('change', function () {
+            var fileUpload = $(this).get(0);
+            var files = fileUpload.files;
+            if (files != null && files.length > 0) {                
+                var fileExtension = ['jpeg', 'jpg', 'png'];
+                var html = "";
+                for (var i = 0; i < files.length; i++) {
+                    if ($.inArray(files[i].type.split('/')[1].toLowerCase(), fileExtension) == -1) {
+                        alert("Only formats are allowed : " + fileExtension.join(', '));
+                    }
+                    else {
+                        console.log(files[i]);
+                        self.FileImages.push(files[i]);
+                        var src = URL.createObjectURL(files[i]);
+                        html += "<div class=\"box-item-image\"> <div class=\"image-upload item-image\" style=\"background-image:url(" + src + ")\"></div><a href=\"javascript:void(0)\" class=\"item-delete\" onclick=\"DeleteImage('" + files[i].name + "',this)\">Xóa</a></div>";
+                    }
+                }
+                if (html != "") {
+                    $(".image-default").hide();
+                    $(".box-images").append(html);
+                }                
+            }         
+            
+        });
+        $(".btn-cancel").click(function () {
+            window.location.href("/admin/product");
+        })
+       
     });
 
 })(jQuery);

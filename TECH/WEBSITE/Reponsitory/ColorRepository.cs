@@ -4,12 +4,12 @@ using WEBSITE.Data.DatabaseEntity;
 
 namespace WEBSITE.Reponsitory
 {
-    public interface IColorRepository : IRepository<Colors, int>
+    public interface IColorRepository : IRepository<AppSize, int>
     {
        
     }
 
-    public class ColorRepository : EFRepository<Colors, int>, IColorRepository
+    public class ColorRepository : EFRepository<AppSize, int>, IColorRepository
     {
         public ColorRepository(DataBaseEntityContext context) : base(context)
         {

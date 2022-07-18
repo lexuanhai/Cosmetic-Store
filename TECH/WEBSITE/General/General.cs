@@ -16,5 +16,11 @@ namespace WEBSITE.General
             Delivered = 1, // đã giao hàng
             Cancel = 2 // Trả lại hàng
         }
+        public enum ProductStatus
+        {
+            Show = 1, // Sản phẩm hót
+            Hide = 2, // Trả lại hàng
+            Wait = 3
+        }
     }
 }

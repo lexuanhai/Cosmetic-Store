@@ -22,7 +22,7 @@ namespace WEBSITE.Service
     }
     public class ProductService : IProductService
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IProductRepository _productRepository;        
         private IUnitOfWork _unitOfWork;
         public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork)
         {
@@ -36,8 +36,17 @@ namespace WEBSITE.Service
             {
                 var model = new ProductModelView()
                 {
-                    Id = data.Id,
                     Name = data.Name,
+                    Id = data.Id,
+                    Decription = data.Decription,
+                    SubDecription = data.SubDecription,
+                    Price = data.Price.Value,
+                    ReducedPrice = data.ReducedPrice,
+                    Total = data.Total,
+                    CategoryId = data.CategoryId,
+                    BrandsId = data.BrandsId,
+                    ManufacturingDate = data.ManufacturingDate,
+                    ExpiryDate = data.ExpiryDate
                 };
                 return model;
             }
@@ -59,7 +68,9 @@ namespace WEBSITE.Service
                         Total = view.Total,
                         Price = view.Price,
                         ReducedPrice = view.ReducedPrice,
-                        BrandsId = view.BrandsId,                        
+                        BrandsId = view.BrandsId,        
+                        ManufacturingDate = view.ManufacturingDate,
+                        ExpiryDate = view.ExpiryDate
                     };
                     _productRepository.Add(_product);
                     Save();
@@ -92,9 +103,11 @@ namespace WEBSITE.Service
                     dataServer.Total = view.Total;
                     dataServer.Price = view.Price;
                     dataServer.ReducedPrice = view.ReducedPrice;
-                    dataServer.BrandsId = view.BrandsId;  
+                    dataServer.BrandsId = view.BrandsId;
+                    dataServer.ManufacturingDate = view.ManufacturingDate;
+                    dataServer.ExpiryDate = view.ExpiryDate;
                     _productRepository.Update(dataServer);
-                    Save();
+                    //Save();
                     return true;
                 }
             }
@@ -161,10 +174,19 @@ namespace WEBSITE.Service
                 
                 int totalRow = query.Count();
                 query = query.Skip((ProductViewModelSearch.PageIndex - 1) * ProductViewModelSearch.PageSize).Take(ProductViewModelSearch.PageSize);
-                var data = query.Select(c => new ProductModelView()
+                var data = query.Select(p => new ProductModelView()
                 {
-                    Name = c.Name,
-                    Id = c.Id,
+                    Name = p.Name,
+                    Id = p.Id,
+                    Decription= p.Decription,
+                    SubDecription = p.SubDecription,
+                    Price = p.Price.Value,
+                    ReducedPrice = p.ReducedPrice,
+                    Total = p.Total,
+                    CategoryId = p.CategoryId,
+                    BrandsId = p.BrandsId,
+                    ManufacturingDate = p.ManufacturingDate,
+                    ExpiryDate = p.ExpiryDate
                     //ParentId = c.ParentId
                 }).ToList();
                 var pagingData = new PagedResult<ProductModelView>

@@ -41,16 +41,16 @@ namespace WEBSITE
                 options.UseSqlServer(connectstring);
             });
 
-            services.AddIdentity<Staff, Roles>()
-            .AddEntityFrameworkStores<DataBaseEntityContext>()
-            .AddDefaultTokenProviders();
+            //services.AddIdentity<AppUser, AppRoles>()
+            //.AddEntityFrameworkStores<DataBaseEntityContext>()
+            //.AddDefaultTokenProviders();
 
 
             services.AddOptions();                                        // Kích hoạt Options
             var mailsettings = Configuration.GetSection("MailSettings");  // đọc config
             services.Configure<MailSettings>(mailsettings);               // đăng ký để Inject
 
-            services.AddTransient<IEmailSender, SendMailService>();
+            //services.AddTransient<IEmailSender, SendMailService>();
 
             services.AddMvc().AddJsonOptions(o =>
             {
@@ -86,19 +86,21 @@ namespace WEBSITE
 
             services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
             services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
-            services.AddScoped<IUserClaimsPrincipalFactory<Staff>, CustomClaimsPrincipalFactory>();
+           // services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IColorRepository, ColorRepository>();
             services.AddTransient<IImagesProductRepository, ImagesProductRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IBrandsRepository, BrandsRepository>();
 
             // service
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IRoleService, RoleService>();
+            //services.AddTransient<IUserService, UserService>();
+            //services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IColorsService, ColorsService>();
             services.AddTransient<IImagesProductService, ImagesProductService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IBrandsService, BrandsService>();
 
         }
 
