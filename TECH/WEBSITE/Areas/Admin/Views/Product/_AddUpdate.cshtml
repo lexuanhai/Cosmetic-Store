@@ -7,7 +7,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Tên sản phẩm:</label>
-                            <input type="text" class="form-control product-name" name="name" autocomplete="off"/>
+                            <input type="text" class="form-control product-name" name="name" autocomplete="off" />
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
@@ -23,14 +23,22 @@
                             </div>
                         </div>
 
+                        @*<div class="row">
+            <div class="form-group col-sm-6">
+                <label>Ngày sản xuất:</label>
+                <input type="text" name="manufacturingdate" value="" class="form-control customdate manufacturingdate" autocomplete="off"/>
+            </div>
+            <div class="form-group col-sm-6">
+                <label>Hạn sử dụng:</label>
+                <input type="text" name="expirydate" value="" class="form-control customdate expirydate" autocomplete="off"/>
+            </div>
+        </div>*@
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label>Ngày sản xuất:</label>
-                                <input type="text" name="manufacturingdate" value="" class="form-control customdate manufacturingdate" autocomplete="off"/>
-                            </div>
-                            <div class="form-group col-sm-6">
-                                <label>Hạn sử dụng:</label>
-                                <input type="text" name="expirydate" value="" class="form-control customdate expirydate" autocomplete="off"/>
+                                <label>Trạng thái:</label>
+                                <select class="form-control selectstatus" name="selectstatus">
+                                    <option value="">text</option>
+                                </select>
                             </div>
                         </div>
 
@@ -52,19 +60,12 @@
                                 <input type="text" class="form-control total"  value="" name="total" autocomplete="off"/>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label>Màu:</label>
+                                <label>Size:</label>
                                 <select class="form-control colorsid">                                    
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group col-sm-6">
-                                <label>Trạng thái:</label>
-                                <select class="form-control selectstatus" name="selectstatus">
-                                    <option value="">text</option>
-                                </select>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="form-group">
@@ -76,10 +77,10 @@
                     </div>
                 </div>
 
-                <div class="form-group" style="display:inline-block;width:100%;">
+                @*<div class="form-group" style="display:inline-block;width:100%;">
                     <label>Mô tả ngắn:</label>
                     <textarea id="txtsubContent" rows="6" class="form-control" name="subdecription"></textarea>
-                </div>
+                </div>*@
                 <div class="form-group">
                     <div class="form-group" style="display:inline-block;width:100%;">
                         <label>Mô tả chi tiết:</label>
