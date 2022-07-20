@@ -12,11 +12,10 @@ using WEBSITE.Service;
 
 namespace WEBSITE.Areas.Admin.Controllers
 {
-    //[Authorize]
-    public class ColorsController : BaseController
+    public class AppSizeController : BaseController
     {
         private readonly IColorsService _colorsService;
-        public ColorsController(IColorsService colorsService)
+        public AppSizeController(IColorsService colorsService)
         {
             _colorsService = colorsService;
         }
