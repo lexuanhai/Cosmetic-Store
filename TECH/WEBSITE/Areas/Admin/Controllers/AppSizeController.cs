@@ -14,10 +14,10 @@ namespace WEBSITE.Areas.Admin.Controllers
 {
     public class AppSizeController : BaseController
     {
-        private readonly IColorsService _colorsService;
-        public AppSizeController(IColorsService colorsService)
+        private readonly IAppSizeService _appSizeService;
+        public AppSizeController(IAppSizeService colorsService)
         {
-            _colorsService = colorsService;
+            _appSizeService = colorsService;
         }
         public IActionResult Index()
         {
@@ -29,7 +29,7 @@ namespace WEBSITE.Areas.Admin.Controllers
             var model = new ColorModelView();
             if (id > 0)
             {
-                model =  _colorsService.GetById(id);
+                model =  _appSizeService.GetById(id);
             }
             return Json(new
             {
@@ -40,8 +40,8 @@ namespace WEBSITE.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Add(ColorModelView colorModelView)
         {
-            var result =  _colorsService.Add(colorModelView);
-            _colorsService.Save();
+            var result =  _appSizeService.Add(colorModelView);
+            _appSizeService.Save();
             return Json(new
             {
                 success = result
@@ -50,8 +50,8 @@ namespace WEBSITE.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Update(ColorModelView colorModelView)
         {
-            var result =  _colorsService.Update(colorModelView);
-            _colorsService.Save();
+            var result =  _appSizeService.Update(colorModelView);
+            _appSizeService.Save();
             return Json(new
             {
                 success = result
@@ -60,8 +60,8 @@ namespace WEBSITE.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var result =  _colorsService.Deleted(id);
-            _colorsService.Save();
+            var result =  _appSizeService.Deleted(id);
+            _appSizeService.Save();
             return Json(new
             {
                 success = result
@@ -70,13 +70,13 @@ namespace WEBSITE.Areas.Admin.Controllers
         [HttpGet]
         public JsonResult GetAllPaging(ColorViewModelSearch colorViewModelSearch)
         {
-            var data = _colorsService.GetAllPaging(colorViewModelSearch);
+            var data = _appSizeService.GetAllPaging(colorViewModelSearch);
             return Json(new { data = data });
         }
         [HttpGet]
         public JsonResult GetAll()
         {
-            var data = _colorsService.GetAll();
+            var data = _appSizeService.GetAll();
             return Json(new { Data = data });
         }
 

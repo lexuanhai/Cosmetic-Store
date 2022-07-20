@@ -379,7 +379,7 @@
     }   
     self.GetAllColor = function () {
         $.ajax({
-            url: '/Admin/Colors/GetAll',
+            url: '/Admin/AppSize/GetAll',
             type: 'GET',
             dataType: 'json',
             beforeSend: function () {
@@ -389,14 +389,14 @@
                 //Loading('hiden');
             },
             success: function (response) {
-                var html = "<option value =\"\">Chọn colors</option>";
+                var html = "<option value =\"\">Chọn kích thước</option>";
                 if (response.Data != null && response.Data.length > 0) {
                     for (var i = 0; i < response.Data.length; i++) {
                         var item = response.Data[i];
                         html += "<option value =" + item.Id + ">" + item.Name + "</option>";
                     }
                 }
-                $(".colorsid").html(html);
+                $(".appsizesid").html(html);
             }
         })
     }    

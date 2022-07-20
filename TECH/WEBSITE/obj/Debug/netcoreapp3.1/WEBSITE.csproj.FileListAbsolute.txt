@@ -457,11 +457,7 @@ C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admi
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Category\Index.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Category\_AddUpdate.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Category\_Search.cshtml.g.cs
-C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Colors\Index.cshtml.g.cs
-C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Colors\_AddUpdate.cshtml.g.cs
-C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Colors\_Search.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Home\Index.cshtml.g.cs
-C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\AddOrUpdate.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\Index.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\_AddUpdate.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Product\_Search.cshtml.g.cs
@@ -487,7 +483,10 @@ C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj.C
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.dll
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.pdb
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.genruntimeconfig.cache
-C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj.AssemblyReference.cache
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AppSize\Index.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AppSize\_AddUpdate.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AppSize\_Search.cshtml.g.cs
+C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AppSize\Index.cshtml.g.cs
+C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AppSize\_AddUpdate.cshtml.g.cs
+C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AppSize\_Search.cshtml.g.cs
+C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj.AssemblyReference.cache

@@ -11,7 +11,7 @@ using WEBSITE.Utilities;
 
 namespace WEBSITE.Service
 {
-    public interface IColorsService
+    public interface IAppSizeService
     {
         PagedResult<ColorModelView> GetAllPaging(ColorViewModelSearch colorViewModelSearch);
         List<ColorModelView> GetAll();
@@ -21,25 +21,25 @@ namespace WEBSITE.Service
         bool Deleted(int id);
         void Save();
     }
-    public class ColorsService : IColorsService
+    public class AppSizeService : IAppSizeService
     {
-        private readonly IColorRepository _colorRepository;
+        private readonly IAppSizeRepository _appSizeRepository;
         private IUnitOfWork _unitOfWork;
-        public ColorsService(IColorRepository colorRepository, IUnitOfWork unitOfWork)
+        public AppSizeService(IAppSizeRepository appSizeRepository, IUnitOfWork unitOfWork)
         {
-            _colorRepository = colorRepository;
+            _appSizeRepository = appSizeRepository;
             _unitOfWork = unitOfWork;
         }
         public ColorModelView GetById(int id)
         {
-            var data = _colorRepository.FindAll(p => p.Id == id).FirstOrDefault();
+            var data = _appSizeRepository.FindAll(p => p.Id == id).FirstOrDefault();
             if (data != null)
             {
                 var model = new ColorModelView()
                 {
                     Id = data.Id,
                     Name = data.Name,
-                    Code = data.Code
+                    //Code = data.Code
                 };
                 return model;
             }
@@ -55,9 +55,9 @@ namespace WEBSITE.Service
                     var _colors = new AppSize
                     {
                         Name = view.Name,
-                        Code = view.Code,
+                        //Code = view.Code,
                     };
-                    _colorRepository.Add(_colors);
+                    _appSizeRepository.Add(_colors);
                     return true;
                 }
             }
@@ -76,12 +76,12 @@ namespace WEBSITE.Service
         {
             try
             {
-                var dataServer = _colorRepository.FindById(view.Id);
+                var dataServer = _appSizeRepository.FindById(view.Id);
                 if (dataServer != null)
                 {
                     dataServer.Name = view.Name;
-                    dataServer.Code = view.Code;
-                    _colorRepository.Update(dataServer);
+                    //dataServer.Code = view.Code;
+                    _appSizeRepository.Update(dataServer);
                     return true;
                 }
             }
@@ -97,10 +97,10 @@ namespace WEBSITE.Service
         {
             try
             {
-                var dataServer = _colorRepository.FindById(id);
+                var dataServer = _appSizeRepository.FindById(id);
                 if (dataServer != null)
                 {
-                    _colorRepository.Remove(dataServer);
+                    _appSizeRepository.Remove(dataServer);
                     return true;
 
                 }
@@ -117,7 +117,7 @@ namespace WEBSITE.Service
         {
             try
             {
-                var query = _colorRepository.FindAll();
+                var query = _appSizeRepository.FindAll();
 
                 if (!string.IsNullOrEmpty(colorViewModelSearch.Code))
                 {
@@ -134,7 +134,7 @@ namespace WEBSITE.Service
                 var data = query.Select(c => new ColorModelView()
                 {
                     Name = c.Name,
-                    Code = c.Code,
+                    //Code = c.Code,
                     Id = c.Id,
                     //ParentId = c.ParentId
                 }).ToList();
@@ -156,11 +156,11 @@ namespace WEBSITE.Service
         }
         public List<ColorModelView> GetAll()
         {
-            var data = _colorRepository.FindAll(c => c.IsDeleted != true).Select(c => new ColorModelView()
+            var data = _appSizeRepository.FindAll(c => c.IsDeleted != true).Select(c => new ColorModelView()
             {
                 Id = c.Id,
                 Name = c.Name,
-                Code = c.Code
+                //Code = c.Code
             }).ToList();
 
             return data;

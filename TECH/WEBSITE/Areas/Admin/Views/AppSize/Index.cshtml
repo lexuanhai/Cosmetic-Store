@@ -56,9 +56,7 @@
                                     <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Mã màu</th>
-                                                <th>Hiển thị</th>
+                                                <th>tên kích thước</th>      
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -67,7 +65,7 @@
                                     </table>
                                     <div class="row">
                                         <div class="col-sm-5">
-                                            <div class="dataTables_info" id="datatable-checkbox_info" role="status" aria-live="polite">
+                                            @*<div class="dataTables_info" id="datatable-checkbox_info" role="status" aria-live="polite">
                                                 <select id="ddlShowPage">
                                                     <option value="10" selected="selected">10</option>
                                                     <option value="20">20</option>
@@ -78,8 +76,9 @@
                                                     bản ghi/trang.
                                                 </span>
                                                 Tổng số bản ghi: <strong id="lblTotalRecords"></strong>
-                                            </div>
-                                        </div><div class="col-sm-7">
+                                            </div>*@
+                                        </div>
+                                        <div class="col-sm-7">
                                             <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
                                                 <ul id="paginationUL" class="float-right"></ul>
                                             </div>
@@ -102,9 +101,8 @@
     <partial name="_AddUpdate" />
 </section>
 @section Scripts{
-    <script src="/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
-    @*<script src="~/admin/plugins/select2/js/select2.min.js"></script>*@
-    <script src="~/admin/colors/colors.js?v=@DateTime.Now.Ticks"></script>
+    <script src="/admin/plugins/jquery-validation/jquery.validate.min.js"></script>    
+    <script src="~/admin/colors/appsize.js?v=@DateTime.Now.Ticks"></script>
 }
 
 

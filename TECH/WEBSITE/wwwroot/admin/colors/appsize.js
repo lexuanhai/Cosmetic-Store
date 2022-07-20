@@ -10,8 +10,7 @@
                 var item = data[i];                
                 html += "<tr>";
                 html += "<td>" + item.Name + "</td>";
-                html += "<td>" + item.Code + "</td>";
-                html += "<td><a herf=\"javascript:void(0)\" style=\"background-color:" + item.Code+"\" class=\"color-show\"></a></td>";
+                /*html += "<td><a herf=\"javascript:void(0)\" style=\"background-color:" + item.Code+"\" class=\"color-show\"></a></td>";*/
                 html += "<td><div class\"btn-group\">" +
                     "<a class=\"btn btn-outline-danger btn-xs mr-1\" href=\"javascript:Update('" + item.Id + "')\"><i class=\"fas fa-pencil-alt\"></i> </a>" +
                     "<a class=\"btn btn-outline-danger btn-xs\" href=\"javascript:Deleted('" + item.Id + "')\"><i class=\"fas fa-trash-alt\"></i> </a>"
@@ -35,10 +34,10 @@
     }
     self.Deleted = function (id) {
         if (id != null && id != "") {
-            tedu.confirm('Bạn có chắc muốn xóa màu?', function () {
+            tedu.confirm('Bạn có chắc muốn xóa kích thước?', function () {
                 $.ajax({
                     type: "POST",
-                    url: "/Admin/Colors/Delete",
+                    url: "/Admin/AppSize/Delete",
                     data: { id: id },
                     beforeSend: function () {
                         // tedu.startLoading();
@@ -67,7 +66,7 @@
         //self.userData = {};
         if (id != null && id != "") {
             $.ajax({
-                url: '/Admin/Colors/GetById',
+                url: '/Admin/AppSize/GetById',
                 type: 'GET',
                 dataType: 'json',
                 data: {
@@ -96,17 +95,11 @@
             rules: {
                 name: {
                     required: true,
-                },
-                code: {
-                    required: true,
                 }
             },
             messages: {
                 name: {
-                    required: "Bạn chưa nhập tên Colors",
-                },
-                code: {
-                    required: "Bạn chưa nhập tên mã màu",
+                    required: "Bạn chưa nhâp kích thước",
                 }
             },
             submitHandler: function () {                
@@ -117,7 +110,7 @@
                 }
                 if (self.IsUpdate) {
                     $.ajax({
-                        url: '/Admin/Colors/Update',
+                        url: '/Admin/AppSize/Update',
                         type: 'POST',
                         data: {
                             ColorsModelView: View
@@ -139,7 +132,7 @@
                 }
                 else {
                     $.ajax({
-                        url: '/Admin/Colors/Add',
+                        url: '/Admin/AppSize/Add',
                         type: 'POST',
                         data: {
                             colorModelView: View
@@ -167,12 +160,11 @@
     self.GetDataPaging = function (isPageChanged) {
         var _data = {
             Name: $(".name-search").val() != "" ? $(".name-search").val() : null,
-            Code: $(".code-search").val() != "" ? $(".code-search").val() : null,
             PageIndex: tedu.configs.pageIndex,
             PageSize: tedu.configs.pageSize
         };
         $.ajax({
-            url: '/Admin/Colors/GetAllPaging',
+            url: '/Admin/AppSize/GetAllPaging',
             type: 'GET',
             data: _data,
             dataType: 'json',
@@ -234,12 +226,12 @@
 
         $('#boxSearch').on('hidden.bs.collapse', function () {
             $('.name-search').val("");
-            $('.code-search').val("");
+            /*$('.code-search').val("");*/
             self.GetDataPaging(true);
         })
-        $(".code").keyup(function () {
-            $("#colorshow").css('background-color', $(this).val());
-        });
+        //$(".code").keyup(function () {
+        //    $("#colorshow").css('background-color', $(this).val());
+        //});
 
 
     });

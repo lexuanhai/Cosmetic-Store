@@ -84,23 +84,23 @@ namespace WEBSITE
 
             });
 
-            services.AddTransient(typeof(IUnitOfWork), typeof(EFUnitOfWork));
-            services.AddTransient(typeof(IRepository<,>), typeof(EFRepository<,>));
+            services.AddScoped(typeof(IUnitOfWork), typeof(EFUnitOfWork));
+            services.AddScoped(typeof(IRepository<,>), typeof(EFRepository<,>));
            // services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
-            services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddTransient<IColorRepository, ColorRepository>();
-            services.AddTransient<IImagesProductRepository, ImagesProductRepository>();
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IBrandsRepository, BrandsRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IAppSizeRepository, AppSizeRepository>();
+            services.AddScoped<IImagesProductRepository, ImagesProductRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IBrandsRepository, BrandsRepository>();
 
             // service
             //services.AddTransient<IUserService, UserService>();
             //services.AddTransient<IRoleService, RoleService>();
-            services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<IColorsService, ColorsService>();
-            services.AddTransient<IImagesProductService, ImagesProductService>();
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<IBrandsService, BrandsService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IAppSizeService, AppSizeService>();
+            services.AddScoped<IImagesProductService, ImagesProductService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IBrandsService, BrandsService>();
 
         }
 
