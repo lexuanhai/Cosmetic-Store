@@ -104,10 +104,9 @@
                 },
                 success: function (response) {
                     if (response.Data != null && response.Data.length > 0) {
-                        var html = "";
-                       
+                        var html = "";                        
                         for (var i = 0; i < response.Data.length; i++) {
-                            var item = response.Data[i];
+                            var item = response.Data[i];                                                        
                             var path = "/product-image/product_" + id + "/" + item.Url;
                             html += "<div class=\"box-item-image\"> <div class=\"image-upload item-image\" style=\"background-image:url(" + path + ")\"></div><a href=\"javascript:void(0)\" class=\"item-delete\" onclick=\"DeleteImage('" + item.Url + "',this)\">Xóa</a></div>";
                         }
@@ -453,9 +452,8 @@
         self.GetAllColor();
     }
     self.DeleteImage = function (fileNameImage,thisHtml) {
-        if (fileNameImage != "") {
-            console.log(self.FileImages);
-            var indexFileImage = self.FileImages.findIndex(i => i.name.toLowerCase() == fileNameImage.toLowerCase());
+        if (fileNameImage != "") {            
+            var indexFileImage = self.FileImages.findIndex(i => i.toLowerCase() == fileNameImage.toLowerCase());
             if (indexFileImage >= 0) {
                 self.FileImages.splice(indexFileImage, 1);
                 $(thisHtml).parent().hide();
