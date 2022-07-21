@@ -20,7 +20,7 @@ namespace WEBSITE.Areas.Admin.Models
         public int? BrandsId { get; set; }
         public string BrandName { get; set; }
         public bool Status { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }        
         public DateTime? ManufacturingDate { get; set; } // ngày sản xuất
         public DateTime? ExpiryDate { get; set; } // hạn sử dụng
     }

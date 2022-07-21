@@ -10,6 +10,7 @@
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];                
                 html += "<tr>";
+                html += "<td>" + (++i) + "</td>";
                 html += "<td>" + item.Name + "</td>";
                 html += "<td>" + item.CategoryName + "</td>";
                 html += "<td>" + item.BrandName + "</td>";

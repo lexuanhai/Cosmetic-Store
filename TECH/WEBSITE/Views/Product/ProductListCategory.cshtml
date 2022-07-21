@@ -1,0 +1,360 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="shop-page-title category-page-title page-title ">
+
+    <div class="page-title-inner flex-row  medium-flex-wrap container">
+        <div class="flex-col flex-grow medium-text-center">
+            <div class="is-large">
+                <nav class="woocommerce-breadcrumb breadcrumbs"><a href="http://mauweb.monamedia.net/nonson">Trang chủ</a> <span class="divider">/</span> Nón lật cầm</nav>
+            </div>
+            <div class="category-filtering category-filter-row show-for-medium">
+                <a href="#" data-open="#shop-sidebar" data-visible-after="true" data-pos="left" class="filter-button uppercase plain">
+                    <i class="icon-menu"></i>
+                    <strong>Lọc</strong>
+                </a>
+                <div class="inline-block">
+                </div>
+            </div>
+        </div><!-- .flex-left -->
+
+        <div class="flex-col medium-text-center">
+
+
+            <p class="woocommerce-result-count hide-for-medium">
+                Hiển thị một kết quả duy nhất
+            </p>
+            <form class="woocommerce-ordering" method="get">
+                <select name="orderby" class="orderby">
+                    <option value="menu_order" selected="selected">Thứ tự mặc định</option>
+                    <option value="popularity">Thứ tự theo mức độ phổ biến</option>
+                    <option value="rating">Thứ tự theo điểm đánh giá</option>
+                    <option value="date">Mới nhất</option>
+                    <option value="price">Thứ tự theo giá: thấp đến cao</option>
+                    <option value="price-desc">Thứ tự theo giá: cao xuống thấp</option>
+                </select>
+                <input type="hidden" name="paged" value="1">
+            </form>
+        </div><!-- .flex-right -->
+
+    </div><!-- flex-row -->
+</div>
+<main id="main" class="">
+    <div class="row category-page-row">
+
+        <div class="col large-3 hide-for-medium ">
+            <div id="shop-sidebar" class="sidebar-inner col-inner">
+                <aside id="nav_menu-2" class="widget widget_nav_menu">
+                    <span class="widget-title shop-sidebar">Danh mục sản phẩm</span><div class="is-divider small"></div><div class="menu-danh-muc-san-pham-vertical-menu-container">
+                        <ul id="menu-danh-muc-san-pham-vertical-menu" class="menu">
+                            <li id="menu-item-771" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-771"><a href="http://mauweb.monamedia.net/nonson/danh-muc/non-34/">Nón 3/4</a></li>
+                            <li id="menu-item-772" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-772"><a href="http://mauweb.monamedia.net/nonson/danh-muc/non-full-face/">Nón Full Face</a></li>
+                            <li id="menu-item-773" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat current-menu-item menu-item-773"><a href="http://mauweb.monamedia.net/nonson/danh-muc/non-lat-cam/">Nón lật cầm</a></li>
+                            <li id="menu-item-774" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-774"><a href="http://mauweb.monamedia.net/nonson/danh-muc/non-tre-em/">Nón trẻ em</a></li>
+                            <li id="menu-item-775" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-775"><a href="http://mauweb.monamedia.net/nonson/danh-muc/non-carbon/">Nón Carbon</a></li>
+                            <li id="menu-item-776" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-776"><a href="http://mauweb.monamedia.net/nonson/danh-muc/phu-kien/">Phụ kiện</a></li>
+                        </ul>
+                    </div>
+                </aside><aside id="woocommerce_price_filter-2" class="widget woocommerce widget_price_filter">
+                    <span class="widget-title shop-sidebar">Lọc theo giá</span><div class="is-divider small"></div><form method="get" action="http://mauweb.monamedia.net/nonson/danh-muc/non-lat-cam/">
+                        <div class="price_slider_wrapper">
+                            <div class="price_slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" style=""><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 100%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 100%;"></span></div>
+                            <div class="price_slider_amount">
+                                <input type="text" id="min_price" name="min_price" value="590000" data-min="590000" placeholder="Giá thấp nhất" style="display: none;">
+                                <input type="text" id="max_price" name="max_price" value="2950000" data-max="2950000" placeholder="Giá cao nhất" style="display: none;">
+                                <button type="submit" class="button">Lọc</button>
+                                <div class="price_label" style="">
+                                    Giá <span class="from">590,000&nbsp;₫</span> — <span class="to">2,950,000&nbsp;₫</span>
+                                </div>
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </form>
+                </aside><aside id="woocommerce_products-3" class="widget woocommerce widget_products">
+                    <span class="widget-title shop-sidebar">Sản phẩm</span><div class="is-divider small"></div><ul class="product_list_widget">
+                        <li>
+
+                            <a href="http://mauweb.monamedia.net/nonson/san-pham/kinh-mat-na/">
+                                <img width="100" height="100" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg0888-100x100.jpg" class="attachment-woocommerce_gallery_thumbnail size-woocommerce_gallery_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg0888-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg0888-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg0888-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg0888-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg0888-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg0888.jpg 1000w" sizes="(max-width: 100px) 100vw, 100px">		<span class="product-title">Kính mặt nạ</span>
+                            </a>
+
+
+                            <span class="woocommerce-Price-amount amount">350,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span>
+                        </li>
+                        <li>
+
+                            <a href="http://mauweb.monamedia.net/nonson/san-pham/kinh-thang/">
+                                <img width="100" height="100" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhthang2-100x100.jpg" class="attachment-woocommerce_gallery_thumbnail size-woocommerce_gallery_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhthang2-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhthang2-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhthang2-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhthang2-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhthang2-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhthang2.jpg 1000w" sizes="(max-width: 100px) 100vw, 100px">		<span class="product-title">Kính thẳng</span>
+                            </a>
+
+
+                            <span class="woocommerce-Price-amount amount">180,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span>
+                        </li>
+                        <li>
+
+                            <a href="http://mauweb.monamedia.net/nonson/san-pham/kinh-bubble/">
+                                <img width="100" height="100" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhcong1-100x100.jpg" class="attachment-woocommerce_gallery_thumbnail size-woocommerce_gallery_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhcong1-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhcong1-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhcong1-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhcong1-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhcong1-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/kinhcong1.jpg 1000w" sizes="(max-width: 100px) 100vw, 100px">		<span class="product-title">Kính Bubble</span>
+                            </a>
+
+
+                            <span class="woocommerce-Price-amount amount">180,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span>
+                        </li>
+                        <li>
+
+                            <a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m28-carbon/">
+                                <img width="100" height="100" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-100x100.jpg" class="attachment-woocommerce_gallery_thumbnail size-woocommerce_gallery_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052.jpg 1000w" sizes="(max-width: 100px) 100vw, 100px">		<span class="product-title">Royal M28 Carbon</span>
+                            </a>
+
+
+                            <span class="woocommerce-Price-amount amount">2,950,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span>
+                        </li>
+                    </ul>
+                </aside>
+            </div><!-- .sidebar-inner -->
+        </div><!-- #shop-sidebar -->
+
+        <div class="col large-9">
+            <div class="shop-container">
+
+                <div class="woocommerce-notices-wrapper"></div>	<div class="products row row-small large-columns-4 medium-columns-3 small-columns-2">
+
+                    <div class="product-small col has-hover post-667 product type-product status-publish has-post-thumbnail product_cat-non-34 product_cat-non-carbon product_cat-non-full-face product_cat-non-lat-cam product_cat-non-tre-em first instock shipping-taxable purchasable product-type-simple">
+                        <div class="col-inner">
+
+                            <div class="badge-container absolute left top z-1">
+                            </div>
+                            <div class="product-small box ">
+                                <div class="box-image">
+                                    <div class="image-fade_in_back">
+                                        <a href="http://mauweb.monamedia.net/nonson/san-pham/royal-h1/">
+                                            <img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8257-1-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8257-1-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8257-1-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8257-1-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8257-1-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8257-1-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8257-1.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px"><img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8263-300x300.jpg" class="show-on-hover absolute fill hide-for-small back-image" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8263-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8263-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8263-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8263-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8263-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg8263.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px">
+                                        </a>
+                                    </div>
+                                    <div class="image-tools is-small top right show-on-hover">
+                                    </div>
+                                    <div class="image-tools is-small hide-for-small bottom left show-on-hover">
+                                    </div>
+                                    <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover">
+                                    </div>
+                                </div><!-- box-image -->
+
+                                <div class="box-text box-text-products text-center grid-style-2">
+                                    <div class="title-wrapper"><p class="name product-title"><a href="http://mauweb.monamedia.net/nonson/san-pham/royal-h1/">Royal H1</a></p></div><div class="price-wrapper">
+                                        <span class="price"><span class="woocommerce-Price-amount amount">840,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span></span>
+                                    </div>
+                                </div><!-- box-text -->
+                            </div><!-- box -->
+                        </div><!-- .col-inner -->
+                    </div><!-- col -->
+
+                    <div class="product-small col has-hover post-676 product type-product status-publish has-post-thumbnail product_cat-non-34 product_cat-non-carbon product_cat-non-full-face product_cat-non-lat-cam product_cat-non-tre-em instock shipping-taxable purchasable product-type-simple">
+                        <div class="col-inner">
+
+                            <div class="badge-container absolute left top z-1">
+                            </div>
+                            <div class="product-small box ">
+                                <div class="box-image">
+                                    <div class="image-fade_in_back">
+                                        <a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m08-v-1/">
+                                            <img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/nonbaohiemroyalm08tem15-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/nonbaohiemroyalm08tem15-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/nonbaohiemroyalm08tem15-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/nonbaohiemroyalm08tem15-768x767.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/nonbaohiemroyalm08tem15-600x599.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/nonbaohiemroyalm08tem15-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/nonbaohiemroyalm08tem15.jpg 854w" sizes="(max-width: 300px) 100vw, 300px"><img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/royalm08tem14-300x300.jpg" class="show-on-hover absolute fill hide-for-small back-image" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/royalm08tem14-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/royalm08tem14-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/royalm08tem14-768x767.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/royalm08tem14-600x599.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/royalm08tem14-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/royalm08tem14.jpg 779w" sizes="(max-width: 300px) 100vw, 300px">
+                                        </a>
+                                    </div>
+                                    <div class="image-tools is-small top right show-on-hover">
+                                    </div>
+                                    <div class="image-tools is-small hide-for-small bottom left show-on-hover">
+                                    </div>
+                                    <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover">
+                                    </div>
+                                </div><!-- box-image -->
+
+                                <div class="box-text box-text-products text-center grid-style-2">
+                                    <div class="title-wrapper"><p class="name product-title"><a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m08-v-1/">Royal M08 V.1</a></p></div><div class="price-wrapper">
+                                        <span class="price"><span class="woocommerce-Price-amount amount">1,050,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span></span>
+                                    </div>
+                                </div><!-- box-text -->
+                            </div><!-- box -->
+                        </div><!-- .col-inner -->
+                    </div><!-- col -->
+
+                    <div class="product-small col has-hover post-672 product type-product status-publish has-post-thumbnail product_cat-non-34 product_cat-non-carbon product_cat-non-full-face product_cat-non-lat-cam product_cat-non-tre-em instock shipping-taxable purchasable product-type-simple">
+                        <div class="col-inner">
+
+                            <div class="badge-container absolute left top z-1">
+                            </div>
+                            <div class="product-small box ">
+                                <div class="box-image">
+                                    <div class="image-fade_in_back">
+                                        <a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m137/">
+                                            <img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9818-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9818-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9818-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9818-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9818-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9818-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9818.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px"><img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9819-300x300.jpg" class="show-on-hover absolute fill hide-for-small back-image" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9819-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9819-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9819-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9819-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9819-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg9819.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px">
+                                        </a>
+                                    </div>
+                                    <div class="image-tools is-small top right show-on-hover">
+                                    </div>
+                                    <div class="image-tools is-small hide-for-small bottom left show-on-hover">
+                                    </div>
+                                    <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover">
+                                    </div>
+                                </div><!-- box-image -->
+
+                                <div class="box-text box-text-products text-center grid-style-2">
+                                    <div class="title-wrapper"><p class="name product-title"><a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m137/">Royal M137</a></p></div><div class="price-wrapper">
+                                        <span class="price"><span class="woocommerce-Price-amount amount">1,350,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span></span>
+                                    </div>
+                                </div><!-- box-text -->
+                            </div><!-- box -->
+                        </div><!-- .col-inner -->
+                    </div><!-- col -->
+
+                    <div class="product-small col has-hover post-654 product type-product status-publish has-post-thumbnail product_cat-non-34 product_cat-non-carbon product_cat-non-full-face product_cat-non-lat-cam product_cat-non-tre-em last instock shipping-taxable purchasable product-type-simple">
+                        <div class="col-inner">
+
+                            <div class="badge-container absolute left top z-1">
+                            </div>
+                            <div class="product-small box ">
+                                <div class="box-image">
+                                    <div class="image-fade_in_back">
+                                        <a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m138-v-3/">
+                                            <img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6915-1-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6915-1-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6915-1-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6915-1-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6915-1-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6915-1-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6915-1.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px"><img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6913-1-300x300.jpg" class="show-on-hover absolute fill hide-for-small back-image" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6913-1-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6913-1-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6913-1-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6913-1-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6913-1-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6913-1.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px">
+                                        </a>
+                                    </div>
+                                    <div class="image-tools is-small top right show-on-hover">
+                                    </div>
+                                    <div class="image-tools is-small hide-for-small bottom left show-on-hover">
+                                    </div>
+                                    <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover">
+                                    </div>
+                                </div><!-- box-image -->
+
+                                <div class="box-text box-text-products text-center grid-style-2">
+                                    <div class="title-wrapper"><p class="name product-title"><a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m138-v-3/">Royal M138 V.3</a></p></div><div class="price-wrapper">
+                                        <span class="price"><span class="woocommerce-Price-amount amount">1,500,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span></span>
+                                    </div>
+                                </div><!-- box-text -->
+                            </div><!-- box -->
+                        </div><!-- .col-inner -->
+                    </div><!-- col -->
+
+                    <div class="product-small col has-hover post-715 product type-product status-publish has-post-thumbnail product_cat-non-34 product_cat-non-carbon product_cat-non-full-face product_cat-non-lat-cam product_cat-non-tre-em first instock shipping-taxable purchasable product-type-simple">
+                        <div class="col-inner">
+
+                            <div class="badge-container absolute left top z-1">
+                            </div>
+                            <div class="product-small box ">
+                                <div class="box-image">
+                                    <div class="image-fade_in_back">
+                                        <a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m139-design/">
+                                            <img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7356-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7356-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7356-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7356-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7356-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7356-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7356.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px"><img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7355-300x300.jpg" class="show-on-hover absolute fill hide-for-small back-image" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7355-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7355-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7355-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7355-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7355-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg7355.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px">
+                                        </a>
+                                    </div>
+                                    <div class="image-tools is-small top right show-on-hover">
+                                    </div>
+                                    <div class="image-tools is-small hide-for-small bottom left show-on-hover">
+                                    </div>
+                                    <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover">
+                                    </div>
+                                </div><!-- box-image -->
+
+                                <div class="box-text box-text-products text-center grid-style-2">
+                                    <div class="title-wrapper"><p class="name product-title"><a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m139-design/">Royal M139 Design</a></p></div><div class="price-wrapper">
+                                        <span class="price"><span class="woocommerce-Price-amount amount">685,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span></span>
+                                    </div>
+                                </div><!-- box-text -->
+                            </div><!-- box -->
+                        </div><!-- .col-inner -->
+                    </div><!-- col -->
+
+                    <div class="product-small col has-hover post-681 product type-product status-publish has-post-thumbnail product_cat-non-34 product_cat-non-carbon product_cat-non-full-face product_cat-non-lat-cam product_cat-non-tre-em instock shipping-taxable purchasable product-type-simple">
+                        <div class="col-inner">
+
+                            <div class="badge-container absolute left top z-1">
+                            </div>
+                            <div class="product-small box ">
+                                <div class="box-image">
+                                    <div class="image-fade_in_back">
+                                        <a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m14-v-2/">
+                                            <img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1122-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1122-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1122-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1122-768x767.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1122-600x599.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1122-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1122.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px"><img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1118-300x300.jpg" class="show-on-hover absolute fill hide-for-small back-image" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1118-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1118-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1118-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1118-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1118-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg1118.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px">
+                                        </a>
+                                    </div>
+                                    <div class="image-tools is-small top right show-on-hover">
+                                    </div>
+                                    <div class="image-tools is-small hide-for-small bottom left show-on-hover">
+                                    </div>
+                                    <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover">
+                                    </div>
+                                </div><!-- box-image -->
+
+                                <div class="box-text box-text-products text-center grid-style-2">
+                                    <div class="title-wrapper"><p class="name product-title"><a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m14-v-2/">Royal M14 V.2</a></p></div><div class="price-wrapper">
+                                        <span class="price"><span class="woocommerce-Price-amount amount">1,300,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span></span>
+                                    </div>
+                                </div><!-- box-text -->
+                            </div><!-- box -->
+                        </div><!-- .col-inner -->
+                    </div><!-- col -->
+
+                    <div class="product-small col has-hover post-699 product type-product status-publish has-post-thumbnail product_cat-non-34 product_cat-non-carbon product_cat-non-full-face product_cat-non-lat-cam product_cat-non-tre-em instock shipping-taxable purchasable product-type-simple">
+                        <div class="col-inner">
+
+                            <div class="badge-container absolute left top z-1">
+                            </div>
+                            <div class="product-small box ">
+                                <div class="box-image">
+                                    <div class="image-fade_in_back">
+                                        <a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m20c-design/">
+                                            <img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6972-1-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6972-1-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6972-1-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6972-1-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6972-1-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6972-1-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6972-1.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px"><img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6970-1-300x300.jpg" class="show-on-hover absolute fill hide-for-small back-image" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6970-1-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6970-1-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6970-1-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6970-1-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6970-1-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/mg6970-1.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px">
+                                        </a>
+                                    </div>
+                                    <div class="image-tools is-small top right show-on-hover">
+                                    </div>
+                                    <div class="image-tools is-small hide-for-small bottom left show-on-hover">
+                                    </div>
+                                    <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover">
+                                    </div>
+                                </div><!-- box-image -->
+
+                                <div class="box-text box-text-products text-center grid-style-2">
+                                    <div class="title-wrapper"><p class="name product-title"><a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m20c-design/">Royal M20C Design</a></p></div><div class="price-wrapper">
+                                        <span class="price"><span class="woocommerce-Price-amount amount">590,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span></span>
+                                    </div>
+                                </div><!-- box-text -->
+                            </div><!-- box -->
+                        </div><!-- .col-inner -->
+                    </div><!-- col -->
+
+                    <div class="product-small col has-hover post-685 product type-product status-publish has-post-thumbnail product_cat-non-34 product_cat-non-carbon product_cat-non-full-face product_cat-non-lat-cam product_cat-non-tre-em last instock shipping-taxable purchasable product-type-simple">
+                        <div class="col-inner">
+
+                            <div class="badge-container absolute left top z-1">
+                            </div>
+                            <div class="product-small box ">
+                                <div class="box-image">
+                                    <div class="image-fade_in_back">
+                                        <a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m28-carbon/">
+                                            <img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-300x300.jpg" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7052.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px"><img width="300" height="300" src="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7054-300x300.jpg" class="show-on-hover absolute fill hide-for-small back-image" alt="" srcset="http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7054-300x300.jpg 300w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7054-150x150.jpg 150w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7054-768x768.jpg 768w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7054-600x600.jpg 600w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7054-100x100.jpg 100w, http://mauweb.monamedia.net/nonson/wp-content/uploads/2019/05/img7054.jpg 1000w" sizes="(max-width: 300px) 100vw, 300px">
+                                        </a>
+                                    </div>
+                                    <div class="image-tools is-small top right show-on-hover">
+                                    </div>
+                                    <div class="image-tools is-small hide-for-small bottom left show-on-hover">
+                                    </div>
+                                    <div class="image-tools grid-tools text-center hide-for-small bottom hover-slide-in show-on-hover">
+                                    </div>
+                                </div><!-- box-image -->
+
+                                <div class="box-text box-text-products text-center grid-style-2">
+                                    <div class="title-wrapper"><p class="name product-title"><a href="http://mauweb.monamedia.net/nonson/san-pham/royal-m28-carbon/">Royal M28 Carbon</a></p></div><div class="price-wrapper">
+                                        <span class="price"><span class="woocommerce-Price-amount amount">2,950,000&nbsp;<span class="woocommerce-Price-currencySymbol">₫</span></span></span>
+                                    </div>
+                                </div><!-- box-text -->
+                            </div><!-- box -->
+                        </div><!-- .col-inner -->
+                    </div><!-- col -->
+                </div><!-- row -->
+            </div><!-- shop container -->
+        </div>
+    </div>
+
+</main>

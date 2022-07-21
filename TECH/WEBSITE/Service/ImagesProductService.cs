@@ -13,8 +13,8 @@ namespace WEBSITE.Service
 {
     public interface IImagesProductService
     {
-       List<ImagesProductModelView> GetAll(int productId);
-       bool AddImages(int productId, string[] images);
+        //List<ImagesProductModelView> GetAll(int productId);
+        bool AddImages(int productId, List<ImagesProductModelView> appImagesModelView);
     }
     public class ImagesProductService : IImagesProductService
     {
@@ -25,16 +25,16 @@ namespace WEBSITE.Service
             _imagesProductRepository = imagesProductRepository;
             _unitOfWork = unitOfWork;
         }
-        public bool AddImages(int productId, string[] images)
+        public bool AddImages(int productId, List<ImagesProductModelView> appImagesModelView)
         {
             try
             {
                 _imagesProductRepository.RemoveMultiple(_imagesProductRepository.FindAll(x => x.ProductId == productId).ToList());
-                foreach (var image in images)
+                foreach (var image in appImagesModelView)
                 {
                     _imagesProductRepository.Add(new ImagesProduct()
                     {
-                        Url = image,
+                        AppImageId = image.AppImageId,
                         ProductId = productId,
                     });
                 }
@@ -45,22 +45,22 @@ namespace WEBSITE.Service
                 return false;
             }
         }
-        public List<ImagesProductModelView> GetAll(int productId)
-        {
-            try
-            {
-                var model = _imagesProductRepository.FindAll(x => x.ProductId == productId).Select(ip=> new ImagesProductModelView() { 
-                    Url = ip.Url,
-                    Alt = ip.Alt,
-                    ProductId = ip.ProductId
-                }).ToList();
+        //public List<ImagesProductModelView> GetAll(int productId)
+        //{
+        //    try
+        //    {
+        //        var model = _imagesProductRepository.FindAll(x => x.ProductId == productId).Select(ip=> new ImagesProductModelView() { 
+        //            Url = ip.Url,
+        //            Alt = ip.Alt,
+        //            ProductId = ip.ProductId
+        //        }).ToList();
                 
-                return model;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
+        //        return model;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //}
     }
 }

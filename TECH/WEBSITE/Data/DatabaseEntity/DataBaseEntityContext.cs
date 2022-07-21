@@ -16,6 +16,7 @@ namespace WEBSITE.Data.DatabaseEntity
         public DbSet<AppSize> AppSize { set; get; }
         public DbSet<Customers> Customers { set; get; }
         public DbSet<ImagesProduct> ImagesProduct { set; get; }
+        public DbSet<AppImages> AppImages { set; get; }
         public DbSet<Orders> Orders { set; get; }
         public DbSet<OrdersDetail> OrdersDetail { set; get; }
         public DbSet<Product> Product { set; get; }

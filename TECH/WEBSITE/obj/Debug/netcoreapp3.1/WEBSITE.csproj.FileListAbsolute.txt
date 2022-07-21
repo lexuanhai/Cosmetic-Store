@@ -468,7 +468,6 @@ C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admi
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\_ViewStart.cshtml.g.cs
-C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -488,4 +487,8 @@ E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Ad
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AppSize\Index.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AppSize\_AddUpdate.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\AppSize\_Search.cshtml.g.cs
+C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Product\ProductListCategory.cshtml.g.cs
+C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Product\ProductDetail.cshtml.g.cs
+C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\AppCart\Index.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj.AssemblyReference.cache

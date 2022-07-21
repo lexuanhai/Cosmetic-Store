@@ -19,6 +19,27 @@ namespace WEBSITE.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("WEBSITE.Data.DatabaseEntity.AppImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Alt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppImages");
+                });
+
             modelBuilder.Entity("WEBSITE.Data.DatabaseEntity.AppRoles", b =>
                 {
                     b.Property<int>("Id")
@@ -55,7 +76,7 @@ namespace WEBSITE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("AppSize");
                 });
 
             modelBuilder.Entity("WEBSITE.Data.DatabaseEntity.AppSizeProduct", b =>
@@ -200,19 +221,15 @@ namespace WEBSITE.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Alt")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                    b.Property<int?>("AppImageId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AppImageId");
 
                     b.HasIndex("ProductId");
 
@@ -353,6 +370,10 @@ namespace WEBSITE.Migrations
 
             modelBuilder.Entity("WEBSITE.Data.DatabaseEntity.ImagesProduct", b =>
                 {
+                    b.HasOne("WEBSITE.Data.DatabaseEntity.AppImages", "AppImages")
+                        .WithMany()
+                        .HasForeignKey("AppImageId");
+
                     b.HasOne("WEBSITE.Data.DatabaseEntity.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");

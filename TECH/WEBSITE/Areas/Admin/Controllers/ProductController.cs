@@ -23,12 +23,14 @@ namespace WEBSITE.Areas.Admin.Controllers
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IProductService _productService;
         private readonly IImagesProductService _imagesProductService;
+        private readonly IAppImagesService _appImagesService;
         private readonly ICategoryService _categoryService;
         private readonly IBrandsService _brandsService;
         public ProductController(IProductService productService,
             IImagesProductService imagesProductService,
             ICategoryService categoryService,
             IBrandsService brandsService,
+            IAppImagesService appImagesService,
         IHostingEnvironment hostingEnvironment)
         {
             _productService = productService;
@@ -36,7 +38,7 @@ namespace WEBSITE.Areas.Admin.Controllers
             _hostingEnvironment = hostingEnvironment;
             _categoryService = categoryService;
             _brandsService = brandsService;
-
+            _appImagesService = appImagesService;
         }
         public IActionResult Index()
         {
@@ -74,9 +76,14 @@ namespace WEBSITE.Areas.Admin.Controllers
                 if (!Directory.Exists(folder))
                 {
                     Directory.CreateDirectory(folder);
-                    var lstImageName = files.Select(i => i.FileName).ToArray();
+                    var lstImageName = files.Select(i => i.FileName).ToArray();                    
 
-                    _imagesProductService.AddImages(Convert.ToInt32(files[0].Name), lstImageName);
+                    var appImages = _appImagesService.AddImages(Convert.ToInt32(files[0].Name), lstImageName);
+                    if (appImages != null && appImages.Count > 0)
+                    {
+                        _imagesProductService.AddImages(Convert.ToInt32(files[0].Name), appImages);
+                    }
+
                     _productService.Save();
                     foreach (var itemFile in files)
                     {
@@ -170,19 +177,19 @@ namespace WEBSITE.Areas.Admin.Controllers
             return Json(new { data = data });
         }
 
-        [HttpGet]
-        public JsonResult GetImagesByProductId(int id)
-        {
-            var model = new List<ImagesProductModelView>();
-            if (id > 0)
-            {
-                model = _imagesProductService.GetAll(id);
-            }
-            return Json(new
-            {
-                Data = model
-            });
-        }
+        //[HttpGet]
+        //public JsonResult GetImagesByProductId(int id)
+        //{
+        //    var model = new List<ImagesProductModelView>();
+        //    if (id > 0)
+        //    {
+        //        model = _imagesProductService.GetAll(id);
+        //    }
+        //    return Json(new
+        //    {
+        //        Data = model
+        //    });
+        //}
 
     }
 }

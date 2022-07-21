@@ -90,6 +90,7 @@ namespace WEBSITE
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IAppSizeRepository, AppSizeRepository>();
             services.AddScoped<IImagesProductRepository, ImagesProductRepository>();
+            services.AddScoped<IAppImagesRepository, AppImagesRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBrandsRepository, BrandsRepository>();
 
@@ -99,6 +100,7 @@ namespace WEBSITE
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IAppSizeService, AppSizeService>();
             services.AddScoped<IImagesProductService, ImagesProductService>();
+            services.AddScoped<IAppImagesService, AppImagesService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IBrandsService, BrandsService>();
 
@@ -127,7 +129,7 @@ namespace WEBSITE
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapAreaControllerRoute(
-                   name: "default",
+                   name: "admin",
                    areaName: "Admin",
                    pattern: "admin/{controller=Home}/{action=Index}/{id?}");
 

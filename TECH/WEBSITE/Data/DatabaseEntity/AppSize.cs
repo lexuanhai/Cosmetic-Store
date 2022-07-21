@@ -7,7 +7,7 @@ using WEBSITE.SharedKernel;
 
 namespace WEBSITE.Data.DatabaseEntity
 {
-    [Table("Colors")]
+    [Table("AppSize")]
     public class AppSize: DomainEntity<int>
     {
         public string Code { get; set; }
