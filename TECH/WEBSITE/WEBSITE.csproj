@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="wwwroot\product-image\product_2\" />
+    <Folder Include="wwwroot\product-image\" />
   </ItemGroup>
 
   <ItemGroup>

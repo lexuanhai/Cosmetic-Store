@@ -76,24 +76,25 @@ namespace WEBSITE.Areas.Admin.Controllers
                 if (!Directory.Exists(folder))
                 {
                     Directory.CreateDirectory(folder);
-                    var lstImageName = files.Select(i => i.FileName).ToArray();                    
+                }
 
-                    var appImages = _appImagesService.AddImages(Convert.ToInt32(files[0].Name), lstImageName);
-                    if (appImages != null && appImages.Count > 0)
-                    {
-                        _imagesProductService.AddImages(Convert.ToInt32(files[0].Name), appImages);
-                    }
+                var lstImageName = files.Select(i => i.FileName).ToArray();
 
-                    _productService.Save();
-                    foreach (var itemFile in files)
+                var appImages = _appImagesService.AddImages(Convert.ToInt32(files[0].Name), lstImageName);
+                if (appImages != null && appImages.Count > 0)
+                {
+                    _imagesProductService.AddImages(Convert.ToInt32(files[0].Name), appImages);
+                }
+
+                _productService.Save();
+                foreach (var itemFile in files)
+                {
+                    string fileNameFormat = Regex.Replace(itemFile.FileName.ToLower(), @"\s+", "");
+                    string filePath = Path.Combine(folder, fileNameFormat);
+                    using (FileStream fs = System.IO.File.Create(filePath))
                     {
-                        string fileNameFormat = Regex.Replace(itemFile.FileName.ToLower(), @"\s+", "");
-                        string filePath = Path.Combine(folder, fileNameFormat);
-                        using (FileStream fs = System.IO.File.Create(filePath))
-                        {
-                            itemFile.CopyTo(fs);
-                            fs.Flush();
-                        }
+                        itemFile.CopyTo(fs);
+                        fs.Flush();
                     }
                 }
             }
@@ -177,19 +178,19 @@ namespace WEBSITE.Areas.Admin.Controllers
             return Json(new { data = data });
         }
 
-        //[HttpGet]
-        //public JsonResult GetImagesByProductId(int id)
-        //{
-        //    var model = new List<ImagesProductModelView>();
-        //    if (id > 0)
-        //    {
-        //        model = _imagesProductService.GetAll(id);
-        //    }
-        //    return Json(new
-        //    {
-        //        Data = model
-        //    });
-        //}
+        [HttpGet]
+        public JsonResult GetImagesByProductId(int id)
+        {
+            var model = new List<AppImagesModelView>();
+            if (id > 0)
+            {
+                model = _appImagesService.GetImagesByProductId(id);
+            }
+            return Json(new
+            {
+                Data = model
+            });
+        }
 
     }
 }

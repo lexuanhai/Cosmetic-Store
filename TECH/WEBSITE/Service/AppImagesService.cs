@@ -13,15 +13,21 @@ namespace WEBSITE.Service
 {
     public interface IAppImagesService
     {
-       List<AppImagesModelView> GetAll(int productId);
-        List<ImagesProductModelView> AddImages(int productId, string[] images);
-        AppImages GetAppImagesById(int imageId);
+       List<AppImagesModelView> GetImagesByProductId(int productId);
+
+       List<ImagesProductModelView> AddImages(int productId, string[] images);
+
+       AppImages GetAppImagesById(int imageId);
+
+       void Save();
     }
+
     public class AppImagesService : IAppImagesService
     {
         private readonly IAppImagesRepository _appImagesRepository;
         private readonly IImagesProductRepository _imagesProductRepository;
         private IUnitOfWork _unitOfWork;
+
         public AppImagesService(IAppImagesRepository appImagesRepository,
             IImagesProductRepository imagesProductRepository,
             IUnitOfWork unitOfWork)
@@ -30,7 +36,7 @@ namespace WEBSITE.Service
             _imagesProductRepository = imagesProductRepository;
             _unitOfWork = unitOfWork;
         }
-        //
+       
         public List<ImagesProductModelView> AddImages(int productId, string[] images)
         {
             try
@@ -43,7 +49,7 @@ namespace WEBSITE.Service
                         Url = image,
                     };
                     _appImagesRepository.Add(appImages);
-
+                    Save();
                     lstImageProduct.Add(new ImagesProductModelView() { 
                         ProductId = productId,
                         AppImageId = appImages.Id
@@ -57,6 +63,12 @@ namespace WEBSITE.Service
                 return null;
             }
         }
+
+        public void Save()
+        {
+            _unitOfWork.Commit();
+        }
+
         public AppImages GetAppImagesById(int imageId)
         {
             var AppImage = _appImagesRepository.FindById(imageId);
@@ -65,7 +77,8 @@ namespace WEBSITE.Service
             
             return null;
         }
-        public List<AppImagesModelView> GetAll(int productId)
+
+        public List<AppImagesModelView> GetImagesByProductId(int productId)
         {
             try
             {
@@ -86,6 +99,7 @@ namespace WEBSITE.Service
                             {
                                 lstImagesModel.Add(new AppImagesModelView()
                                 {
+                                    AppImageId = AppImages.Id,
                                     ProductId = productId,
                                     Url = AppImages.Url
                                 });
