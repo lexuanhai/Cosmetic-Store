@@ -320,6 +320,22 @@
     <None Include="wwwroot\admin\plugins\ckeditor\skins\moono-lisa\readme.md" />
     <None Include="wwwroot\admin\plugins\ckeditor\styles.js" />
     <None Include="wwwroot\admin\plugins\ckeditor\vendor\promise.js" />
+    <None Include="wwwroot\web\js\add-to-cart.min.js" />
+    <None Include="wwwroot\web\js\cart-fragments.min.js" />
+    <None Include="wwwroot\web\js\flatsome-live-search.js" />
+    <None Include="wwwroot\web\js\flatsome.js" />
+    <None Include="wwwroot\web\js\hoverIntent.min.js" />
+    <None Include="wwwroot\web\js\index.js" />
+    <None Include="wwwroot\web\js\jquery.blockUI.min.js" />
+    <None Include="wwwroot\web\js\js.cookie.min.js" />
+    <None Include="wwwroot\web\js\ot-vertical-menu.js" />
+    <None Include="wwwroot\web\js\password-strength-meter.min.js" />
+    <None Include="wwwroot\web\js\password-strength-meter1.min.js" />
+    <None Include="wwwroot\web\js\scripts.js" />
+    <None Include="wwwroot\web\js\woocommerce.js" />
+    <None Include="wwwroot\web\js\woocommerce.min.js" />
+    <None Include="wwwroot\web\js\wp-embed.min.js" />
+    <None Include="wwwroot\web\js\zxcvbn-async.min.js" />
   </ItemGroup>
 
 </Project>
