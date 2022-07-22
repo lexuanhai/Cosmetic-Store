@@ -9,5 +9,6 @@ namespace WEBSITE.Areas.Admin.Models.Search
     {
         public int? CategoryId { get; set; }
         public int? CategoryParentId { get; set; }
+
     }
 }

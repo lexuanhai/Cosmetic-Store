@@ -15,6 +15,8 @@ namespace WEBSITE.Service
     {
         //List<ImagesProductModelView> GetAll(int productId);
         bool AddImages(int productId, List<ImagesProductModelView> appImagesModelView);
+        bool Deleted(int id);
+        List<ImagesProductModelView> GetProductForProductId(int productId);
     }
     public class ImagesProductService : IImagesProductService
     {
@@ -28,8 +30,7 @@ namespace WEBSITE.Service
         public bool AddImages(int productId, List<ImagesProductModelView> appImagesModelView)
         {
             try
-            {
-                _imagesProductRepository.RemoveMultiple(_imagesProductRepository.FindAll(x => x.ProductId == productId).ToList());
+            {                
                 foreach (var image in appImagesModelView)
                 {
                     _imagesProductRepository.Add(new ImagesProduct()
@@ -45,6 +46,45 @@ namespace WEBSITE.Service
                 return false;
             }
         }
+        public List<ImagesProductModelView> GetProductForProductId(int productId)
+        {
+            try
+            {
+                var lstImages = _imagesProductRepository.FindAll().Where(i => i.ProductId == productId).Select(p=>new ImagesProductModelView() { 
+                    ProductId = p.ProductId,
+                    AppImageId = p.AppImageId
+                }).ToList();
+
+                if (lstImages != null)
+                {
+                    return lstImages;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            return null;
+        }
+
+        public bool Deleted(int id)
+        {
+            try
+            {
+                var dataServer = _imagesProductRepository.FindAll().Where(i=>i.AppImageId == id).FirstOrDefault();
+                if (dataServer != null)
+                {
+                    _imagesProductRepository.Remove(dataServer);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return false;
+        }
         //public List<ImagesProductModelView> GetAll(int productId)
         //{
         //    try
@@ -54,7 +94,7 @@ namespace WEBSITE.Service
         //            Alt = ip.Alt,
         //            ProductId = ip.ProductId
         //        }).ToList();
-                
+
         //        return model;
         //    }
         //    catch (Exception)

@@ -8,12 +8,12 @@ using WEBSITE.Extensions;
 
 namespace WEBSITE.Areas.Admin.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : BaseController
     {
         public IActionResult Index()
         {
-            var email = User.GetSpecificClaim("Email");
+            //var email = User.GetSpecificClaim("Email");
             return View();
         }
     }

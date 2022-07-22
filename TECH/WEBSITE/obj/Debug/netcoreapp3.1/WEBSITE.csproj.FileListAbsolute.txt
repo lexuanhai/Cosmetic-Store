@@ -491,7 +491,7 @@ C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Prod
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Product\ProductDetail.cshtml.g.cs
 C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\AppCart\Index.cshtml.g.cs
-C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj.AssemblyReference.cache
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\AppCart\Index.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Product\ProductDetail.cshtml.g.cs
 E:\c#\Website\Cosmetic Store\TECH\WEBSITE\obj\Debug\netcoreapp3.1\Razor\Views\Product\ProductListCategory.cshtml.g.cs
+C:\hoc-tap\ban-mu-bao-hiem\TECH\WEBSITE\obj\Debug\netcoreapp3.1\WEBSITE.csproj.AssemblyReference.cache

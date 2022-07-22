@@ -3,6 +3,7 @@
     self.Data = [];
     self.IsUpdate = false;
     self.FileImages = [];
+    self.FileImagesRemove = [];
     self.Id = "";
     self.RenderTableHtml = function (data) {
         var html = "";
@@ -17,6 +18,7 @@
                 html += "<td>" + item.Price + "</td>";
                 html += "<td>" + item.ReducedPrice + "</td>";
                 html += "<td>" + item.Total + "</td>";
+                html += "<td><img class='fisrt-image-product' src=" + (item.UrlImage != null && item.UrlImage.length > 0 ? item.UrlImage[0] :"/image/default-image-620x600.jpg") + "></td>";
                 html += "<td><div class\"btn-group\">" +
                     "<a class=\"btn btn-outline-danger btn-xs mr-1\" href=\"javascript:Update('" + item.Id + "')\"><i class=\"fas fa-pencil-alt\"></i> </a>" +
                     "<a class=\"btn btn-outline-danger btn-xs\" href=\"javascript:Deleted('" + item.Id + "')\"><i class=\"fas fa-trash-alt\"></i> </a>"
@@ -25,7 +27,7 @@
             }
         }
         else {
-            html += "<tr><td colspan=\"4\" style=\"text-align:center\">Không có dữ liệu</td></tr>";
+            html += "<tr><td colspan=\"9\" style=\"text-align:center\">Không có dữ liệu</td></tr>";
         }
         $("#tblData").html(html);
     };
@@ -108,7 +110,7 @@
                         for (var i = 0; i < response.Data.length; i++) {
                             var item = response.Data[i];                                                        
                             var path = "/product-image/product_" + id + "/" + item.Url;
-                            html += "<div class=\"box-item-image\"> <div class=\"image-upload item-image\" style=\"background-image:url(" + path + ")\"></div><a href=\"javascript:void(0)\" class=\"item-delete\" onclick=\"DeleteImage('" + item.Url + "',this)\">Xóa</a></div>";
+                            html += "<div class=\"box-item-image\"> <div class=\"image-upload item-image\" style=\"background-image:url(" + path + ")\"></div><a href=\"javascript:void(0)\" class=\"item-delete\" onclick=\"DeleteImage(" + item.AppImageId + ",this)\">Xóa</a></div>";
                         }
                         if (html != "") {
                             $(".image-default").hide();
@@ -145,8 +147,32 @@
                 }
             })
         }
-    }       
+    }
+    self.ImagesProductRemove = function (productId) {
 
+        $.ajax({
+            url: '/Admin/Product/RemoveImageProduct',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                productId: productId,
+                imagesId: self.FileImagesRemove
+            },
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                //Loading('hiden');
+            },
+            success: function (response) {
+                //if (response.success != null) {
+                //    self.GetImageByProductId(id);
+                //    renderCallBack(response.Data);
+                //    self.Id = id;
+                //}
+            }
+        })
+    }
     self.FormSubmitAdd = function () {        
         $('#formSubmitAdd').validate({
             ignore: [],
@@ -213,7 +239,6 @@
             submitHandler: function () {
                 
                 if (self.IsUpdate) {
-                    debugger
                     var product = {
                         Id: self.Id,
                         Name: $(".product-name").val(),
@@ -242,7 +267,16 @@
                         },
                         success: function (response) {
                             if (response.success) {
+                                //self.UploadFileImageProduct(self.Id);
+                                if (self.FileImagesRemove != null && self.FileImagesRemove.length > 0) {
+                                    self.ImagesProductRemove(self.Id);
+                                }
+
                                 self.UploadFileImageProduct(self.Id);
+
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 500);
                             }
                         }
                     })
@@ -284,7 +318,10 @@
             success: function (response) {
                 if (response.success) {
                     self.UploadFileImageProduct(response.id);
-                    window.location.href("/admin/product");
+
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 500);
                 }
             }
         })
@@ -451,18 +488,16 @@
         self.GetAllBrands();
         self.GetAllColor();
     }
-    self.DeleteImage = function (fileNameImage,thisHtml) {
-        if (fileNameImage != "") {            
-            var indexFileImage = self.FileImages.findIndex(i => i.toLowerCase() == fileNameImage.toLowerCase());
-            if (indexFileImage >= 0) {
-                self.FileImages.splice(indexFileImage, 1);
-                $(thisHtml).parent().hide();
-                if (self.FileImages.length == 0) {
-                    $(".image-default").show();
-                }
-            }
+    self.DeleteImage = function (imagesId,thisHtml) {
+        if (imagesId != "" && imagesId != 0) {
+            self.FileImagesRemove.push(imagesId);
             
+            if (self.FileImages.length == 0) {
+                $(".image-default").show();
+            }            
         }
+        $(thisHtml).parent().hide();
+
     }
     $(document).ready(function () {     
         self.GetDataPaging();
@@ -540,7 +575,7 @@
                         console.log(files[i]);
                         self.FileImages.push(files[i]);
                         var src = URL.createObjectURL(files[i]);
-                        html += "<div class=\"box-item-image\"> <div class=\"image-upload item-image\" style=\"background-image:url(" + src + ")\"></div><a href=\"javascript:void(0)\" class=\"item-delete\" onclick=\"DeleteImage('" + files[i].name + "',this)\">Xóa</a></div>";
+                        html += "<div class=\"box-item-image\"> <div class=\"image-upload item-image\" style=\"background-image:url(" + src + ")\"></div><a href=\"javascript:void(0)\" class=\"item-delete\" onclick=\"DeleteImage(0,this)\">Xóa</a></div>";
                     }
                 }
                 if (html != "") {

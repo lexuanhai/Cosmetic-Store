@@ -18,7 +18,7 @@ namespace WEBSITE.Service
        List<ImagesProductModelView> AddImages(int productId, string[] images);
 
        AppImages GetAppImagesById(int imageId);
-
+       bool Deleted(int id);
        void Save();
     }
 
@@ -62,6 +62,25 @@ namespace WEBSITE.Service
             {
                 return null;
             }
+        }
+
+        public bool Deleted(int id)
+        {
+            try
+            {
+                var dataServer = _appImagesRepository.FindById(id);
+                if (dataServer != null)
+                {
+                    _appImagesRepository.Remove(dataServer);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+               return false;
+            }
+
+            return false;
         }
 
         public void Save()

@@ -77,31 +77,98 @@ namespace WEBSITE.Areas.Admin.Controllers
                 {
                     Directory.CreateDirectory(folder);
                 }
+                var _lstImageName = new List<string>();
 
-                var lstImageName = files.Select(i => i.FileName).ToArray();
-
-                var appImages = _appImagesService.AddImages(Convert.ToInt32(files[0].Name), lstImageName);
-                if (appImages != null && appImages.Count > 0)
-                {
-                    _imagesProductService.AddImages(Convert.ToInt32(files[0].Name), appImages);
-                }
-
-                _productService.Save();
                 foreach (var itemFile in files)
                 {
                     string fileNameFormat = Regex.Replace(itemFile.FileName.ToLower(), @"\s+", "");
                     string filePath = Path.Combine(folder, fileNameFormat);
-                    using (FileStream fs = System.IO.File.Create(filePath))
+                    if (!System.IO.File.Exists(filePath))
                     {
-                        itemFile.CopyTo(fs);
-                        fs.Flush();
+                        _lstImageName.Add(fileNameFormat);
+                        using (FileStream fs = System.IO.File.Create(filePath))
+                        {
+                            itemFile.CopyTo(fs);
+                            fs.Flush();
+                        }
                     }
+                   
                 }
+
+                //var lstImageName = files.Select(i => i.FileName).ToArray();
+                if (_lstImageName != null && _lstImageName.Count > 0)
+                {
+                    var appImages = _appImagesService.AddImages(Convert.ToInt32(files[0].Name), _lstImageName.ToArray());
+                    if (appImages != null && appImages.Count > 0)
+                    {
+                        _imagesProductService.AddImages(Convert.ToInt32(files[0].Name), appImages);
+                    }
+
+                    _productService.Save();
+                }
+
+                
+
             }
             return Json(new
             {
                 success = true
             }) ;
+        }
+        
+        public void RemoveImageAtFolderProduct(int productId,string imageName)
+        {
+            try
+            {
+                string folerProductId = "product_" + productId;
+
+                var imageFolder = $@"\product-image\" + folerProductId + @"\" + imageName;
+
+                string pathImage = _hostingEnvironment.WebRootPath + imageFolder;
+
+                if (System.IO.File.Exists(pathImage))
+                {
+                    System.IO.File.Delete(pathImage);
+                }
+               
+            }
+            catch (Exception ex)
+            {
+            }
+           
+        }
+
+        [HttpPost]
+        public IActionResult RemoveImageProduct(int productId,int[] imagesId)
+        {
+            if (imagesId != null && imagesId.Length > 0)
+            {
+                foreach (var item in imagesId)
+                {
+                    var images = _appImagesService.GetAppImagesById(item);
+
+                    if (images != null && !string.IsNullOrEmpty(images.Url))
+                    {
+                        RemoveImageAtFolderProduct(productId, images.Url);
+                    }
+
+                    _imagesProductService.Deleted(item);
+
+                    _appImagesService.Deleted(item);
+
+                    _productService.Save();
+
+                }
+                return Json(new
+                {
+                    success = false
+                });
+            }
+
+            return Json(new
+            {
+                success = true
+            });
         }
 
         [HttpPost]
@@ -170,6 +237,27 @@ namespace WEBSITE.Areas.Admin.Controllers
                         if (brandsModel != null)
                         {
                             item.BrandName = brandsModel.Name;
+                        }
+                    }
+                    var imageProduct = _imagesProductService.GetProductForProductId(item.Id);
+                    if (imageProduct != null && imageProduct.Count > 0)
+                    {
+                        var lstImageProduct = new List<string>();
+                        foreach (var itemImageProduct in imageProduct)
+                        {
+                            if (itemImageProduct.AppImageId.HasValue && itemImageProduct.AppImageId.Value > 0)
+                            {
+                                var image = _appImagesService.GetAppImagesById(itemImageProduct.AppImageId.Value);
+                                if (image != null && !string.IsNullOrEmpty(image.Url))
+                                {
+                                    string pathUrl = "/product-image/product_" + item.Id + "/" + image.Url;
+                                    lstImageProduct.Add(pathUrl);
+                                }
+                            }                            
+                        }
+                        if (lstImageProduct != null && lstImageProduct.Count > 0)
+                        {
+                            item.UrlImage = lstImageProduct;
                         }
                     }
                 }
