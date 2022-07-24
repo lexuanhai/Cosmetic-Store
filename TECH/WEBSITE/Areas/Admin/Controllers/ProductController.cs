@@ -40,7 +40,7 @@ namespace WEBSITE.Areas.Admin.Controllers
             _brandsService = brandsService;
             _appImagesService = appImagesService;
         }
-        public IActionResult Index()
+         public IActionResult Index()
         {
             return View();
         }

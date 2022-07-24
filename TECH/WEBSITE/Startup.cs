@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -21,12 +22,16 @@ namespace WEBSITE
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration
+            //IHttpContextAccessor httpContextAccessor
+            )
         {
+            //_httpContextAccessor = httpContextAccessor;
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
+        //public IHttpContextAccessor _httpContextAccessor { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -41,11 +46,12 @@ namespace WEBSITE
                 options.UseSqlServer(connectstring);
             });
 
+            services.AddSession();
             //services.AddIdentity<AppUser, AppRoles>()
             //.AddEntityFrameworkStores<DataBaseEntityContext>()
             //.AddDefaultTokenProviders();
 
-
+            //services.AddHttpContextAccessor();
             services.AddOptions();                                        // Kích hoạt Options
             var mailsettings = Configuration.GetSection("MailSettings");  // đọc config
             services.Configure<MailSettings>(mailsettings);               // đăng ký để Inject
@@ -119,13 +125,14 @@ namespace WEBSITE
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            //app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapAreaControllerRoute(

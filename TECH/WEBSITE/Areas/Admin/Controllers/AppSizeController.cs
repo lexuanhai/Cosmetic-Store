@@ -19,7 +19,7 @@ namespace WEBSITE.Areas.Admin.Controllers
         {
             _appSizeService = colorsService;
         }
-        public IActionResult Index()
+         public IActionResult Index()
         {
             return View();
         }

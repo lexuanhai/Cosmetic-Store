@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WEBSITE.Areas.Admin.Models.Search;
 
-namespace WEBSITE.Areas.Admin.Models
+namespace WEBSITE.Areas.Admin.Models.Search
 {
-    public class UserModelView
+    public class UserModelViewSearch : PageViewModel
     {
         public int Id { get; set; }
         public string UserName { get; set; }
@@ -16,10 +17,5 @@ namespace WEBSITE.Areas.Admin.Models
         public string Phone { get; set; }
         public string Address { get; set; }
         public DateTime? Birthday { get; set; }
-
-        public string City { get; set; }
-        public string Avartar { get; set; }
-        public string PhoneNumber { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

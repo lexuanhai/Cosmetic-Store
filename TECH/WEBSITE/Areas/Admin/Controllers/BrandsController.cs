@@ -20,7 +20,7 @@ namespace WEBSITE.Areas.Admin.Controllers
         {
             _brandsService = brandsService;
         }
-        public IActionResult Index()
+         public IActionResult Index()
         {
             return View();
         }

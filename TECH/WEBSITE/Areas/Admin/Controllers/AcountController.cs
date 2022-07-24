@@ -27,8 +27,8 @@ namespace WEBSITE.Areas.Admin.Controllers {
             _signInManager = signInManager;
             _emailSender = emailSender;
         }
-        
-        public IActionResult Index()
+
+         public IActionResult Index()
         {
             return View();
         }

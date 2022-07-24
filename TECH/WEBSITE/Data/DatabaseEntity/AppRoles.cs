@@ -14,6 +14,6 @@ namespace WEBSITE.Data.DatabaseEntity
         public string Name { get; set; }
         [Column(TypeName = "nvarchar(500)")]
         public string Description { get; set; }
-
+        public bool IsDeleted { get; set; }
     }
 }
