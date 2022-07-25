@@ -16,6 +16,7 @@ namespace WEBSITE.Areas.Admin.Models
         public string Phone { get; set; }
         public string Address { get; set; }
         public DateTime? Birthday { get; set; }
+        public string BirthdayStr { get; set; }
 
         public string City { get; set; }
         public string Avartar { get; set; }

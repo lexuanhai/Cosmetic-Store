@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WEBSITE.Areas.Admin.Models;
 using WEBSITE.Areas.Admin.Models.Search;
@@ -12,8 +15,11 @@ namespace WEBSITE.Areas.Admin.Controllers
     public class AppUsersController : BaseController
     {
         private readonly IAppUserService _appUserService;
-        public AppUsersController(IAppUserService appUserService)
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public AppUsersController(IAppUserService appUserService,
+            IHostingEnvironment hostingEnvironment)
         {
+            _hostingEnvironment = hostingEnvironment;
             _appUserService = appUserService;
         }
         public IActionResult Index()
@@ -41,15 +47,52 @@ namespace WEBSITE.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        public IActionResult UploadImageAvatar()
+        {
+            var files = Request.Form.Files;
+            if (files != null && files.Count > 0)
+            {
+                string folder = _hostingEnvironment.WebRootPath + $@"\avatar";
+
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                var _lstImageName = new List<string>();
+
+                foreach (var itemFile in files)
+                {
+                    string filePath = Path.Combine(folder, itemFile.FileName);
+                    if (!System.IO.File.Exists(filePath))
+                    {
+                        _lstImageName.Add(itemFile.FileName);
+                        using (FileStream fs = System.IO.File.Create(filePath))
+                        {
+                            itemFile.CopyTo(fs);
+                            fs.Flush();
+                        }
+                    }
+                }                
+            }
+            return Json(new
+            {
+                success = true
+            });
+        }
+
+
+        [HttpPost]
         public JsonResult Add(UserModelView UserModelView)
         {
             var result = _appUserService.Add(UserModelView);
             _appUserService.Save();
+
             return Json(new
             {
                 success = result
             });
         }
+
         [HttpPost]
         public JsonResult Update(UserModelView UserModelView)
         {
@@ -70,6 +113,7 @@ namespace WEBSITE.Areas.Admin.Controllers
                 success = result
             });
         }
+
         [HttpGet]
         public JsonResult GetAllPaging(UserModelViewSearch colorViewModelSearch)
         {

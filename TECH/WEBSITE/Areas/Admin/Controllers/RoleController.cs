@@ -10,72 +10,98 @@ using WEBSITE.Data.DatabaseEntity;
 using WEBSITE.Service;
 
 namespace WEBSITE.Areas.Admin.Controllers
-{
-    //[Authorize]
+{    
     public class RoleController : BaseController
     {
-        //private readonly IRoleService _roleService;
-        //public RoleController(IRoleService roleService)
-        //{
-        //    _roleService = roleService;
-        //}
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        private readonly ICategoryService _categoryService;
+        public RoleController(ICategoryService categoryService)
+        {
+            _categoryService = categoryService;
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
+        [HttpGet]
+        public JsonResult GetAll()
+        {
+            var model = _categoryService.GetAll();
+            bool isData = false;
+            if (model != null && model.Count > 0)
+                isData = true;
+            return Json(new
+            {
+                IsData = isData,
+                Data = model
+            });
+        }
+        [HttpGet]
+        public JsonResult GetById(int id)
+        {
+            var model = new CategoryModelView();
+            if (id > 0)
+            {
+                model = _categoryService.GetById(id);
+            }
+            return Json(new
+            {
+                Data = model
+            });
+        }
+
+        [HttpGet]
+        public JsonResult GetAllParent()
+        {
+            var model = _categoryService.GetAllParent();
+            return Json(new
+            {
+                Data = model
+            });
+        }
+
+        [HttpPost]
+        public JsonResult Add(CategoryModelView CategoryModelView)
+        {
+            var result = _categoryService.Add(CategoryModelView);
+            _categoryService.Save();
+            return Json(new
+            {
+                success = result
+            });
+        }
+        [HttpPost]
+        public JsonResult Update(CategoryModelView categoryModelView)
+        {
+            var result = _categoryService.Update(categoryModelView);
+            _categoryService.Save();
+            return Json(new
+            {
+                success = result
+            });
+        }
+        [HttpPost]
+        public JsonResult Delete(int id)
+        {
+            var result = _categoryService.Deleted(id);
+            _categoryService.Save();
+            return Json(new
+            {
+                success = result
+            });
+        }
         //[HttpGet]
-        //public JsonResult GetAll()
+        //public JsonResult GetAllPaging(CategoryViewModelSearch categoryViewModelSearch)
         //{
-        //    var model = _roleService.GetAll();
-        //    bool isData = false;
-        //    if (model != null && model.Count > 0)
-        //        isData = true;
-        //    return Json(new
-        //    {
-        //        IsData = isData,
-        //        Data = model
-        //    });
+        //    var data = _categoryService.GetAllPaging(categoryViewModelSearch);
+        //    return Json(new { data = data });
         //}
-        //[HttpGet]
-        //public async Task<JsonResult> GetById(string id)
-        //{
-        //    var model = new RoleModelView();
-        //    if (!string.IsNullOrEmpty(id))
-        //    {
-        //        model = await _roleService.GetById(id);
-        //    }
-        //    return Json(new
-        //    {
-        //        Data = model
-        //    });
-        //}
-        //[HttpPost]
-        //public async Task<JsonResult> Add(RoleModelView roleModelView)
-        //{
-        //    var result = await _roleService.Add(roleModelView);
-        //    return Json(new
-        //    {
-        //        success = result
-        //    });
-        //}
-        //[HttpPost]
-        //public async Task<JsonResult> Update(RoleModelView roleModelView)
-        //{
-        //    var result = await _roleService.Update(roleModelView);
-        //    return Json(new
-        //    {
-        //        success = result
-        //    });
-        //}
-        //[HttpPost]
-        //public async Task<JsonResult> Delete(string roleId)
-        //{
-        //    var result = await _roleService.Deleted(roleId);
-        //    return Json(new
-        //    {
-        //        success = result
-        //    });
-        //}
+
+        [HttpGet]
+        public JsonResult GetCategoryByParentId(int parentId)
+        {
+            var data = _categoryService.GetCategoryByParentId(parentId);
+            return Json(new { Data = data });
+        }
 
     }
 }

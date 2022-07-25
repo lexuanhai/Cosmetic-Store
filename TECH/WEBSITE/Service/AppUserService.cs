@@ -15,7 +15,7 @@ namespace WEBSITE.Service
     {
         PagedResult<UserModelView> GetAllPaging(UserModelViewSearch userModelViewSearch);
         UserModelView GetById(int id);
-        int Add(UserModelView view);
+        bool Add(UserModelView view);
         bool Update(UserModelView view);
         bool Deleted(int id);
         void Save();
@@ -39,14 +39,18 @@ namespace WEBSITE.Service
                 {
                     Id = data.Id,
                     Name = data.Name,
-                    //Code = data.Code
+                    Phone = data.Phone,
+                    Email = data.Email,
+                    UserName = data.UserName,
+                    Birthday = data.Birthday,
+                    Address = data.Address,
+                    Avartar = data.Avartar,
                 };
                 return model;
             }
             return null;
         }
-
-        public int Add(UserModelView view)
+        public bool Add(UserModelView view)
         {
             try
             {
@@ -54,7 +58,6 @@ namespace WEBSITE.Service
                 {
                     var appUser = new AppUser
                     {
-
                         Name = view.Name,
                         Phone = view.Phone,
                         Email  = view.Email,
@@ -63,18 +66,16 @@ namespace WEBSITE.Service
                         Address  = view.Address,
                         City  = view.City,
                         Avartar   = view.Avartar,
-                        PhoneNumber = view.PhoneNumber,
                     };
                     _appUserRepository.Add(appUser);
-                    Save();
-                    
+                    return true;                    
                 }
             }
             catch (Exception ex)
             {
-                //return false;
+                return false;
             }
-            return 0;
+            return false;
 
         }
         public void Save()
@@ -96,15 +97,13 @@ namespace WEBSITE.Service
                     dataServer.Address = view.Address;
                     dataServer.City = view.City;
                     dataServer.Avartar = view.Avartar;
-                    dataServer.PhoneNumber = view.PhoneNumber;
                     _appUserRepository.Update(dataServer);
                     return true;
                 }
             }
             catch (Exception ex)
             {
-
-                throw;
+                return false;
             }
 
             return false;
@@ -116,9 +115,9 @@ namespace WEBSITE.Service
                 var dataServer = _appUserRepository.FindById(id);
                 if (dataServer != null)
                 {
-                    _appUserRepository.Remove(dataServer);
+                    dataServer.IsDeleted = true;
+                    _appUserRepository.Update(dataServer);
                     return true;
-
                 }
             }
             catch (Exception ex)
@@ -133,28 +132,26 @@ namespace WEBSITE.Service
         {
             try
             {
-                var query = _appUserRepository.FindAll();
+                var query = _appUserRepository.FindAll().Where(u=>!u.IsDeleted);
 
                 if (!string.IsNullOrEmpty(userModelViewSearch.Name))
                 {
                     query = query.Where(c => c.Name.ToLower() == userModelViewSearch.Name.ToLower());
                 }
 
-
                 int totalRow = query.Count();
                 query = query.Skip((userModelViewSearch.PageIndex - 1) * userModelViewSearch.PageSize).Take(userModelViewSearch.PageSize);
                 var data = query.Select(c => new UserModelView()
                 {
-                    Name = c.Name,
+                    Name = (!string.IsNullOrEmpty(c.Name) ? c.Name:""),
                     Id = c.Id,
-                    Phone = c.Phone,
-                    Email = c.Email,
-                    UserName = c.UserName,
+                    Phone = !string.IsNullOrEmpty(c.Phone) ? c.Phone : "",
+                    Email = !string.IsNullOrEmpty(c.Email) ? c.Email : "",
+                    UserName = !string.IsNullOrEmpty(c.UserName) ? c.UserName : "",
                     Birthday = c.Birthday,
-                    Address = c.Address,
-                    City = c.City,
+                    BirthdayStr = c.Birthday.HasValue ? c.Birthday.Value.ToString("dd/MM/yyyy"):"",
+                    Address = !string.IsNullOrEmpty(c.Address) ? c.Address : "",                    
                     Avartar = c.Avartar,
-                    PhoneNumber = c.PhoneNumber,
                  }).ToList();
                 var pagingData = new PagedResult<UserModelView>
                 {
@@ -171,6 +168,7 @@ namespace WEBSITE.Service
             }
 
         }
+
         public List<UserModelView> GetAll()
         {
             var data = _appUserRepository.FindAll().Select(c => new UserModelView()

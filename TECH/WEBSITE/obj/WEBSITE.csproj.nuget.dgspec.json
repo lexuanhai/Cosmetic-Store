@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\c#\\Website\\Cosmetic Store\\TECH\\WEBSITE\\WEBSITE.csproj": {}
+    "C:\\hoc-tap\\ban-mu-bao-hiem\\TECH\\WEBSITE\\WEBSITE.csproj": {}
   },
   "projects": {
-    "E:\\c#\\Website\\Cosmetic Store\\TECH\\WEBSITE\\WEBSITE.csproj": {
+    "C:\\hoc-tap\\ban-mu-bao-hiem\\TECH\\WEBSITE\\WEBSITE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\c#\\Website\\Cosmetic Store\\TECH\\WEBSITE\\WEBSITE.csproj",
+        "projectUniqueName": "C:\\hoc-tap\\ban-mu-bao-hiem\\TECH\\WEBSITE\\WEBSITE.csproj",
         "projectName": "WEBSITE",
-        "projectPath": "E:\\c#\\Website\\Cosmetic Store\\TECH\\WEBSITE\\WEBSITE.csproj",
-        "packagesPath": "C:\\Users\\emcua\\.nuget\\packages\\",
-        "outputPath": "E:\\c#\\Website\\Cosmetic Store\\TECH\\WEBSITE\\obj\\",
+        "projectPath": "C:\\hoc-tap\\ban-mu-bao-hiem\\TECH\\WEBSITE\\WEBSITE.csproj",
+        "packagesPath": "C:\\Users\\ttimem15\\.nuget\\packages\\",
+        "outputPath": "C:\\hoc-tap\\ban-mu-bao-hiem\\TECH\\WEBSITE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\emcua\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ttimem15\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
@@ -109,7 +109,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.409\\RuntimeIdentifierGraph.json"
         }
       }
     }

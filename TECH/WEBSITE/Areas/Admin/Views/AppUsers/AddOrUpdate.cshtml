@@ -1,8 +1,161 @@
 ﻿
 @{
-    ViewData["Title"] = "AddOrUpdate";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
+<style>
+    /*.list-roles {
+        margin: 0px -10px;
+    }*/
 
-<h1>AddOrUpdate</h1>
+        .list-roles .item-checkbox {
+            float: left;
+            padding: 5px 10px;
+        }
 
+            .list-roles .item-checkbox .name-role {
+                margin-left: 5px;
+            }
+    .box-images > input {
+        display: none;
+    }
+
+    .box-images .item-image {
+        width: 120px;
+        height: 100px;
+        border-radius: 4px;
+        background: url('/image/default-image-620x600.jpg');
+        /*float: left;*/
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .add-image {
+        background: #007bff;
+        color: #fff;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+    #CreateOrUpdate .txt-title-head {
+        text-align: center;
+        display: block;
+        width: 100%;
+        font-size: 27px;
+    }
+    .error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        /* padding: 10px; */
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 13px;
+        font-weight: unset !important;
+        background: unset;
+    }
+
+</style>
+<div class="modal fade" id="CreateOrUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form method="post" action="#" id="form_user">
+                <div class="modal-header">
+                    <h5 class="modal-title txt-title-head">Thêm mới nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="sub-title col-sm-3">Tên nhân viên<span class="red">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="Nhập tên nhân viên" class="form-control" id="fullname" name="fullname" autocomplete="off" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="sub-title col-sm-3">Số điện thoại <span class="red">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="Nhập số điện thoại" class="form-control" id="mobile" name="mobile" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="sub-title col-sm-3">Ngày sinh<span class="red">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="Ngày sinh" class="form-control" id="birthday" name="birthday" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="sub-title col-sm-3">Email</label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="Email" class="form-control" id="email" name="email" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="sub-title col-sm-3">Tên đăng nhập <span class="red">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="Tên đăng nhập" class="form-control" id="username" name="username" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="sub-title col-sm-3">Mật khẩu<span class="red">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="password" placeholder="Mật khẩu" class="form-control" id="password" name="password" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="sub-title col-sm-3">Nhập lại mật khẩu<span class="red">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="password" placeholder="Nhập lại mật khẩu" class="form-control" id="confirm_password" name="confirm" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="sub-title col-sm-3">Địa chỉ</label>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="Địa chỉ" class="form-control" id="address" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="sub-title col-sm-3">Quyền: </label>
+                        <div class="col-sm-9 list-roles">
+                            @*<a href="javascript:void(0)" class="add-role">Thêm quyền</a>*@
+                            <select class="form-control">
+                                <option value="0">Chọn quyền</option>
+                                <option value="">Admin</option>
+                                <option value="">Nhân viên</option>
+                                <option value="">Khách hàng</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="sub-title col-sm-3">Ảnh đại diện: </label>
+                        <div class="box-input box-input-avatar col-sm-9">
+                            <a href="javascript:void(0)" class="add-image">Thêm ảnh</a>
+                            <input id="file-input" class="filesImages" type="file" style="display:none" />
+                            <div class="box-images">
+
+                                <div class="image-upload item-image image-default">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                                        
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

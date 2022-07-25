@@ -1,0 +1,79 @@
+﻿
+@{
+    Layout = null;
+}
+<style>
+    .list-roles {
+        margin: 0px -10px;
+    }
+
+        .list-roles .item-checkbox {
+            float: left;
+            padding: 5px 10px;
+        }
+
+            .list-roles .item-checkbox .name-role {
+                margin-left: 5px;
+            }
+    .box-images > input {
+        display: none;
+    }
+
+    .box-images .item-image {
+        width: 120px;
+        height: 100px;
+        border-radius: 4px;
+        background: url('/image/default-image-620x600.jpg');
+        /*float: left;*/
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .add-image {
+        background: #007bff;
+        color: #fff;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 14px;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+    #CreateOrUpdate .txt-title-head {
+        text-align: center;
+        display: block;
+        width: 100%;
+        font-size: 27px;
+    }
+
+</style>
+<div class="modal fade" id="AddRole" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">           
+            <div class="modal-header">
+                <h5 class="modal-title txt-title-head">Thêm Quyền</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="sub-title col-sm-3">Tên quyền <span class="red">*</span></label>
+                    <div class="col-sm-9">
+                        <select class="form-control">
+                            <option value="0">Chọn quyền</option>
+                            <option value="">Admin</option>
+                            <option value="">Nhân viên</option>
+                            <option value="">Khách hàng</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-save">Lưu</button>
+                <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Hủy</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
