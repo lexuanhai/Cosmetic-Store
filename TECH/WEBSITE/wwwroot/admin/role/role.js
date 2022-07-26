@@ -3,12 +3,14 @@
     self.Data = [];
     self.IsUpdate = false;
     self.RoleId = "";
-    self.RenderTableHtml = function () {
+    self.RenderTableHtml = function (data) {
         var html = "";
-        if (self.Data != "" && self.Data.length > 0) {
-            for (var i = 0; i < self.Data.length; i++) {
+        var index = 0;
+        if (data != "" && data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
                 html += "<tr>";
-                var item = self.Data[i];
+                var item = data[i];
+                html += "<td>" + (++index) + "</td>";
                 html += "<td>" + item.Name + "</td>";
                 html += "<td>" + item.Description + "</td>";                
                 html += "<td><div class\"btn-group\">" +
@@ -19,10 +21,66 @@
             }
         }
         else {
-            html += "<tr>Không có dữ liệu</tr>";
+            html += "<tr><td colspan=\"10\" style=\"text-align:center\">Không có dữ liệu</td></tr>";
         }
         $("#tblData").html(html);
     };
+
+    self.WrapPaging = function (recordCount, callBack, changePageSize) {
+        var totalsize = Math.ceil(recordCount / tedu.configs.pageSize);
+        //Unbind pagination if it existed or click change pagesize
+        if ($('#paginationUL a').length === 0 || changePageSize === true) {
+            $('#paginationUL').empty();
+            $('#paginationUL').removeData("twbs-pagination");
+            $('#paginationUL').unbind("page");
+        }
+        //Bind Pagination Event
+        $('#paginationUL').twbsPagination({
+            totalPages: totalsize,
+            visiblePages: 7,
+            first: 'Đầu',
+            prev: 'Trước',
+            next: 'Tiếp',
+            last: 'Cuối',
+            onPageClick: function (event, p) {
+                tedu.configs.pageIndex = p;
+                setTimeout(callBack(), 200);
+            }
+        });
+    }
+
+    self.GetDataPaging = function (isPageChanged) {
+        var _data = {
+            Name: $(".name-search").val() != "" ? $(".name-search").val() : null,
+            Code: $(".code-search").val() != "" ? $(".code-search").val() : null,
+            PageIndex: tedu.configs.pageIndex,
+            PageSize: tedu.configs.pageSize
+        };
+        $.ajax({
+            url: '/Admin/Role/GetAllPaging',
+            type: 'GET',
+            data: _data,
+            dataType: 'json',
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                //Loading('hiden');
+            },
+            success: function (response) {
+                self.RenderTableHtml(response.data.Results);
+                $('#lblTotalRecords').text(response.data.RowCount);
+                if (response.data.RowCount != null && response.data.RowCount > 0) {
+                    self.WrapPaging(response.data.RowCount, function () {
+                        GetDataPaging();
+                    }, isPageChanged);
+                }
+
+            }
+        })
+
+    };
+
 
     self.Update = function (id) {
         if (id != null && id != "") {
@@ -34,11 +92,11 @@
     }
     self.Deleted = function (id) {
         if (id != null && id != "") {
-            tedu.confirm('Bạn có chắc muốn xóa role?', function () {
+            tedu.confirm('Bạn có chắc muốn xóa quyền?', function () {
                 $.ajax({
                     type: "POST",
                     url: "/Admin/Role/Delete",
-                    data: { roleId: id },
+                    data: { id: id },
                     beforeSend: function () {
                        // tedu.startLoading();
                     },
@@ -46,7 +104,7 @@
                         //tedu.notify('Delete successful', 'success');
                         //tedu.stopLoading();
                         //loadData();
-                        GetData();
+                        self.GetDataPaging(true);
                     },
                     error: function () {
                         tedu.notify('Has an error', 'error');
@@ -162,7 +220,7 @@
                         },
                         success: function (response) {
                             if (response.success) {
-                                self.GetData();
+                                self.GetDataPaging(true);
                                 $('#_add').modal('hide');
                             }
                         }
@@ -186,7 +244,7 @@
                         },
                         success: function (response) {
                             if (response.success) {
-                                self.GetData();
+                                self.GetDataPaging(true);
                                 $('#_add').modal('hide');
                             }
                         }
@@ -199,13 +257,17 @@
 
 
     $(document).ready(function () {
-        GetData();
+        self.GetDataPaging();
         $("#dpicker").datepicker();
         self.FormSubmitAdd();
 
         $(".modal").on("hidden.bs.modal", function () {
             $(this).find('form').trigger('reset');
+            $("#formSubmitAdd").validate().resetForm();
+            $("label.error").hide();
+            $(".error").removeClass("error");
         });
+
 
     });
 

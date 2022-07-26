@@ -16,11 +16,14 @@ namespace WEBSITE.Areas.Admin.Controllers
     {
         private readonly IAppUserService _appUserService;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IAppUserRoleService _appUserRoleService;
         public AppUsersController(IAppUserService appUserService,
+            IAppUserRoleService appUserRoleService,
             IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
             _appUserService = appUserService;
+            _appUserRoleService = appUserRoleService;
         }
         public IActionResult Index()
         {
@@ -103,6 +106,29 @@ namespace WEBSITE.Areas.Admin.Controllers
                 success = result
             });
         }
+
+        [HttpPost]
+        public JsonResult AddUserRoles (int userId, int[] rolesId)
+        {
+            try
+            {
+                _appUserRoleService.AddAppUserRole(userId, rolesId);
+
+                return Json(new
+                {
+                    success = true
+                });
+            }
+            catch (Exception)
+            {
+                return Json(new
+                {
+                    success = false
+                });
+            }
+
+        }
+
         [HttpPost]
         public JsonResult Delete(int id)
         {

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WEBSITE.Areas.Admin.Models;
+using WEBSITE.Areas.Admin.Models.Search;
 using WEBSITE.Data.DatabaseEntity;
 using WEBSITE.Service;
 
@@ -13,10 +14,10 @@ namespace WEBSITE.Areas.Admin.Controllers
 {    
     public class RoleController : BaseController
     {
-        private readonly ICategoryService _categoryService;
-        public RoleController(ICategoryService categoryService)
+        private readonly IAppRoleService _appRoleService;
+        public RoleController(IAppRoleService appRoleService)
         {
-            _categoryService = categoryService;
+            _appRoleService = appRoleService;
         }
         public IActionResult Index()
         {
@@ -25,55 +26,40 @@ namespace WEBSITE.Areas.Admin.Controllers
         [HttpGet]
         public JsonResult GetAll()
         {
-            var model = _categoryService.GetAll();
-            bool isData = false;
-            if (model != null && model.Count > 0)
-                isData = true;
+            var model = _appRoleService.GetAll();
             return Json(new
             {
-                IsData = isData,
                 Data = model
             });
         }
         [HttpGet]
         public JsonResult GetById(int id)
         {
-            var model = new CategoryModelView();
+            var model = new RoleModelView();
             if (id > 0)
             {
-                model = _categoryService.GetById(id);
+                model = _appRoleService.GetById(id);
             }
             return Json(new
             {
                 Data = model
             });
         }
-
-        [HttpGet]
-        public JsonResult GetAllParent()
-        {
-            var model = _categoryService.GetAllParent();
-            return Json(new
-            {
-                Data = model
-            });
-        }
-
         [HttpPost]
-        public JsonResult Add(CategoryModelView CategoryModelView)
+        public JsonResult Add(RoleModelView roleModelView)
         {
-            var result = _categoryService.Add(CategoryModelView);
-            _categoryService.Save();
+            var result = _appRoleService.Add(roleModelView);
+            _appRoleService.Save();
             return Json(new
             {
                 success = result
             });
         }
         [HttpPost]
-        public JsonResult Update(CategoryModelView categoryModelView)
+        public JsonResult Update(RoleModelView roleModelView)
         {
-            var result = _categoryService.Update(categoryModelView);
-            _categoryService.Save();
+            var result = _appRoleService.Update(roleModelView);
+            _appRoleService.Save();
             return Json(new
             {
                 success = result
@@ -82,25 +68,18 @@ namespace WEBSITE.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var result = _categoryService.Deleted(id);
-            _categoryService.Save();
+            var result = _appRoleService.Deleted(id);
+            _appRoleService.Save();
             return Json(new
             {
                 success = result
             });
         }
-        //[HttpGet]
-        //public JsonResult GetAllPaging(CategoryViewModelSearch categoryViewModelSearch)
-        //{
-        //    var data = _categoryService.GetAllPaging(categoryViewModelSearch);
-        //    return Json(new { data = data });
-        //}
-
         [HttpGet]
-        public JsonResult GetCategoryByParentId(int parentId)
+        public JsonResult GetAllPaging(RoleViewModelSearch roleViewModelSearch)
         {
-            var data = _categoryService.GetCategoryByParentId(parentId);
-            return Json(new { Data = data });
+            var data = _appRoleService.GetAllPaging(roleViewModelSearch);
+            return Json(new { data = data });
         }
 
     }

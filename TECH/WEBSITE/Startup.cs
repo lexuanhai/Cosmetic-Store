@@ -100,6 +100,8 @@ namespace WEBSITE
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBrandsRepository, BrandsRepository>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
+            services.AddScoped<IAppRoleRepository, AppRoleRepository>();
+            services.AddScoped<IAppUserRolesRepository, AppUserRolesRepository>();
 
 
             // service
@@ -112,6 +114,8 @@ namespace WEBSITE
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IBrandsService, BrandsService>();
             services.AddScoped<IAppUserService, AppUserService>();
+            services.AddScoped<IAppRoleService, AppRoleService>();
+            services.AddScoped<IAppUserRoleService, AppUserRoleService>();
 
         }
 

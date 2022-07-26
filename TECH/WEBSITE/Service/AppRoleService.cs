@@ -13,7 +13,7 @@ namespace WEBSITE.Service
 {
     public interface IAppRoleService
     {
-        PagedResult<RoleModelView> GetAllPaging(ColorViewModelSearch colorViewModelSearch);
+        PagedResult<RoleModelView> GetAllPaging(RoleViewModelSearch colorViewModelSearch);
         List<RoleModelView> GetAll();
         RoleModelView GetById(int id);
         int Add(RoleModelView view);
@@ -40,6 +40,7 @@ namespace WEBSITE.Service
                 {
                     Id = data.Id,
                     Name = data.Name,
+                    Description = data.Description
                     //Code = data.Code
                 };
                 return model;
@@ -103,7 +104,8 @@ namespace WEBSITE.Service
                 var dataServer = _appRoleRepository.FindById(id);
                 if (dataServer != null)
                 {
-                    _appRoleRepository.Remove(dataServer);
+                    dataServer.IsDeleted = true;
+                    _appRoleRepository.Update(dataServer);
                     return true;
 
                 }
@@ -116,50 +118,46 @@ namespace WEBSITE.Service
 
             return false;
         }
-        public PagedResult<RoleModelView> GetAllPaging(ColorViewModelSearch colorViewModelSearch)
+        public PagedResult<RoleModelView> GetAllPaging(RoleViewModelSearch roleViewModelSearch)
         {
             try
             {
-                var query = _appRoleRepository.FindAll();
+                var query = _appRoleRepository.FindAll().Where(r=>!r.IsDeleted);
                 
-                if (!string.IsNullOrEmpty(colorViewModelSearch.Name))
+                if (!string.IsNullOrEmpty(roleViewModelSearch.Name))
                 {
-                    query = query.Where(c => c.Name.ToLower() == colorViewModelSearch.Name.ToLower());
+                    query = query.Where(c => c.Name.ToLower() == roleViewModelSearch.Name.ToLower());
                 }
 
-
                 int totalRow = query.Count();
-                query = query.Skip((colorViewModelSearch.PageIndex - 1) * colorViewModelSearch.PageSize).Take(colorViewModelSearch.PageSize);
+                query = query.Skip((roleViewModelSearch.PageIndex - 1) * roleViewModelSearch.PageSize).Take(roleViewModelSearch.PageSize);
                 var data = query.Select(c => new RoleModelView()
                 {
                     Name = c.Name,
-                    //Code = c.Code,
                     Id = c.Id,
                     Description = c.Description
                 }).ToList();
                 var pagingData = new PagedResult<RoleModelView>
                 {
                     Results = data,
-                    CurrentPage = colorViewModelSearch.PageIndex,
-                    PageSize = colorViewModelSearch.PageSize,
+                    CurrentPage = roleViewModelSearch.PageIndex,
+                    PageSize = roleViewModelSearch.PageSize,
                     RowCount = totalRow,
                 };
                 return pagingData;
             }
             catch (Exception ex)
             {
-
                 throw;
             }
 
         }
         public List<RoleModelView> GetAll()
         {
-            var data = _appRoleRepository.FindAll().Select(c => new RoleModelView()
+            var data = _appRoleRepository.FindAll().Where(r=>!r.IsDeleted).Select(c => new RoleModelView()
             {
                 Id = c.Id,
                 Name = c.Name,
-                //Code = c.Code
             }).ToList();
 
             return data;

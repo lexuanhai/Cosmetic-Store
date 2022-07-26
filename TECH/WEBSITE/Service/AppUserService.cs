@@ -15,7 +15,7 @@ namespace WEBSITE.Service
     {
         PagedResult<UserModelView> GetAllPaging(UserModelViewSearch userModelViewSearch);
         UserModelView GetById(int id);
-        bool Add(UserModelView view);
+        int Add(UserModelView view);
         bool Update(UserModelView view);
         bool Deleted(int id);
         void Save();
@@ -45,12 +45,13 @@ namespace WEBSITE.Service
                     Birthday = data.Birthday,
                     Address = data.Address,
                     Avartar = data.Avartar,
+                    PassWord = data.PassWord
                 };
                 return model;
             }
             return null;
         }
-        public bool Add(UserModelView view)
+        public int Add(UserModelView view)
         {
             try
             {
@@ -64,18 +65,19 @@ namespace WEBSITE.Service
                         UserName = view.UserName,
                         Birthday  = view.Birthday,
                         Address  = view.Address,
-                        City  = view.City,
-                        Avartar   = view.Avartar,
+                        Avartar   = view.Avartar,                        
                     };
                     _appUserRepository.Add(appUser);
-                    return true;                    
+                    Save();
+
+                    return appUser.Id;                    
                 }
             }
             catch (Exception ex)
             {
-                return false;
+                return 0;
             }
-            return false;
+            return 0;
 
         }
         public void Save()
@@ -95,8 +97,8 @@ namespace WEBSITE.Service
                     dataServer.UserName = view.UserName;
                     dataServer.Birthday = view.Birthday;
                     dataServer.Address = view.Address;
-                    dataServer.City = view.City;
                     dataServer.Avartar = view.Avartar;
+                    dataServer.PassWord = view.PassWord;
                     _appUserRepository.Update(dataServer);
                     return true;
                 }

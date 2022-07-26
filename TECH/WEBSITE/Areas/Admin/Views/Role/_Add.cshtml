@@ -18,7 +18,7 @@
     }
 </style>
 <div class="modal fade" id="_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="#" method="#" id="formSubmitAdd">
                 <div class="modal-header">
@@ -30,15 +30,18 @@
                 <div class="modal-body">
 
                     <div class="row">
-                        <div class="form-group col-6">
+                        <div class="form-group col-sm-12">
                             <label>Tên quyền</label>
                             <input type="text" class="form-control name" placeholder="tên quyền" name="name">
                         </div>
-                        <div class="form-group col-6">
+                        
+                    </div>   
+                    <div class="row">
+                        <div class="form-group col-sm-12">
                             <label>Mô tả</label>
                             <input type="text" class="form-control description" placeholder="mô tả" name="description">
                         </div>
-                    </div>                  
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>

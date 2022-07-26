@@ -74,7 +74,6 @@ namespace WEBSITE.Areas.Admin.Controllers {
                 UserName = user.UserName,
                 Name = user.Name,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
                 //EmailConfirmed = true,
                 //PhoneNumberConfirmed = true,
             };

@@ -2,7 +2,7 @@
     var self = this;
     self.Data = [];
     self.UserImages = {};
-    self.IsUpdate = false;
+    self.IsUpdate = false;    
     self.User = {
         Id: null,
         FullName: null,
@@ -56,7 +56,7 @@
             }
         }
         else {
-            html += "<tr><td colspan=\"9\" style=\"text-align:center\">Không có dữ liệu</td></tr>";
+            html += "<tr><td colspan=\"10\" style=\"text-align:center\">Không có dữ liệu</td></tr>";
         }
         $("#tblData").html(html);
     };
@@ -64,7 +64,7 @@
         if (id != null && id != "") {
             $(".txt-title-head").html("Cập nhật thông tin nhân viên");
             self.GetById(id, self.RenderHtmlByObject);
-
+            self.User.Id = id;
             //self.RenderHtmlByUser(user);
             $('#CreateOrUpdate').modal('show');
             //$(".content-infor").hide();
@@ -95,6 +95,7 @@
                         //self.GetImageByProductId(id);
                         renderCallBack(response.Data);
                         self.Id = id;
+                        
                     }
                 }
             })
@@ -190,6 +191,7 @@
             //self.BindRoleHtml();
             //;           
             self.SetValueDefault();
+            self.User.Id = 0;
             $('#CreateOrUpdate').modal('show')
         })
 
@@ -265,6 +267,8 @@
         $("#birthday").datepicker({
             changeMonth: true,
             changeYear: true,
+            dateFormat: 'dd/mm/yy',
+            formatSubmit: 'yyyy/mm/dd'
         });
 
         $(".btn-submit-search").click(function () {
@@ -661,9 +665,9 @@
             },
             success: function (response) {
                 if (response.success) {
-                    if (self.UserImages != null) {
+                    if (self.UserImages !== null && self.UserImages.name != "" && self.UserImages.name != undefined) {
                         self.AddImageAvatar();
-                    }                    
+                    }
                     setTimeout(function () {
                         window.location.reload();
                     }, 500);
@@ -741,14 +745,21 @@
                     min: "Mật khẩu ít nhất 6 kí tự"
                 }
             },
-            submitHandler: function (form) {
-                
+            submitHandler: function (form) {               
                 self.GetValue();
-
-                if (self.UserImages != null) {
-                    self.User.Avartar = "/avatar/"+self.UserImages.name;
+                var isNoUpdateImage = false;
+                if (self.UserImages !== null && self.UserImages.name != "" && self.UserImages.name != undefined) {
+                    self.User.Avartar = "/avatar/" + self.UserImages.name;
                 }
-                if (self.IsUpdate) {                    
+                else {
+                    isNoUpdateImage = true;
+                }
+                debugger;
+                if (self.IsUpdate) {
+                    if (isNoUpdateImage) {
+
+                    }
+                    console.log(self.User);
                     self.UpdateUser(self.User);
                 }
                 else {                    
@@ -765,8 +776,10 @@
         self.User.Address = $("#address").val();
         self.User.UserName = $("#username").val();
         self.User.Password = $("#password").val();
-        self.User.BirthDay = $("#birthday").val();
+        self.User.BirthDay = $('#birthday').datepicker('getDate').toString();
 
+        var date = new Date($('#birthday').datepicker('getDate'));
+        self.User.BirthDay = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
     }
 
     Set.SetValue = function () {
@@ -776,22 +789,38 @@
             $("#email").val(self.User.Email);
             $("#address").val(self.User.Address);
             $("#username").val(self.User.UserName);
-            $("#password").val(self.User.Password);
+            $("#password").val(self.User.PassWord);
+
+
             $("#birthday").val(moment(self.User.BirthDay).format('DD/MM/YYYY'));
+
             $(".box-avatar").css({ 'background': 'url(/' + (self.User.Avatar !== null ? self.User.Avatar : "image/admin/avatar.jpg") + ')', 'display': 'block' });
         }
     }
 
     self.RenderHtmlByObject = function (view) {
         console.log(view);
-        $("#fullname").val(view.FullName);
-        $("#mobile").val(view.PhoneNumber);
+        $("#fullname").val(view.Name);
+        $("#mobile").val(view.Phone);
         $("#email").val(view.Email);
         $("#address").val(view.Address);
         $("#username").val(view.UserName);
-        $("#password").val(view.Password);
-        $("#birthday").val(moment(view.BirthDay).format('DD/MM/YYYY'));
-        $(".box-avatar").css({ 'background': 'url(/' + (view.Avatar !== null ? view.Avatar : "image/admin/avatar.jpg") + ')', 'display': 'block' });
+        $("#password").val(view.PassWord);
+        $("#confirm_password").val(view.PassWord);
+        //$("#birthday").val(moment(view.BirthDay).format('DD/MM/YYYY'));
+        //console.log(moment(view.BirthDay).format('mm/DD/yyyy'));
+        //console.log(view.Birthday);
+        //var date = new Date(view.Birthday);
+        //console.log(date);
+        var date = new Date(view.Birthday);
+        self.User.Birthday = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' +((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
+        //console.log(self.User.Birthday);
+
+        $('#birthday').datepicker('setDate', self.User.Birthday);
+        self.User.Avartar = view.Avartar;
+        
+        var html = "<div class=\"box-item-image\"> <div class=\"image-upload item-image\" style=\"background-image:url(" + (view.Avartar !== null ? view.Avartar : "image/admin/avatar.jpg") + ")\"></div></div>";
+        $(".box-images").html(html);        
 
     }
 
@@ -857,24 +886,21 @@
             complete: function () {
             },
             success: function (response) {
-                if (response !== null && response.length > 0) {
-                    self.lstRole = response;
+                if (response.Data !== null && response.Data.length > 0) {
+                    self.BindRoleHtml(response.Data)
                 }
             },
             error: function () {
             }
         });
-    }
-    self.BindRoleHtml = function (selectedRole) {
-        if (self.lstRole !== null && self.lstRole.length > 0) {
-            var html = "";
-            $.each(self.lstRole, function (key, item) {
-
-                html += '<div class="item-checkbox">' +
-                    '<input type = "checkbox" class="checkbox" value="' + item.Name + '" name="ckRoles" />' +
-                    '<span class="name-role">' + item.Name + '</span> </div >';
+    }    
+    self.BindRoleHtml = function (data) {
+        if (data !== null && data.length > 0) {
+            var html = "<option value='0'>Chọn quyền</option>";
+            $.each(data, function (key, item) {
+                html += "<option value=" + item.Id + ">" + item.Name+"</option>";
             })
-            $(".list-roles").html(html);
+            $(".roles").html(html);
         }
     }
 
@@ -882,5 +908,17 @@
         self.GetDataPaging();
         self.Init();
         self.ValidateUser();
+        self.GetAllRole();
+        $('.data-select2').select2();
+        $(".modal").on("hidden.bs.modal", function () {
+            $(this).find('form').trigger('reset');
+            $("form").validate().resetForm();
+            $("label.error").hide();
+            $(".error").removeClass("error");
+        });
+
+
+        $('.data-select2').val(['WY']);
+        $('.data-select2').trigger('change');
     })
 })(jQuery);

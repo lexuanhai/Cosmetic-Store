@@ -22,10 +22,10 @@ namespace WEBSITE.Data.DatabaseEntity
         public string UserName { get; set; }
         public DateTime? Birthday { get; set; }
         public string Address { get; set; }
-        public string City { get; set; }  
         public string Avartar { get; set; }
-        public StaffStatus Status { get; set; } 
-        public string PhoneNumber { get; set; }
+        public StaffStatus Status { get; set; }
+        [Column(TypeName = "varchar(250)")]
+        public string PassWord { get; set; }
         public bool IsDeleted { get; set; }
    }
 }

@@ -126,12 +126,14 @@
                         <label class="sub-title col-sm-3">Quyền: </label>
                         <div class="col-sm-9 list-roles">
                             @*<a href="javascript:void(0)" class="add-role">Thêm quyền</a>*@
-                            <select class="form-control">
-                                <option value="0">Chọn quyền</option>
-                                <option value="">Admin</option>
-                                <option value="">Nhân viên</option>
-                                <option value="">Khách hàng</option>
+                            @*<select class="form-control roles">
+            <option value="0">Chọn quyền</option>
 
+
+        </select>*@
+                            <select class="form-control data-select2" name="states[]" multiple="multiple">
+                                <option value="AL">Alabama</option>
+                                <option value="WY">Wyoming</option>
                             </select>
                         </div>
                     </div>
@@ -139,7 +141,7 @@
                     <div class="form-group row">
                         <label class="sub-title col-sm-3">Ảnh đại diện: </label>
                         <div class="box-input box-input-avatar col-sm-9">
-                            <a href="javascript:void(0)" class="add-image">Thêm ảnh</a>
+                            <a href="javascript:void(0)" class="add-image">Chọn ảnh</a>
                             <input id="file-input" class="filesImages" type="file" style="display:none" />
                             <div class="box-images">
 
