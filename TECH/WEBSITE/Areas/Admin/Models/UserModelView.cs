@@ -22,5 +22,8 @@ namespace WEBSITE.Areas.Admin.Models
         public string Avartar { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsDeleted { get; set; }
+        public List<RoleModelView> Roles { get; set; }
+        public string RolesStr { get; set; }
+        public List<int> RolesArrary { get; set; }
     }
 }

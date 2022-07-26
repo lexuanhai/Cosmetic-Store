@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WEBSITE.Data.DatabaseEntity;
 
 namespace WEBSITE.Migrations
 {
     [DbContext(typeof(DataBaseEntityContext))]
-    partial class DataBaseEntityContextModelSnapshot : ModelSnapshot
+    [Migration("20220726105442_CreateAppUserRole")]
+    partial class CreateAppUserRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -22,6 +22,7 @@ namespace WEBSITE.Data.DatabaseEntity
         public DbSet<Product> Product { set; get; }
         public DbSet<AppUser> AppUser { set; get; }
         public DbSet<AppRoles> AppRoles { set; get; }
+        public DbSet<AppUserRoles> AppUserRoles { set; get; }
         public DbSet<AppSizeProduct> AppSizeProduct { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

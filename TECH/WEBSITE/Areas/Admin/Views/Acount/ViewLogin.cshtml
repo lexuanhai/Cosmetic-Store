@@ -40,7 +40,7 @@
 
             .custom-group-box .box-icon {
                 position: absolute;
-                top: 0;
+                top: 31px;
                 right: 0;
             }
 
@@ -53,6 +53,14 @@
             border: none;
             background-color: unset;
         }
+        .login-box-msg {
+            font-size: 24px;
+            color: #0098da;
+            font-weight: bold;
+        }
+        .txt-tile-login{
+            font-weight:unset !important;
+        }
     </style>
 </head>
 <body class="hold-transition login-page">
@@ -63,10 +71,11 @@
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Đăng nhập hệ thống</p>
 
                 <form action="#" method="post" id="FormLogin">
                     <div class="form-group custom-group-box mb-3">
+                        <label class="txt-tile-login">Email hoặc Tên đăng nhập:</label>
                         <input type="text" class="form-control" name="txtEmailOrUserName" placeholder="Email Or User Name">
                         <div class="box-icon">
                             <div class="input-group-text">
@@ -75,6 +84,7 @@
                         </div>
                     </div>
                     <div class="form-group custom-group-box mb-3">
+                        <label class="txt-tile-login">Mật khẩu:</label>
                         <input type="password" class="form-control" name="txtPassword" placeholder="Password">
                         <div class="box-icon">
                             <div class="input-group-text">
@@ -84,12 +94,12 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <div class="icheck-primary">
+                            @*<div class="icheck-primary">
                                 <input type="checkbox" id="remember">
                                 <label for="remember">
                                     Remember Me
                                 </label>
-                            </div>
+                            </div>*@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
@@ -110,12 +120,12 @@
                     </div>*@
                 <!-- /.social-auth-links -->
 
-                <p class="mb-1">
+                @*<p class="mb-1">
                     <a href="forgot-password.html">I forgot my password</a>
                 </p>
                 <p class="mb-0">
                     <a href="register.html" class="text-center">Register a new membership</a>
-                </p>
+                </p>*@
             </div>
             <!-- /.login-card-body -->
         </div>

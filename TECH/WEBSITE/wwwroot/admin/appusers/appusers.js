@@ -11,7 +11,8 @@
         Email: "",
         Address: "",
         PhoneNumber: "",
-        Avatar: ""
+        Avatar: "",        
+        RolesArrary:[]
     }
     self.UserSearch = {
         Id: "",
@@ -42,7 +43,7 @@
                 html += "<td>" + (++index) + "</td>";
                 html += "<td>" + item.UserName + "</td>";
                 html += "<td>" + item.Name + "</td>";
-                html += "<td>" + item.Name + "</td>";
+                html += "<td>" + item.RolesStr + "</td>";
                 html += "<td>" + item.Phone + "</td>";
                 html += "<td>" + item.Email + "</td>";
                 html += "<td>" + item.BirthdayStr + "</td>";
@@ -754,12 +755,7 @@
                 else {
                     isNoUpdateImage = true;
                 }
-                debugger;
                 if (self.IsUpdate) {
-                    if (isNoUpdateImage) {
-
-                    }
-                    console.log(self.User);
                     self.UpdateUser(self.User);
                 }
                 else {                    
@@ -778,6 +774,10 @@
         self.User.Password = $("#password").val();
         self.User.BirthDay = $('#birthday').datepicker('getDate').toString();
 
+        var roleSelected = $(".data-select2").select2("val");
+        if (roleSelected != null && roleSelected.length > 0) {
+            self.User.RolesArrary = roleSelected;
+        }
         var date = new Date($('#birthday').datepicker('getDate'));
         self.User.BirthDay = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
     }
@@ -791,6 +791,15 @@
             $("#username").val(self.User.UserName);
             $("#password").val(self.User.PassWord);
 
+            var dataSelecteRole = $('.data-select2').select2("data");
+            if (dataSelecteRole != null && dataSelecteRole.length > 0) {
+                for (var i = 0; i < dataSelecteRole.length; i++) {
+                    var item = dataSelecteRole[i];
+                    if (item.id != null) {
+                        self.User.Roles.push(parseInt(item.id));
+                    }
+                }
+            }
 
             $("#birthday").val(moment(self.User.BirthDay).format('DD/MM/YYYY'));
 
@@ -807,17 +816,21 @@
         $("#username").val(view.UserName);
         $("#password").val(view.PassWord);
         $("#confirm_password").val(view.PassWord);
-        //$("#birthday").val(moment(view.BirthDay).format('DD/MM/YYYY'));
-        //console.log(moment(view.BirthDay).format('mm/DD/yyyy'));
-        //console.log(view.Birthday);
-        //var date = new Date(view.Birthday);
-        //console.log(date);
+
+        if (view.RolesArrary != null && view.RolesArrary.length > 0) {
+            $('.data-select2').val(view.RolesArrary);
+            $('.data-select2').trigger('change');
+        }
+
         var date = new Date(view.Birthday);
         self.User.Birthday = ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' +((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear();
-        //console.log(self.User.Birthday);
+        
 
         $('#birthday').datepicker('setDate', self.User.Birthday);
         self.User.Avartar = view.Avartar;
+
+
+
         
         var html = "<div class=\"box-item-image\"> <div class=\"image-upload item-image\" style=\"background-image:url(" + (view.Avartar !== null ? view.Avartar : "image/admin/avatar.jpg") + ")\"></div></div>";
         $(".box-images").html(html);        
@@ -900,7 +913,7 @@
             $.each(data, function (key, item) {
                 html += "<option value=" + item.Id + ">" + item.Name+"</option>";
             })
-            $(".roles").html(html);
+            $(".data-select2").html(html);
         }
     }
 
@@ -918,7 +931,6 @@
         });
 
 
-        $('.data-select2').val(['WY']);
-        $('.data-select2').trigger('change');
+       
     })
 })(jQuery);

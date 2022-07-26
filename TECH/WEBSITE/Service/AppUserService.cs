@@ -24,17 +24,42 @@ namespace WEBSITE.Service
     public class AppUserService : IAppUserService
     {
         private readonly IAppUserRepository _appUserRepository;
+        private readonly IAppRoleRepository _appRoleRepository;
+        private readonly IAppUserRolesRepository _appUserRolesRepository;
         private IUnitOfWork _unitOfWork;
-        public AppUserService(IAppUserRepository appUserRepository, IUnitOfWork unitOfWork)
+        public AppUserService(IAppUserRepository appUserRepository,
+            IAppUserRolesRepository appUserRolesRepository,
+            IAppRoleRepository appRoleRepository,
+            IUnitOfWork unitOfWork)
         {
             _appUserRepository = appUserRepository;
+            _appUserRolesRepository = appUserRolesRepository;
+            _appRoleRepository = appRoleRepository;
             _unitOfWork = unitOfWork;
         }
         public UserModelView GetById(int id)
         {
             var data = _appUserRepository.FindAll(p => p.Id == id).FirstOrDefault();
+            var lstRoles = new List<RoleModelView>();
             if (data != null)
             {
+                var lstUserRole =  _appUserRolesRepository.FindAll().Where(u => u.AppUserId == id).ToList();
+                if (lstUserRole != null && lstUserRole.Count > 0)
+                {
+                    foreach (var itemRole in lstUserRole)
+                    {
+                        var role = _appRoleRepository.FindAll().Where(r => r.Id == itemRole.AppRoleId && r.IsDeleted != true).Select(r => new RoleModelView()
+                        {
+                            Id = r.Id,
+                            Name = r.Name
+                        }).FirstOrDefault();
+                        if (role != null)
+                        {
+                            lstRoles.Add(role);
+                        }
+                    }
+
+                }
                 var model = new UserModelView()
                 {
                     Id = data.Id,
@@ -45,7 +70,10 @@ namespace WEBSITE.Service
                     Birthday = data.Birthday,
                     Address = data.Address,
                     Avartar = data.Avartar,
-                    PassWord = data.PassWord
+                    PassWord = data.PassWord,
+                    Roles = lstRoles,
+                    RolesStr = string.Join(',', lstRoles.Select(r => r.Name).ToList()),
+                    RolesArrary = lstRoles.Select(r => r.Id).ToList()
                 };
                 return model;
             }
@@ -68,7 +96,23 @@ namespace WEBSITE.Service
                         Avartar   = view.Avartar,                        
                     };
                     _appUserRepository.Add(appUser);
+                    
                     Save();
+
+                    if (view.RolesArrary != null && view.RolesArrary.Count > 0)
+                    {
+                        foreach (var item in view.RolesArrary)
+                        {
+                            var _appUserRole = new AppUserRoles()
+                            {
+                                AppUserId = appUser.Id,
+                                AppRoleId = Convert.ToInt32(item)
+                            };
+                            _appUserRolesRepository.Add(_appUserRole);
+                            Save();
+                        }
+
+                    }
 
                     return appUser.Id;                    
                 }
@@ -100,6 +144,28 @@ namespace WEBSITE.Service
                     dataServer.Avartar = view.Avartar;
                     dataServer.PassWord = view.PassWord;
                     _appUserRepository.Update(dataServer);
+                    var dataServerRoles = new List<AppUserRoles>();
+
+                    dataServerRoles = _appUserRolesRepository.FindAll().Where(r => r.AppUserId == dataServer.Id).ToList();
+                    if (dataServerRoles != null && dataServerRoles.Count > 0)
+                    {
+                        _appUserRolesRepository.RemoveMultiple(dataServerRoles);
+                    }
+
+                    if (view.RolesArrary != null && view.RolesArrary.Count > 0)
+                    {
+                        foreach (var item in view.RolesArrary)
+                        {
+                            var userRole = new AppUserRoles()
+                            {
+                                AppUserId = dataServer.Id,
+                                AppRoleId = item
+                            };
+                            _appUserRolesRepository.Add(userRole);
+                        }
+                    }
+
+                    
                     return true;
                 }
             }
@@ -155,6 +221,37 @@ namespace WEBSITE.Service
                     Address = !string.IsNullOrEmpty(c.Address) ? c.Address : "",                    
                     Avartar = c.Avartar,
                  }).ToList();
+
+                if (data != null && data.Count > 0)
+                {
+                    var lstRoles = new List<RoleModelView>();
+                    foreach (var item in data)
+                    {
+                        var lstUserRole = _appUserRolesRepository.FindAll().Where(u => u.AppUserId == item.Id).ToList();
+                        if (lstUserRole != null && lstUserRole.Count > 0)
+                        {
+                            foreach (var itemRole in lstUserRole)
+                            {
+                                var role = _appRoleRepository.FindAll().Where(r => r.Id == itemRole.AppRoleId && r.IsDeleted != true).Select(r=>new RoleModelView() { 
+                                    Id = r.Id,
+                                    Name = r.Name                                
+                                }).FirstOrDefault();
+                                if (role != null)
+                                {
+                                    lstRoles.Add(role);
+                                }
+                            }
+                            item.RolesStr = string.Join(',',lstRoles.Select(r=>r.Name).ToList());
+                            lstRoles = new List<RoleModelView>();
+                        }
+                        else
+                        {
+                            item.RolesStr = "";
+                        }
+
+                    }
+                }
+
                 var pagingData = new PagedResult<UserModelView>
                 {
                     Results = data,
