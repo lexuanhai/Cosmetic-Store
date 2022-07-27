@@ -20,8 +20,10 @@
                 html += "<td>" + item.Total + "</td>";
                 html += "<td><img class='fisrt-image-product' src=" + (item.UrlImage != null && item.UrlImage.length > 0 ? item.UrlImage[0] :"/image/default-image-620x600.jpg") + "></td>";
                 html += "<td><div class\"btn-group\">" +
+                    "<a class=\"btn btn-outline-danger btn-xs mr-1\" href=\"javascript:GetQuantityProductByPRoductId('" + item.Id + "')\"><i class=\"fas fa-pencil-alt\"></i> </a>" +
                     "<a class=\"btn btn-outline-danger btn-xs mr-1\" href=\"javascript:Update('" + item.Id + "')\"><i class=\"fas fa-pencil-alt\"></i> </a>" +
-                    "<a class=\"btn btn-outline-danger btn-xs\" href=\"javascript:Deleted('" + item.Id + "')\"><i class=\"fas fa-trash-alt\"></i> </a>"
+                    "<a class=\"btn btn-outline-danger btn-xs\" href=\"javascript:Deleted('" + item.Id + "')\"><i class=\"fas fa-trash-alt\"></i> </a>",
+                    
                 "</div></td> ";
                 html += "</tr>";
             }
@@ -35,8 +37,7 @@
     self.Update = function (id) {
         if (id != null && id != "") {
             self.GetById(id, self.RenderHtmlByObject);
-            //self.RenderHtmlByUser(user);
-            //$('#_addUpdate').modal('show');
+            $(".txt-title-modal").html("Cập nhật sản phẩm");
             $(".content-infor").hide();
             $(".box-content-add").show();
 
@@ -54,7 +55,7 @@
                         // tedu.startLoading();
                     },
                     success: function () {
-                        //tedu.notify('Delete successful', 'success');
+                        tedu.notify('Delete successful', 'success');
                         //tedu.stopLoading();
                         //loadData();
                         self.GetDataPaging(true);
@@ -102,7 +103,7 @@
                     Loading('show');
                 },
                 complete: function () {
-                    //Loading('hiden');
+                    Loading('hiden');
                 },
                 success: function (response) {
                     if (response.Data != null && response.Data.length > 0) {
@@ -136,7 +137,7 @@
                     Loading('show');
                 },
                 complete: function () {
-                    //Loading('hiden');
+                    Loading('hiden');
                 },
                 success: function (response) {
                     if (response.Data != null) {
@@ -162,7 +163,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 //if (response.success != null) {
@@ -376,7 +377,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 self.RenderTableHtml(response.data.Results);
@@ -423,7 +424,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 var html = "<option value =\"\">Chọn kích thước</option>";
@@ -446,7 +447,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 var html = "<option value =\"\">Chọn nhãn hiệu</option>";
@@ -469,7 +470,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 var html = "<option value =\"\">Chọn danh mục</option>";
@@ -499,6 +500,56 @@
         $(thisHtml).parent().hide();
 
     }
+
+    // quản lý số lượng sản phẩm
+    self.GetQuantityProductByPRoductId = function (productId) {
+        $.ajax({
+            url: '/Admin/Product/QuantityProduct',
+            type: 'GET',
+            data: {
+                productId: productId
+            },
+            dataType: 'json',
+            beforeSend: function () {
+                Loading('show');
+            },
+            complete: function () {
+                Loading('hiden');
+            },
+            success: function (response) {
+                self.RenderTableHtmlQuantity(response.Data);
+                $("#QuantityProduct").modal("show");
+            }
+        })
+    }
+    self.RenderTableHtmlQuantity = function (data) {
+        var html = "";
+        if (data != null && data != "" && data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                html += "<tr>";
+                html += "<td>" + (++i) + "</td>";
+                html += "<td>" + item.Product.Name + "</td>";
+                html += "<td>" + item.AppSize != null ? item.AppSize.Name:"" + "</td>";
+                html += "<td>" + item.DateImport + "</td>";
+                html += "<td>" + item.TotalImported + "</td>";
+                html += "<td>" + item.TotalSold + "</td>";
+                html += "<td>" + item.TotalStock + "</td>";                
+                html += "<td><div class\"btn-group\">" +
+                    "<a class=\"btn btn-outline-danger btn-xs mr-1\" href=\"javascript:Update('" + item.Id + "')\"><i class=\"fas fa-pencil-alt\"></i> </a>" +
+                    "<a class=\"btn btn-outline-danger btn-xs\" href=\"javascript:Deleted('" + item.Id + "')\"><i class=\"fas fa-trash-alt\"></i> </a>"
+                "</div></td> ";
+                html += "</tr>";
+            }
+        }
+        else {
+            html += "<tr><td colspan=\"9\" style=\"text-align:center\">Không có dữ liệu</td></tr>";
+        }
+        $("#tbDataQuantity").html(html);
+    };
+
+
+
     $(document).ready(function () {     
         self.GetDataPaging();
         self.FormSubmitAdd();
@@ -559,6 +610,7 @@
         $(".btn-add").click(function () {
             $(".content-infor").hide();
             $(".box-content-add").show();
+            $(".txt-title-modal").html("Thêm mới sản phẩm");
         })
 
         $('.filesImages').on('change', function () {

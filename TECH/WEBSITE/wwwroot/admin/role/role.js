@@ -65,7 +65,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 self.RenderTableHtml(response.data.Results);
@@ -86,6 +86,7 @@
         if (id != null && id != "") {
             self.GetById(id, self.RenderHtmlByUser);
             //self.RenderHtmlByUser(user);
+            $(".txt-title-modal").html("Cập nhật sản phẩm");
             $('#_add').modal('show');
             self.IsUpdate = true;
         }
@@ -101,7 +102,7 @@
                        // tedu.startLoading();
                     },
                     success: function () {
-                        //tedu.notify('Delete successful', 'success');
+                        tedu.notify('Delete successful', 'success');
                         //tedu.stopLoading();
                         //loadData();
                         self.GetDataPaging(true);
@@ -133,7 +134,7 @@
                     Loading('show');
                 },
                 complete: function () {
-                    //Loading('hiden');
+                    Loading('hiden');
                 },
                 success: function (response) {
                     if (response.Data != null) {
@@ -166,7 +167,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 if (response.IsData) {
@@ -260,7 +261,9 @@
         self.GetDataPaging();
         $("#dpicker").datepicker();
         self.FormSubmitAdd();
-
+        $(".btn-add").click(function () {
+            $(".txt-title-modal").html("Thêm mới danh mục");
+        });
         $(".modal").on("hidden.bs.modal", function () {
             $(this).find('form').trigger('reset');
             $("#formSubmitAdd").validate().resetForm();

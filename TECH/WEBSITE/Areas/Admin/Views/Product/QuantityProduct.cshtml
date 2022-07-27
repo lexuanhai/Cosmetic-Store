@@ -1,0 +1,57 @@
+﻿
+<!-- Modal -->
+<style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        /* padding: 10px; */
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 13px;
+        font-weight: unset !important;
+        background: unset;
+    }
+</style>
+<div class="modal fade" id="QuantityProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xs" role="document">
+        <div class="modal-content">
+            <form action="#" method="#" id="formSubmitAdd">
+                <div class="modal-header">
+                    <h5 class="modal-title txt-title-modal" id="exampleModalLabel">Thêm mới Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-hover dataTable dtr-inline">
+                        <thead>
+                            <tr>
+                                <th class="stt">STT</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Kích thước</th>
+                                <th>Ngày nhập</th>
+                                <th>Tổng số nhập</th>
+                                <th>Tổng số bán</th>
+                                <th>Tổng sô tồn</th>
+                                <th class="function-list"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbDataQuantity">
+                           
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

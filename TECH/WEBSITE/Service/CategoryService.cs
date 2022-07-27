@@ -117,7 +117,7 @@ namespace WEBSITE.Service
                 if (dataServer != null)
                 {
                     dataServer.IsDeleted = true;
-                    _categoryRepository.Remove(dataServer);
+                    _categoryRepository.Update(dataServer);
                     return true;
                 }
             }
@@ -133,7 +133,7 @@ namespace WEBSITE.Service
         {
             try
             {
-                var query = _categoryRepository.FindAll();
+                var query = _categoryRepository.FindAll(c=>c.IsDeleted != true);
                 if (categoryViewModelSearch.CategoryParentId.HasValue && categoryViewModelSearch.CategoryParentId.Value > 0)
                 {
                     if (!categoryViewModelSearch.CategoryId.HasValue)
@@ -162,8 +162,9 @@ namespace WEBSITE.Service
                 var data = query.Select(c => new CategoryModelView()
                 {
                     Name = c.Name,
+                    Description = !string.IsNullOrEmpty(c.Description) ?c.Description:"",
                     Id = c.Id,                    
-                }).ToList();
+                }).OrderByDescending(c=>c.Id).ToList();
                 var pagingData = new PagedResult<CategoryModelView>
                 {
                     Results = data,

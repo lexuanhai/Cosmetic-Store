@@ -148,30 +148,12 @@ namespace WEBSITE.Service
         {
             try
             {
-                var query = _productRepository.FindAll();
-                if (ProductViewModelSearch.CategoryParentId.HasValue && ProductViewModelSearch.CategoryParentId.Value > 0)
+                var query = _productRepository.FindAll(p=>p.IsDeleted != true);
+                if (ProductViewModelSearch.CategoryId.HasValue && ProductViewModelSearch.CategoryId.Value > 0)
                 {
-                    if (!ProductViewModelSearch.CategoryId.HasValue)
-                    {
-                        query = query.Where(c => c.Id == ProductViewModelSearch.CategoryParentId.Value);
-                    }
-                    else
-                    {
-                        if (ProductViewModelSearch.CategoryId.HasValue && ProductViewModelSearch.CategoryId.Value > 0)
-                        {
-                            query = query.Where(c => c.Id == ProductViewModelSearch.CategoryId.Value);
-                        }
-                    }
-                    
+                    query = query.Where(c => c.Id == ProductViewModelSearch.CategoryId.Value);
                 }
-                else
-                {
-                    if (ProductViewModelSearch.CategoryId.HasValue && ProductViewModelSearch.CategoryId.Value > 0)
-                    {
-                        query = query.Where(c => c.Id == ProductViewModelSearch.CategoryId.Value);
-                    }
-                }
-                
+
                 int totalRow = query.Count();
                 query = query.Skip((ProductViewModelSearch.PageIndex - 1) * ProductViewModelSearch.PageSize).Take(ProductViewModelSearch.PageSize);
                 var data = query.Select(p => new ProductModelView()
@@ -188,7 +170,7 @@ namespace WEBSITE.Service
                     ManufacturingDate = p.ManufacturingDate,
                     ExpiryDate = p.ExpiryDate
                     //ParentId = c.ParentId
-                }).ToList();
+                }).OrderByDescending(p=>p.Id).ToList();
                 var pagingData = new PagedResult<ProductModelView>
                 {
                     Results = data,

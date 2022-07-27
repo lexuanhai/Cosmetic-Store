@@ -22,27 +22,22 @@
         <div class="modal-content">
             <form action="#" method="#" id="formSubmitAdd">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Thêm mới kích thước</h5>
+                    <h5 class="modal-title txt-title-modal" id="exampleModalLabel">Thêm mới kích thước</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Kích thước</label>
+                        <label class="txt-title">Kích thước</label>
                         <input type="text" class="form-control name" placeholder="tên màu" name="name" autocomplete="off">
                     </div>
-
-                    @*<div class="form-group">
-                        <label>Mã màu</label>
-                        <input type="text" class="form-control code" placeholder="mã màu" name="code" autocomplete="off">
-                    </div>*@
-
-                    @*<div class="form-group">
-                        <label style="float: left;margin-right: 5px;">Hiện thị màu</label>
-                        <a herf="javascript:void(0)" class="color-show" id="colorshow"></a>
-                    </div>*@
-
+                    <div class="form-group">
+                        <label class="txt-title">Mô tả</label>
+                        <div class="form-group">
+                            <textarea cols="3" rows="4" class="txtDescription form-control"></textarea>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>

@@ -12,6 +12,7 @@
                 html += "<tr>";
                 html += "<td>" + (++index) + "</td>";
                 html += "<td>" + item.Name + "</td>";
+                html += "<td>" + item.Description + "</td>";
                 /*html += "<td><a herf=\"javascript:void(0)\" style=\"background-color:" + item.Code+"\" class=\"color-show\"></a></td>";*/
                 html += "<td><div class\"btn-group\">" +
                     "<a class=\"btn btn-outline-danger btn-xs mr-1\" href=\"javascript:Update('" + item.Id + "')\"><i class=\"fas fa-pencil-alt\"></i> </a>" +
@@ -30,6 +31,7 @@
         if (id != null && id != "") {
             self.GetById(id, self.RenderHtmlByObject);
             //self.RenderHtmlByUser(user);
+            $(".txt-title-modal").html("Cập nhật kích thước");
             $('#_addUpdate').modal('show');
             self.IsUpdate = true;
         }
@@ -60,8 +62,7 @@
     }
     self.RenderHtmlByObject = function (view) {
         $(".name").val(view.Name);
-        $(".code").val(view.Code);
-        $("#colorshow").css('background-color', view.Code);
+        $(".txtDescription").val(view.Description);
     }
 
     self.GetById = function (id, renderCallBack) {
@@ -78,7 +79,7 @@
                     Loading('show');
                 },
                 complete: function () {
-                    //Loading('hiden');
+                    Loading('hiden');
                 },
                 success: function (response) {
                     if (response.Data != null) {
@@ -108,14 +109,14 @@
                 var View = {
                     Id: self.Id,
                     Name: $(".name").val(),
-                    Code: $(".code").val()
+                    Description: $(".txtDescription").val()
                 }
                 if (self.IsUpdate) {
                     $.ajax({
                         url: '/Admin/AppSize/Update',
                         type: 'POST',
                         data: {
-                            ColorsModelView: View
+                            appSizeModelView: View
                         },
                         dataType: 'json',
                         beforeSend: function () {
@@ -137,7 +138,7 @@
                         url: '/Admin/AppSize/Add',
                         type: 'POST',
                         data: {
-                            colorModelView: View
+                            appSizeModelView: View
                         },
                         dataType: 'json',
                         beforeSend: function () {
@@ -174,7 +175,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 self.RenderTableHtml(response.data.Results);
@@ -220,7 +221,9 @@
         $(".modal").on("hidden.bs.modal", function () {
             $(this).find('form').trigger('reset');
         });
-
+        $(".btn-add").click(function () {
+            $(".txt-title-modal").html("Thêm mới kích thước");
+        });
 
         $(".btn-submit-search").click(function () {
             self.GetDataPaging(true);

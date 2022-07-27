@@ -26,7 +26,7 @@ namespace WEBSITE.Areas.Admin.Controllers
         [HttpGet]
         public  JsonResult GetById(int id)
         {
-            var model = new ColorModelView();
+            var model = new AppSizeModelView();
             if (id > 0)
             {
                 model =  _appSizeService.GetById(id);
@@ -38,9 +38,9 @@ namespace WEBSITE.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Add(ColorModelView colorModelView)
+        public JsonResult Add(AppSizeModelView appSizeModelView)
         {
-            var result =  _appSizeService.Add(colorModelView);
+            var result =  _appSizeService.Add(appSizeModelView);
             _appSizeService.Save();
             return Json(new
             {
@@ -48,9 +48,9 @@ namespace WEBSITE.Areas.Admin.Controllers
             });
         }
         [HttpPost]
-        public JsonResult Update(ColorModelView colorModelView)
+        public JsonResult Update(AppSizeModelView appSizeModelView)
         {
-            var result =  _appSizeService.Update(colorModelView);
+            var result =  _appSizeService.Update(appSizeModelView);
             _appSizeService.Save();
             return Json(new
             {
@@ -68,9 +68,9 @@ namespace WEBSITE.Areas.Admin.Controllers
             });
         }
         [HttpGet]
-        public JsonResult GetAllPaging(ColorViewModelSearch colorViewModelSearch)
+        public JsonResult GetAllPaging(AppSizeViewModelSearch appSizeViewModelSearch)
         {
-            var data = _appSizeService.GetAllPaging(colorViewModelSearch);
+            var data = _appSizeService.GetAllPaging(appSizeViewModelSearch);
             return Json(new { data = data });
         }
         [HttpGet]

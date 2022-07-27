@@ -2,22 +2,22 @@
     <div class="box-content" style="background:#fff;">
         <form action="#" method="#" id="formSubmitAdd">
             <div class="container">
-                <h3 class="txt-title text-center">Thêm mới sản phẩm</h3>
+                <h3 class="txt-title text-center txt-title-modal">Thêm mới sản phẩm</h3>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Tên sản phẩm:</label>
+                            <label class="txt-title">Tên sản phẩm:</label>
                             <input type="text" class="form-control product-name" name="name" autocomplete="off" />
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label>Danh mục:</label>
+                                <label class="txt-title">Danh mục:</label>
                                 <select class="form-control categoryid" name="categoryid">
                                     <option value="">text</option>
                                 </select>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label>Thương hiệu:</label>
+                                <label class="txt-title">Thương hiệu:</label>
                                 <select class="form-control brandsid">
                                 </select>
                             </div>
@@ -35,9 +35,10 @@
         </div>*@
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label>Trạng thái:</label>
+                                <label class="txt-title">Trạng thái:</label>
                                 <select class="form-control selectstatus" name="selectstatus">
-                                    <option value="">text</option>
+                                    <option value="0">Hiển thị</option>
+                                    <option value="1">Chờ duyệt</option>
                                 </select>
                             </div>
                         </div>
@@ -46,21 +47,21 @@
                     <div class="col-sm-6">
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label>Giá:</label>
+                                <label class="txt-title">Giá:</label>
                                 <input type="text" class="form-control price" name="price"  value="" autocomplete="off"/>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label>Giá giảm:</label>
+                                <label class="txt-title">Giá giảm:</label>
                                 <input type="text" class="form-control reduced-price"  value="" autocomplete="off"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label>Tổng số sản phẩm:</label>
+                                <label class="txt-title">Tổng số sản phẩm:</label>
                                 <input type="text" class="form-control total"  value="" name="total" autocomplete="off"/>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label>Size:</label>
+                                <label class="txt-title">Size:</label>
                                 <select class="form-control appsizesid">                                    
                                 </select>
                             </div>
@@ -69,7 +70,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Ảnh sản phẩm: <a href="javascript:void(0)" class="add-image">Thêm ảnh</a></label>
+                    <label class="txt-title">Ảnh sản phẩm: <a href="javascript:void(0)" class="add-image">Thêm ảnh</a></label>
                     <div class="box-images">
                         <input id="file-input" class="filesImages" type="file" multiple/>
                         <div class="image-upload item-image image-default">
@@ -78,12 +79,12 @@
                 </div>
 
                 <div class="form-group" style="display:inline-block;width:100%;">
-                    <label>Mô tả ngắn:</label>
+                    <label class="txt-title">Mô tả ngắn:</label>
                     <textarea id="txtsubContent" rows="6" class="form-control" name="subdecription"></textarea>
                 </div>
                 <div class="form-group">
                     <div class="form-group" style="display:inline-block;width:100%;">
-                        <label>Mô tả chi tiết:</label>
+                        <label class="txt-title">Mô tả chi tiết:</label>
                         <textarea id="txtContentdetail" rows="6" class="form-control" name="decription"></textarea>
                     </div>
                 </div>

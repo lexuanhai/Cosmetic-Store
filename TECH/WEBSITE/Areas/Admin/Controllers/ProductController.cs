@@ -26,11 +26,13 @@ namespace WEBSITE.Areas.Admin.Controllers
         private readonly IAppImagesService _appImagesService;
         private readonly ICategoryService _categoryService;
         private readonly IBrandsService _brandsService;
+        private readonly IQuantityProductService _quantityProductService;
         public ProductController(IProductService productService,
             IImagesProductService imagesProductService,
             ICategoryService categoryService,
             IBrandsService brandsService,
             IAppImagesService appImagesService,
+            IQuantityProductService quantityProductService,
         IHostingEnvironment hostingEnvironment)
         {
             _productService = productService;
@@ -39,11 +41,23 @@ namespace WEBSITE.Areas.Admin.Controllers
             _categoryService = categoryService;
             _brandsService = brandsService;
             _appImagesService = appImagesService;
+            _quantityProductService = quantityProductService;
         }
          public IActionResult Index()
         {
             return View();
         }
+        [HttpGet]
+        public JsonResult QuantityProduct(int productId)
+        {
+            var data = _quantityProductService.GetQuantityProductForProductId(productId);
+            return Json(new
+            {
+                Data = data
+            });
+        }
+
+
         public IActionResult AddOrUpdate()
         {
             return View();

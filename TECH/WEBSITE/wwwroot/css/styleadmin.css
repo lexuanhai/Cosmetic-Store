@@ -4,3 +4,14 @@
 .function-list {
     width: 100px;
 }
+.txt-title-modal {
+    font-size: 23px;
+    font-weight: 700;
+    text-align: center;
+    display: block;
+    width: 100%;
+    color: #3d4d65;
+}
+.txt-title {
+    color: #3d4d65;
+}

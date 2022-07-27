@@ -13,11 +13,11 @@ namespace WEBSITE.Service
 {
     public interface IAppSizeService
     {
-        PagedResult<ColorModelView> GetAllPaging(ColorViewModelSearch colorViewModelSearch);
-        List<ColorModelView> GetAll();
-        ColorModelView GetById(int id);
-        bool Add(ColorModelView view);
-        bool Update(ColorModelView view);
+        PagedResult<AppSizeModelView> GetAllPaging(AppSizeViewModelSearch appSizeViewModelSearch);
+        List<AppSizeModelView> GetAll();
+        AppSizeModelView GetById(int id);
+        bool Add(AppSizeModelView view);
+        bool Update(AppSizeModelView view);
         bool Deleted(int id);
         void Save();
     }
@@ -30,23 +30,23 @@ namespace WEBSITE.Service
             _appSizeRepository = appSizeRepository;
             _unitOfWork = unitOfWork;
         }
-        public ColorModelView GetById(int id)
+        public AppSizeModelView GetById(int id)
         {
             var data = _appSizeRepository.FindAll(p => p.Id == id).FirstOrDefault();
             if (data != null)
             {
-                var model = new ColorModelView()
+                var model = new AppSizeModelView()
                 {
                     Id = data.Id,
                     Name = data.Name,
-                    //Code = data.Code
+                    Description = data.Description
                 };
                 return model;
             }
             return null;
         }
 
-        public bool Add(ColorModelView view)
+        public bool Add(AppSizeModelView view)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace WEBSITE.Service
                     var _colors = new AppSize
                     {
                         Name = view.Name,
-                        //Code = view.Code,
+                        Description = view.Description
                     };
                     _appSizeRepository.Add(_colors);
                     return true;
@@ -72,7 +72,7 @@ namespace WEBSITE.Service
         {
             _unitOfWork.Commit();
         }
-        public bool Update(ColorModelView view)
+        public bool Update(AppSizeModelView view)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace WEBSITE.Service
                 if (dataServer != null)
                 {
                     dataServer.Name = view.Name;
-                    //dataServer.Code = view.Code;
+                    dataServer.Description = view.Description;
                     _appSizeRepository.Update(dataServer);
                     return true;
                 }
@@ -100,7 +100,8 @@ namespace WEBSITE.Service
                 var dataServer = _appSizeRepository.FindById(id);
                 if (dataServer != null)
                 {
-                    _appSizeRepository.Remove(dataServer);
+                    dataServer.IsDeleted = true;
+                    _appSizeRepository.Update(dataServer);
                     return true;
 
                 }
@@ -113,32 +114,29 @@ namespace WEBSITE.Service
 
             return false;
         }
-        public PagedResult<ColorModelView> GetAllPaging(ColorViewModelSearch colorViewModelSearch)
+        public PagedResult<AppSizeModelView> GetAllPaging(AppSizeViewModelSearch appSizeViewModelSearch)
         {
             try
             {
-                var query = _appSizeRepository.FindAll();
+                var query = _appSizeRepository.FindAll(s=>s.IsDeleted != true);
                
-                if (!string.IsNullOrEmpty(colorViewModelSearch.Name))
+                if (!string.IsNullOrEmpty(appSizeViewModelSearch.Name))
                 {
-                    query = query.Where(c => c.Name.ToLower() == colorViewModelSearch.Name.ToLower());
+                    query = query.Where(c => c.Name.ToLower() == appSizeViewModelSearch.Name.ToLower());
                 }
-
-
                 int totalRow = query.Count();
-                query = query.Skip((colorViewModelSearch.PageIndex - 1) * colorViewModelSearch.PageSize).Take(colorViewModelSearch.PageSize);
-                var data = query.Select(c => new ColorModelView()
+                query = query.Skip((appSizeViewModelSearch.PageIndex - 1) * appSizeViewModelSearch.PageSize).Take(appSizeViewModelSearch.PageSize);
+                var data = query.Select(c => new AppSizeModelView()
                 {
                     Name = c.Name,
-                    //Code = c.Code,
+                    Description = c.Description,
                     Id = c.Id,
-                    //ParentId = c.ParentId
-                }).ToList();
-                var pagingData = new PagedResult<ColorModelView>
+                }).OrderByDescending(c => c.Id).ToList();
+                var pagingData = new PagedResult<AppSizeModelView>
                 {
                     Results = data,
-                    CurrentPage = colorViewModelSearch.PageIndex,
-                    PageSize = colorViewModelSearch.PageSize,
+                    CurrentPage = appSizeViewModelSearch.PageIndex,
+                    PageSize = appSizeViewModelSearch.PageSize,
                     RowCount = totalRow,
                 };
                 return pagingData;
@@ -150,9 +148,9 @@ namespace WEBSITE.Service
             }
 
         }
-        public List<ColorModelView> GetAll()
+        public List<AppSizeModelView> GetAll()
         {
-            var data = _appSizeRepository.FindAll(c => c.IsDeleted != true).Select(c => new ColorModelView()
+            var data = _appSizeRepository.FindAll(c => c.IsDeleted != true).Select(c => new AppSizeModelView()
             {
                 Id = c.Id,
                 Name = c.Name,

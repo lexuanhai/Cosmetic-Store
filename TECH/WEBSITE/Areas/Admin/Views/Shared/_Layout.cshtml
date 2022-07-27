@@ -203,65 +203,65 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="@user.Avartar" class="img-circle elevation-2" alt="User Image" style="width:40px;height:40px;">
+                <div class="user-panel mt-3 pb-3 mb-3">
+                    <div class="image d-flex" style="justify-content: center; padding-left: unset;">
+                        <img src="@user.Avartar" class="img-circle elevation-2" alt="User Image" style="width: 70px; height: 70px;" />
                     </div>
-                    <div class="info">
+                    <div class="info d-flex" style="justify-content: center; padding: 5px;">
                         <a href="#" class="d-block">@user.Name</a>
                     </div>
                 </div>
-
+                
                 <!-- SidebarSearch Form -->
                 @*<div class="form-inline">
-                        <div class="input-group" data-widget="sidebar-search">
-                            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-sidebar">
-                                    <i class="fas fa-search fa-fw"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>*@
+            <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-sidebar">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </div>*@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         @*<li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Quản lý sản phẩm
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="/admin/category" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Danh mục sản phẩm</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/admin/brands" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Nhãn hiệu</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/admin/appsize" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Size Sản phẩm</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/admin/product" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Sản phẩm</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>*@
+                    <a href="javascript:void(0)" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Quản lý sản phẩm
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/category" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh mục sản phẩm</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/brands" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Nhãn hiệu</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/appsize" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Size Sản phẩm</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/product" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sản phẩm</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>*@
                         <li class="nav-item">
                             <a href="/admin/category" class="nav-link">
                                 <i class="fa fa-list-alt"></i>
@@ -269,11 +269,11 @@
                             </a>
                         </li>
                         @*<li class="nav-item">
-                            <a href="/admin/brands" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Nhãn hiệu</p>
-                            </a>
-                        </li>*@
+                    <a href="/admin/brands" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Nhãn hiệu</p>
+                    </a>
+                </li>*@
                         <li class="nav-item">
                             <a href="/admin/appsize" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -981,6 +981,7 @@
     <!-- AdminLTE App -->
     <script src="/admin/dist/js/adminlte.js"></script>
     <script src="~/lib/bootbox/bootbox.all.js"></script>
+    <script src="/admin/plugins/notify.min.js"></script>
     <script src="~/share/tedu.js"></script>
     <script src="~/js/shared/shared.js"></script>
     <script src="~/admin/plugins/jquery.twbsPagination.min.js"></script>

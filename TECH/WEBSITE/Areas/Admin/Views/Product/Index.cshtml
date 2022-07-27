@@ -114,7 +114,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        @*<h3 class="card-title">Danh sách màu</h3>*@
+                        <h3 class="card-title">Sản phẩm</h3>
                         <button class="btn btn-success float-right btn-add">Thêm mới</button>
                         <button class="btn btn-primary float-right btnSearch" type="button" data-toggle="collapse" data-target="#boxSearch" aria-expanded="false" aria-controls="collapseExample">
                             Tìm kiếm
@@ -182,10 +182,11 @@
 <section class="box-content-add" style="display:none">
     <partial name="_AddUpdate" />
 </section>
+<partial name="QuantityProduct" />
 
 
 @section Scripts{
-   
+
     <script src="/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="~/admin/plugins/ckeditor/ckeditor.js"></script>
     <script src="~/admin/product/product.js?v=@DateTime.Now.Ticks"></script>

@@ -3,28 +3,6 @@
     self.Data = [];
     self.IsUpdate = false;
     self.Id = "";
-    //self.RenderTableHtml = function () {
-    //    var html = "";
-    //    if (self.Data != "" && self.Data.length > 0) {
-    //        for (var i = 0; i < self.Data.length; i++) {
-    //            var item = self.Data[i];  
-    //            var nameParent = (item.ParentName != "" && item.ParentName != null) ? item.ParentName : "";
-    //            html += "<tr>";
-
-    //            html += "<td>" + item.Name + "</td>";
-    //            html += "<td>" + nameParent + "</td>";
-    //            html += "<td><div class\"btn-group\">" +
-    //                "<a class=\"btn btn-outline-danger btn-xs mr-1\" href=\"javascript:Update('"+item.Id+"')\"><i class=\"fas fa-pencil-alt\"></i> </a>" +
-    //                "<a class=\"btn btn-outline-danger btn-xs\" href=\"javascript:Deleted('" + item.Id +"')\"><i class=\"fas fa-trash-alt\"></i> </a>"
-    //            "</div></td> ";
-    //            html += "</tr>";
-    //        }
-    //    }
-    //    else {
-    //        html += "<tr>Không có dữ liệu</tr>";
-    //    }
-    //    $("#tblData").html(html);
-    //};
 
     self.RenderTableHtml = function (data) {
         //console.log(data);
@@ -33,11 +11,10 @@
             var index = 0;
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
-                var nameParent = (item.ParentName != "" && item.ParentName != null) ? item.ParentName : "";
                 html += "<tr>";
                 html += "<td>" + (++index) + "</td>";
                 html += "<td>" + item.Name + "</td>";
-                html += "<td>" + nameParent + "</td>";
+                html += "<td>" + item.Description + "</td>";
                 html += "<td><div class\"btn-group\">" +
                     "<a class=\"btn btn-outline-danger btn-xs mr-1\" href=\"javascript:Update('" + item.Id + "')\"><i class=\"fas fa-pencil-alt\"></i> </a>" +
                     "<a class=\"btn btn-outline-danger btn-xs\" href=\"javascript:Deleted('" + item.Id + "')\"><i class=\"fas fa-trash-alt\"></i> </a>"
@@ -56,24 +33,25 @@
             self.GetById(id, self.RenderHtmlByObject);
             //self.RenderHtmlByUser(user);
             $('#_add').modal('show');
+            $(".txt-title-modal").html("Cập nhật danh mục");
             self.IsUpdate = true;
         }
     }
     self.Deleted = function (id) {
         if (id != null && id != "") {
-            tedu.confirm('Bạn có chắc muốn xóa user?', function () {
+            tedu.confirm('Bạn có chắc muốn xóa danh mục?', function () {
                 $.ajax({
                     type: "POST",
                     url: "/Admin/Category/Delete",
                     data: { id: id },
                     beforeSend: function () {
-                        // tedu.startLoading();
+                         tedu.startLoading();
                     },
                     success: function () {
-                        //tedu.notify('Delete successful', 'success');
-                        //tedu.stopLoading();
+                        tedu.notify('Xóa dữ liệu thành công', 'success');
+                        tedu.stopLoading();
                         //loadData();
-                        self.GetData();
+                        self.GetDataPaging(true);
                     },
                     error: function () {
                         tedu.notify('Has an error', 'error');
@@ -85,7 +63,7 @@
     }
     self.RenderHtmlByObject = function (view) {
         $(".name").val(view.Name);
-        $(".parentname").val(view.ParentId);
+        $(".txtDescription").val(view.Description);
     }
 
     self.GetById = function (id, renderCallBack) {
@@ -102,7 +80,7 @@
                     Loading('show');
                 },
                 complete: function () {
-                    //Loading('hiden');
+                    Loading('hiden');
                 },
                 success: function (response) {
                     if (response.Data != null) {
@@ -112,8 +90,6 @@
                 }
             })
         }
-        //return self.userData;
-
     }
 
     self.FormatDate = function (date) {
@@ -135,7 +111,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 if (response.Data != null && response.Data.length > 0) {
@@ -161,7 +137,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 if (response.Data != null && response.Data.length > 0) {
@@ -190,7 +166,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 
@@ -224,11 +200,10 @@
                 }
             },
             submitHandler: function () {
-                var _parentId = $(".parentname").val() != "" && $(".parentname").val() != null ? parseInt($(".parentname").val()) : null;
                 var View = {
                     Id: self.Id,
                     Name: $(".name").val(),
-                    ParentId: _parentId
+                    Description: $(".txtDescription").val()
                 }
                 if (self.IsUpdate) {
 
@@ -247,8 +222,11 @@
                         },
                         success: function (response) {
                             if (response.success) {
-                                self.GetData();
+                                tedu.notify('Cập nhật dữ liệu thành công', 'success');
+                                self.GetDataPaging(true);
                                 $('#_add').modal('hide');
+                            } else {
+                                tedu.notify('Cập nhật dữ liệu không thành công', 'error');
                             }
                         }
                     })
@@ -271,8 +249,12 @@
                         },
                         success: function (response) {
                             if (response.success) {
-                                self.GetData();
+                                tedu.notify('Thêm mới dữ liệu thành công', 'success');
+                                self.GetDataPaging(true);
                                 $('#_add').modal('hide');
+                            }
+                            else {
+                                tedu.notify('Thêm mới dữ liệu không thành công', 'error');
                             }
                         }
                     })
@@ -298,7 +280,7 @@
                 Loading('show');
             },
             complete: function () {
-                //Loading('hiden');
+                Loading('hiden');
             },
             success: function (response) {
                 self.RenderTableHtml(response.data.Results);
@@ -336,11 +318,13 @@
     }   
 
     $(document).ready(function () {
-        self.GetData();
+        //self.GetData();
         //self.GetAllParent();
         self.GetDataPaging();
         self.FormSubmitAdd();
-
+        $(".btn-add").click(function () {
+            $(".txt-title-modal").html("Thêm mới danh mục");
+        });
         $(".modal").on("hidden.bs.modal", function () {
             $(this).find('form').trigger('reset');
         });

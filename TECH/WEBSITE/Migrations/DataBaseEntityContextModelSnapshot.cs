@@ -68,7 +68,7 @@ namespace WEBSITE.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Code")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -193,18 +193,16 @@ namespace WEBSITE.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
 
                     b.ToTable("Category");
                 });
@@ -392,13 +390,6 @@ namespace WEBSITE.Migrations
                     b.HasOne("WEBSITE.Data.DatabaseEntity.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("AppUserId");
-                });
-
-            modelBuilder.Entity("WEBSITE.Data.DatabaseEntity.Category", b =>
-                {
-                    b.HasOne("WEBSITE.Data.DatabaseEntity.Category", "ParentCategory")
-                        .WithMany()
-                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("WEBSITE.Data.DatabaseEntity.ImagesProduct", b =>

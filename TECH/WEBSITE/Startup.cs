@@ -102,12 +102,13 @@ namespace WEBSITE
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<IAppRoleRepository, AppRoleRepository>();
             services.AddScoped<IAppUserRolesRepository, AppUserRolesRepository>();
+            services.AddScoped<IQuantityProductRepository, QuantityProductRepository>();
 
 
             // service
             //services.AddTransient<IUserService, UserService>();
             //services.AddTransient<IRoleService, RoleService>();
-           
+
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IAppSizeService, AppSizeService>();
             services.AddScoped<IImagesProductService, ImagesProductService>();
@@ -117,6 +118,7 @@ namespace WEBSITE
             services.AddScoped<IAppUserService, AppUserService>();
             services.AddScoped<IAppRoleService, AppRoleService>();
             services.AddScoped<IAppUserRoleService, AppUserRoleService>();
+            services.AddScoped<IQuantityProductService, QuantityProductService>();
 
         }
 
