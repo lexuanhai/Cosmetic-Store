@@ -17,13 +17,25 @@
         font-weight: unset !important;
         background: unset;
     }
+    #QuantityProduct .table-bordered thead td, #QuantityProduct .table-bordered thead th {
+        padding: 5px;
+        font-size: 14px;
+        font-weight: unset;
+    }
+    .btn-add-quantity {
+        padding: 2px 7px;
+        line-height: unset;
+        font-size: 13px;
+        display: inline-block;
+        float: unset !important;
+    }
 </style>
 <div class="modal fade" id="QuantityProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xs" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <form action="#" method="#" id="formSubmitAdd">
                 <div class="modal-header">
-                    <h5 class="modal-title txt-title-modal" id="exampleModalLabel">Thêm mới Category</h5>
+                    <h5 class="modal-title txt-title-modal" id="exampleModalLabel">Số lượng sản phẩm</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -39,7 +51,9 @@
                                 <th>Tổng số nhập</th>
                                 <th>Tổng số bán</th>
                                 <th>Tổng sô tồn</th>
-                                <th class="function-list"></th>
+                                <th class="function-list" style="text-align: center;">
+                                    <button class="btn btn-success float-right btn-add-quantity" type="button">Thêm mới</button>
+                                </th>
                             </tr>
                         </thead>
                         <tbody id="tbDataQuantity">
@@ -55,3 +69,25 @@
         </div>
     </div>
 </div>
+<table style="display:none">
+    <tbody class="rowAdd">
+        <tr>
+            <td></td>
+            <td class="product-name"></td>
+            <td>
+                <select class="form-control appsizesid"></select>
+            </td>
+            <td><input type="text" placeholder="Ngày nhập" class="form-control dateimport"  autocomplete="off" /></td>
+            <td>
+                <input type="text" class="form-control price" name="price" value="" autocomplete="off" placeholder="Tổng số nhập" />
+            </td>
+            <td>
+                <input type="text" class="form-control price" name="price" value="" autocomplete="off" placeholder="Tổng số nhập" />
+            </td>
+            <td>
+                <input type="text" class="form-control price" name="price" value="" autocomplete="off" placeholder="Tổng số nhập" />
+            </td>
+        </tr>
+    </tbody>
+   
+</table>

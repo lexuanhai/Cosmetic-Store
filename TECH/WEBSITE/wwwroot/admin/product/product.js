@@ -640,7 +640,19 @@
         $(".btn-cancel").click(function () {
             window.location.href("/admin/product");
         })
-       
+
+        // quản lý sản phẩm
+        $(".dateimport").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'dd/mm/yy',
+            formatSubmit: 'yyyy/mm/dd'
+        });
+        $(".btn-add-quantity").click(function () {
+
+            $("#tbDataQuantity").append($(".rowAdd").html());
+        })
+        
     });
 
 })(jQuery);
