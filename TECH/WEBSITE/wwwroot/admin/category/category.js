@@ -30,11 +30,12 @@
         //console.log(data);
         var html = "";
         if (data != "" && data.length > 0) {
+            var index = 0;
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
                 var nameParent = (item.ParentName != "" && item.ParentName != null) ? item.ParentName : "";
                 html += "<tr>";
-
+                html += "<td>" + (++index) + "</td>";
                 html += "<td>" + item.Name + "</td>";
                 html += "<td>" + nameParent + "</td>";
                 html += "<td><div class\"btn-group\">" +

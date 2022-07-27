@@ -165,8 +165,9 @@
                         url: '/Admin/Acount/UserLogin',
                         type: 'POST',
                         data: {
-                            userView: {
+                            UserModelView: {
                                 Email: $("input[name=txtEmailOrUserName]").val(),
+                                UserName: $("input[name=txtEmailOrUserName]").val(),
                                 PassWord: $("input[name=txtPassword]").val(),
                             }
                         },
@@ -178,8 +179,7 @@
                             Loading('hiden');
                         },
                         success: function (response) {
-                            console.log(response);
-                            if (response.Status) {
+                            if (response.success) {
                                 window.location.href = "/Admin/Home/Index";
                             }
                             else {

@@ -19,6 +19,7 @@ namespace WEBSITE.Service
         bool Update(UserModelView view);
         bool Deleted(int id);
         void Save();
+        UserModelView UserLogin(UserModelView userModelView);
     }
 
     public class AppUserService : IAppUserService
@@ -93,7 +94,8 @@ namespace WEBSITE.Service
                         UserName = view.UserName,
                         Birthday  = view.Birthday,
                         Address  = view.Address,
-                        Avartar   = view.Avartar,                        
+                        Avartar   = view.Avartar,  
+                        PassWord = view.PassWord
                     };
                     _appUserRepository.Add(appUser);
                     
@@ -266,6 +268,44 @@ namespace WEBSITE.Service
                 throw;
             }
 
+        }
+        public UserModelView UserLogin(UserModelView userModelView)
+        {
+            var data = _appUserRepository.FindAll(u=>u.IsDeleted != true).Where(u => u.UserName.Trim().ToLower() == userModelView.UserName.Trim().ToLower() ||
+                                                          u.Email == userModelView.Email).FirstOrDefault();
+
+            if (data != null && data.PassWord != null && userModelView.PassWord != null &&
+                data.PassWord.Trim() == userModelView.PassWord.Trim())
+            {
+                var dataServer = new UserModelView()
+                {
+                    Id = data.Id,
+                    Name = data.Name,
+                    UserName = data.UserName,
+                    Avartar = data.Avartar,
+                };
+                var lstRoles = new List<RoleModelView>();
+                var lstUserRole = _appUserRolesRepository.FindAll().Where(u => u.AppUserId == data.Id).ToList();
+                if (lstUserRole != null && lstUserRole.Count > 0)
+                {
+                    foreach (var itemRole in lstUserRole)
+                    {
+                        var role = _appRoleRepository.FindAll().Where(r => r.Id == itemRole.AppRoleId && r.IsDeleted != true).Select(r => new RoleModelView()
+                        {
+                            Id = r.Id,
+                            Name = r.Name
+                        }).FirstOrDefault();
+                        if (role != null)
+                        {
+                            lstRoles.Add(role);
+                        }
+                    }
+                    dataServer.Roles = lstRoles;
+                }
+                return dataServer;
+            }
+            return null;
+            
         }
 
         public List<UserModelView> GetAll()

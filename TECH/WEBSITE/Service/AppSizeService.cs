@@ -118,11 +118,7 @@ namespace WEBSITE.Service
             try
             {
                 var query = _appSizeRepository.FindAll();
-
-                if (!string.IsNullOrEmpty(colorViewModelSearch.Code))
-                {
-                    query = query.Where(c => c.Code.ToLower().Contains(colorViewModelSearch.Code.ToLower()));
-                }
+               
                 if (!string.IsNullOrEmpty(colorViewModelSearch.Name))
                 {
                     query = query.Where(c => c.Name.ToLower() == colorViewModelSearch.Name.ToLower());

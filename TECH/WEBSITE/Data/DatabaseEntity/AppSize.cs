@@ -10,7 +10,7 @@ namespace WEBSITE.Data.DatabaseEntity
     [Table("AppSize")]
     public class AppSize: DomainEntity<int>
     {
-        public string Code { get; set; }
+        public string Description { get; set; } = null;
         public string Name { get; set; }
         public bool IsDeleted { get; set; }
     }

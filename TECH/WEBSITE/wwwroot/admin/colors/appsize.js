@@ -6,9 +6,11 @@
     self.RenderTableHtml = function (data) {
         var html = "";
         if (data != "" && data.length > 0) {
+            var index = 0;
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];                
                 html += "<tr>";
+                html += "<td>" + (++index) + "</td>";
                 html += "<td>" + item.Name + "</td>";
                 /*html += "<td><a herf=\"javascript:void(0)\" style=\"background-color:" + item.Code+"\" class=\"color-show\"></a></td>";*/
                 html += "<td><div class\"btn-group\">" +

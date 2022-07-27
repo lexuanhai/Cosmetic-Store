@@ -15,7 +15,7 @@ namespace WEBSITE.Service
     {
         List<CategoryModelView> GetAll();
         PagedResult<CategoryModelView> GetAllPaging(CategoryViewModelSearch categoryViewModelSearch);
-        List<CategoryModelView> GetAllParent();
+        //List<CategoryModelView> GetAllParent();
         List<CategoryModelView> GetCategoryByParentId(int parentId);
         CategoryModelView GetById(int id);
         bool Add(CategoryModelView view);
@@ -38,29 +38,12 @@ namespace WEBSITE.Service
             {
                 Id = c.Id,
                 Name = c.Name,
-                ParentId = c.ParentId,
                 //ParentName = (c.ParentId.HasValue && c.ParentId.Value > 0 ? _categoryRepository.FindById(c.ParentId.Value).Name :"") 
             }).ToList();
-            if (dataModel != null && dataModel.Count > 0)
-            {
-                foreach (var item in dataModel)
-                {
-                    if (item.ParentId.HasValue && item.ParentId.Value > 0)
-                    {
-                        item.ParentName = dataModel.FirstOrDefault(c => c.Id == item.ParentId.Value).Name;
-                    }
-                }
-            }
+           
             return dataModel;
         }
-        public List<CategoryModelView> GetAllParent()
-        {
-            return _categoryRepository.FindAll().Where(c => !c.ParentId.HasValue).Select(c => new CategoryModelView()
-            {
-                Id = c.Id,
-                Name = c.Name,
-            }).ToList();
-        }
+        
 
         public CategoryModelView GetById(int id)
         {
@@ -71,7 +54,7 @@ namespace WEBSITE.Service
                 {
                     Id = data.Id,
                     Name = data.Name,
-                    ParentId = data.ParentId
+                    Description = data.Description
                 };
                 return model;
             }
@@ -87,7 +70,7 @@ namespace WEBSITE.Service
                     var _category = new Category
                     {
                         Name = view.Name,
-                        ParentId = view.ParentId
+                        Description = view.Description
                     };
                     _categoryRepository.Add(_category);
                     return true;
@@ -112,7 +95,7 @@ namespace WEBSITE.Service
                 var dataServer = _categoryRepository.FindById(view.Id);
                 if (dataServer != null)
                 {
-                    dataServer.ParentId = view.ParentId;
+                    dataServer.Description = view.Description;
                     dataServer.Name = view.Name;
                     _categoryRepository.Update(dataServer);
                     return true;
@@ -133,12 +116,7 @@ namespace WEBSITE.Service
                 var dataServer = _categoryRepository.FindById(id);
                 if (dataServer != null)
                 {
-                    var listCategoryChild = _categoryRepository.FindAll().Where(c => c.ParentId == dataServer.Id).ToList();
-                    foreach (var itemChild in listCategoryChild)
-                    {
-                        _categoryRepository.Remove(itemChild);
-                    }
-
+                    dataServer.IsDeleted = true;
                     _categoryRepository.Remove(dataServer);
                     return true;
                 }
@@ -184,8 +162,7 @@ namespace WEBSITE.Service
                 var data = query.Select(c => new CategoryModelView()
                 {
                     Name = c.Name,
-                    Id = c.Id,
-                    ParentId = c.ParentId
+                    Id = c.Id,                    
                 }).ToList();
                 var pagingData = new PagedResult<CategoryModelView>
                 {
@@ -205,7 +182,7 @@ namespace WEBSITE.Service
         }
         public List<CategoryModelView> GetCategoryByParentId(int parentId)
         {
-            var query = _categoryRepository.FindAll(c => c.ParentId.Value == parentId)
+            var query = _categoryRepository.FindAll()
             .Select(c=> new CategoryModelView() { 
                 Name = c.Name,
                 Id = c.Id

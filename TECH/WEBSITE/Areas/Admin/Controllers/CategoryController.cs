@@ -54,7 +54,7 @@ namespace WEBSITE.Areas.Admin.Controllers
         [HttpGet]
         public JsonResult GetAllParent()
         {
-            var model = _categoryService.GetAllParent();
+            var model = "";//_categoryService.GetAllParent();
             return Json(new
             {
                 Data = model

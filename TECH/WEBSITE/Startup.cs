@@ -45,7 +45,7 @@ namespace WEBSITE
                 // Sử dụng MS SQL Server
                 options.UseSqlServer(connectstring);
             });
-
+            services.AddHttpContextAccessor();
             services.AddSession();
             //services.AddIdentity<AppUser, AppRoles>()
             //.AddEntityFrameworkStores<DataBaseEntityContext>()
@@ -107,6 +107,7 @@ namespace WEBSITE
             // service
             //services.AddTransient<IUserService, UserService>();
             //services.AddTransient<IRoleService, RoleService>();
+           
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IAppSizeService, AppSizeService>();
             services.AddScoped<IImagesProductService, ImagesProductService>();
